@@ -1,0 +1,23 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'novels/css/home.css' %}" />
+<link rel="stylesheet" href="{% static 'novels/css/my_novels.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid my-novels-container">
+    <!-- Main Header -->
+    {% include 'novels/includes/my_novels_header.html' %}
+
+    <!-- Statistics Section -->
+    {% include 'novels/includes/my_novels_statistics.html' %}
+
+    <!-- Novel List Section -->
+    {% include 'novels/includes/my_novels_list.html' %}
+</div>
+{% endblock %}

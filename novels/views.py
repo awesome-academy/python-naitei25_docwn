@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_http_methods
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from common.decorators import require_active_novel
 from .fake_data import card_list, discussion_data, comments, getNewNovels,top_novels_this_month, new_novels,authors,novels, users,comments,novel_uploads,chapter_uploads,volume_uploads
 from django.shortcuts import render
@@ -15,19 +15,23 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     )
 from django.views.generic.edit import CreateView
-from django.utils.translation import gettext_lazy as _
+from django.views.generic import ListView
 from django.urls import reverse_lazy
-from .models import Novel, Tag, NovelTag, Author, Artist, Volume, Chapter, ReadingHistory
+from .models import (
+    Novel, Tag, NovelTag, Author, Artist, Volume, Chapter, ReadingHistory
+)
 from .forms import NovelForm
 from constants import (
     MAX_LIMIT_CHUNKS,
     START_POSITION_DEFAULT,
     PROGRESS_DEFAULT,
     DATE_FORMAT_DMY,
+    DATE_FORMAT_DMYHI,
     MAX_CHAPTER_LIST,
     MAX_CHAPTER_LIST_PLUS, 
-    DATE_FORMAT_DMY, 
-    MAX_CHAPTER_LIST,
+    MAX_TRUNCATED_REJECTED_REASON_LENGTH,
+    NOVEL_PER_PAGE,
+    PAGINATION_PAGE_RANGE,
     ApprovalStatus
 )
 
@@ -219,6 +223,7 @@ def chapter_list_view(request, novel_slug):
     }
     return render(request, 'chapters/chapter_list.html', context)
 
+
 class NovelCreateView(LoginRequiredMixin, CreateView):
     model = Novel
     form_class = NovelForm
@@ -251,16 +256,14 @@ class NovelCreateView(LoginRequiredMixin, CreateView):
 
         # Handle anonymous upload
         upload_anonymously = form.cleaned_data.get("upload_anonymously", False)
-        if upload_anonymously:
-            # If uploading anonymously, set created_by to null
-            form.instance.created_by = None
-        else:
-            # Set created_by to current user
-            form.instance.created_by = (
-                self.request.user
-                if self.request.user.is_authenticated
-                else None
-            )
+        form.instance.is_anonymous = upload_anonymously
+        
+        # Always set created_by to current user for tracking purposes
+        form.instance.created_by = (
+            self.request.user
+            if self.request.user.is_authenticated
+            else None
+        )
 
         response = super().form_valid(form)
 
@@ -273,3 +276,93 @@ class NovelCreateView(LoginRequiredMixin, CreateView):
 
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+
+class MyNovelsView(LoginRequiredMixin, ListView):
+    model = Novel
+    template_name = "novels/my_novels.html"
+    context_object_name = "novels"
+    login_url = reverse_lazy("accounts:login")
+    paginate_by = NOVEL_PER_PAGE
+
+    def get_queryset(self):
+        """Return novels created by the current user, including all statuses"""
+        queryset = Novel.objects.filter(
+            created_by=self.request.user,
+            deleted_at__isnull=True
+        ).select_related('author', 'artist').prefetch_related('tags')
+        
+        # Filter by status if provided
+        status_filter = self.request.GET.get('status')
+        valid_statuses = [choice[0] for choice in ApprovalStatus.choices()]
+        if status_filter and status_filter in valid_statuses:
+            queryset = queryset.filter(approval_status=status_filter)
+        
+        return queryset.order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["page_title"] = _("Tiểu thuyết của tôi")
+        context["DATE_FORMAT_DMY"] = DATE_FORMAT_DMY
+        context["DATE_FORMAT_DMYHI"] = DATE_FORMAT_DMYHI
+        
+        # Get counts for each status
+        user_novels = Novel.objects.filter(
+            created_by=self.request.user,
+            deleted_at__isnull=True
+        )
+        
+        context["total_count"] = user_novels.count()
+        context["draft_count"] = user_novels.filter(
+            approval_status=ApprovalStatus.DRAFT.value
+        ).count()
+        context["pending_count"] = user_novels.filter(
+            approval_status=ApprovalStatus.PENDING.value
+        ).count()
+        context["approved_count"] = user_novels.filter(
+            approval_status=ApprovalStatus.APPROVED.value
+        ).count()
+        context["rejected_count"] = user_novels.filter(
+            approval_status=ApprovalStatus.REJECTED.value
+        ).count()
+        context["DRAFT"] = ApprovalStatus.DRAFT.value
+        context["PENDING"] = ApprovalStatus.PENDING.value
+        context["APPROVED"] = ApprovalStatus.APPROVED.value
+        context["REJECTED"] = ApprovalStatus.REJECTED.value
+        context["MAX_TRUNCATED_REJECTED_REASON_LENGTH"] = (
+            MAX_TRUNCATED_REJECTED_REASON_LENGTH
+        )
+        context["PAGINATION_PAGE_RANGE"] = PAGINATION_PAGE_RANGE
+        
+        # Calculate pagination range for template
+        if 'page_obj' in context and context['page_obj']:
+            current_page = context['page_obj'].number
+            context["pagination_start"] = current_page - PAGINATION_PAGE_RANGE
+            context["pagination_end"] = current_page + PAGINATION_PAGE_RANGE
+        
+        # Add current filter status for highlighting
+        context["current_filter"] = self.request.GET.get('status', 'all')
+        
+        # Preprocess data to avoid any template queries
+        if 'novels' in context:
+            for novel in context['novels']:
+                # Since we already prefetch_related('tags'), this won't cause additional queries
+                novel.tag_list = list(novel.tags.all())
+                
+                # Preprocess author name based on anonymity setting
+                if novel.is_anonymous:
+                    novel.author_name = None  # Don't show author for anonymous novels
+                else:
+                    novel.author_name = novel.author.name if novel.author else None
+                
+                # Preprocess rating display
+                novel.rating_display = novel.rating_avg if novel.rating_avg > 0 else None
+                
+                # Add business logic flags for template
+                novel.can_edit = novel.approval_status in [ApprovalStatus.DRAFT.value, ApprovalStatus.REJECTED.value]
+                novel.can_manage_chapters = novel.approval_status == ApprovalStatus.APPROVED.value
+                novel.is_rejected_with_reason = (
+                    novel.approval_status == ApprovalStatus.REJECTED.value and novel.rejected_reason
+                )
+        
+        return context

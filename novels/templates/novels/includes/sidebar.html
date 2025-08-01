@@ -2,14 +2,39 @@
 
 <div class="side-info-box">
   <div class="group-box">
-    <div class="group-header">
-      <img src="{{ novel.created_by.profile.get_avatar }}" alt="Avatar">
-      <span class="group-user">{{ novel.created_by }}</span>
-    </div>
-    <div class="group-body">
-      <p class="group-label">{% trans "Nhóm dịch" %}</p>
-      <p class="group-name">{{ novel.created_by }}</p>
-    </div>
+    {% if novel.is_anonymous and user != novel.created_by %}
+      <div class="group-header">
+        <img src="/static/images/anonymous-avatar.png" alt="Anonymous Avatar">
+        <span class="group-user">{% trans "Ẩn danh" %}</span>
+      </div>
+      <div class="group-body">
+        <p class="group-label">{% trans "Nhóm dịch" %}</p>
+        <p class="group-name">{% trans "Ẩn danh" %}</p>
+      </div>
+    {% else %}
+      <div class="group-header">
+        <img src="{{ novel.created_by.profile.get_avatar }}" alt="Avatar">
+        <span class="group-user">
+          {{ novel.created_by }}
+          {% if novel.is_anonymous %}
+            <span class="badge badge-secondary ms-1" title="{% trans 'Tiểu thuyết này đăng ẩn người đăng' %}">
+              <i class="bx bx-hide"></i> {% trans "Ẩn danh" %}
+            </span>
+          {% endif %}
+        </span>
+      </div>
+      <div class="group-body">
+        <p class="group-label">{% trans "Nhóm dịch" %}</p>
+        <p class="group-name">
+          {{ novel.created_by }}
+          {% if novel.is_anonymous %}
+            <small class="text-muted d-block">
+              <i class="bx bx-info-circle"></i> {% trans "Hiển thị ẩn danh với người khác" %}
+            </small>
+          {% endif %}
+        </p>
+      </div>
+    {% endif %}
   </div>
   <div class="custom-box">
     <p class="box-title">{% trans "Chú thích thêm" %}</p>

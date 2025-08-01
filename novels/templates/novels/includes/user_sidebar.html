@@ -1,0 +1,67 @@
+{% load i18n %}
+{% load static %}
+{% if user.is_authenticated %}
+<!-- User Sidebar -->
+<div class="user-sidebar" id="userSidebar">
+  <div class="user-sidebar-overlay" onclick="toggleUserSidebar()"></div>
+  <div class="user-sidebar-content">
+    <div class="user-sidebar-header">
+      <button class="user-sidebar-close" onclick="toggleUserSidebar()">
+        <i class="bx bx-x"></i>
+      </button>
+      <div class="user-info">
+        <div class="user-avatar">
+          {% if user_avatar %}
+            <img src="{{ user_avatar.url }}" alt="Avatar" class="avatar-img">
+          {% else %}
+            <div class="avatar-placeholder">
+              <i class="bx bx-user"></i>
+            </div>
+          {% endif %}
+        </div>
+        <div class="user-details">
+          <h5>{{ user_name|default:user.username }}</h5>
+          <p class="text-muted">{{ user.email }}</p>
+          {% if is_staff %}
+            <span class="badge bg-primary">{% trans "Quản trị viên" %}</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="user-sidebar-body">
+      <div class="user-menu">
+        <ul class="menu-list">
+          <li>
+            <a href="{% url 'novels:my_novels' %}" class="menu-item">
+              <i class="bx bx-book"></i>
+              <span>{% trans "Tiểu thuyết của tôi" %}</span>
+              {% if user_novel_count > 0 %}
+                <span class="badge">{{ user_novel_count }}</span>
+              {% endif %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'novels:novel_create' %}" class="menu-item">
+              <i class="bx bx-plus-circle"></i>
+              <span>{% trans "Đăng tiểu thuyết" %}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:change_password' %}" class="menu-item">
+              <i class="bx bx-lock"></i>
+              <span>{% trans "Đổi mật khẩu" %}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'accounts:logout' %}" class="menu-item logout-item">
+              <i class="bx bx-log-out"></i>
+              <span>{% trans "Đăng xuất" %}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,30 @@
+{% load i18n %}
+<!-- Statistics Section -->
+<div class="statistics-section">
+    <div class="row mb-4 justify-content-center">
+        <div class="col-12">
+            <div class="stats-container">
+                <a href="{% url 'novels:my_novels' %}" class="stats-card text-decoration-none {% if current_filter == 'all' %}active{% endif %}">
+                    <div class="stats-number">{{ total_count }}</div>
+                    <div class="stats-label">{% trans "Tổng cộng" %}</div>
+                </a>
+                <a href="{% url 'novels:my_novels' %}?status={{ DRAFT }}" class="stats-card text-decoration-none {% if current_filter == DRAFT %}active{% endif %}">
+                    <div class="stats-number">{{ draft_count }}</div>
+                    <div class="stats-label">{% trans "Bản nháp" %}</div>
+                </a>
+                <a href="{% url 'novels:my_novels' %}?status={{ PENDING }}" class="stats-card text-decoration-none {% if current_filter == PENDING %}active{% endif %}">
+                    <div class="stats-number">{{ pending_count }}</div>
+                    <div class="stats-label">{% trans "Chờ duyệt" %}</div>
+                </a>
+                <a href="{% url 'novels:my_novels' %}?status={{ APPROVED }}" class="stats-card text-decoration-none {% if current_filter == APPROVED %}active{% endif %}">
+                    <div class="stats-number">{{ approved_count }}</div>
+                    <div class="stats-label">{% trans "Đã duyệt" %}</div>
+                </a>
+                <a href="{% url 'novels:my_novels' %}?status={{ REJECTED }}" class="stats-card text-decoration-none {% if current_filter == REJECTED %}active{% endif %}">
+                    <div class="stats-number">{{ rejected_count }}</div>
+                    <div class="stats-label">{% trans "Bị từ chối" %}</div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

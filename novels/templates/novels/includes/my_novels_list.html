@@ -1,0 +1,118 @@
+{% load i18n %}
+<!-- Novel List Section -->
+<div class="novel-list-section">
+    <div class="row">
+        <div class="col-12">
+            {% if novels %}
+                {% for novel in novels %}
+                <div class="novel-card">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            {% if novel.image_url %}
+                                <img src="{{ novel.image_url }}" alt="{{ novel.name }}" class="novel-image">
+                            {% else %}
+                                <div class="novel-image bg-light d-flex align-items-center justify-content-center">
+                                    <i class="bx bx-book text-muted"></i>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 class="novel-title">
+                                        <a href="{% url 'novels:novel_detail' novel.slug %}">
+                                            {{ novel.name }}
+                                        </a>
+                                    </h5>
+                                    <p class="novel-summary">{{ novel.summary|truncatewords:20 }}</p>
+                                    <div class="novel-meta">
+                                        {% if novel.author_name %}
+                                            <small>
+                                                <i class="bx bx-user"></i> {{ novel.author_name }}
+                                            </small>
+                                        {% endif %}
+                                        {% if novel.tag_list %}
+                                            <small>
+                                                <i class="bx bx-tag"></i>
+                                                {% for tag in novel.tag_list %}
+                                                    {{ tag.name }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="novel-dates">
+                                        {% trans "Tạo lúc" %}: {{ novel.created_at|date:DATE_FORMAT_DMYHI }}
+                                        {% if novel.updated_at != novel.created_at %}
+                                            | {% trans "Cập nhật" %}: {{ novel.updated_at|date:DATE_FORMAT_DMYHI }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="novel-actions">
+                                        {% include 'novels/includes/approval_status_tag.html' with novel=novel %}
+                                        <!-- Action buttons -->
+                                        <div class="action-buttons">
+                                            <div class="btn-group btn-group-sm" role="group">
+                                                <a href="{% url 'novels:novel_detail' novel.slug %}" class="btn btn-outline-primary btn-sm" title="{% trans 'Xem chi tiết' %}">
+                                                    <i class="bx bx-show"></i>
+                                                </a>
+                                                {% if novel.can_edit %}
+                                                    <button type="button" class="btn btn-outline-secondary btn-sm" title="{% trans 'Chỉnh sửa' %}">
+                                                        <i class="bx bx-edit"></i>
+                                                    </button>
+                                                {% endif %}
+                                                {% if novel.can_manage_chapters %}
+                                                    <a href="{% url 'novels:chapter_list' novel.slug %}" class="btn btn-outline-info btn-sm" title="{% trans 'Quản lý chương' %}">
+                                                        <i class="bx bx-list-ul"></i>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="novel-stats">
+                                            <small>
+                                                <i class="bx bx-show"></i> {{ novel.view_count }}
+                                            </small>
+                                            <small>
+                                                <i class="bx bx-heart"></i> {{ novel.favorite_count }}
+                                            </small>
+                                            {% if novel.rating_display %}
+                                                <small>
+                                                    <i class="bx bx-star"></i> {{ novel.rating_display|floatformat:1 }}
+                                                </small>
+                                            {% endif %}
+                                        </div>
+                                        {% if novel.is_rejected_with_reason %}
+                                            <div class="rejection-reason">
+                                                <small>
+                                                    <i class="bx bx-error"></i> 
+                                                    <strong>{% trans "Lý do từ chối" %}:</strong><br>
+                                                    {{ novel.rejected_reason|truncatewords:MAX_TRUNCATED_REJECTED_REASON_LENGTH }}
+                                                </small>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Pagination Controls -->
+                {% include 'novels/includes/_generic_pagination.html' with pagination_label="tiểu thuyết" object_name="tiểu thuyết" %}
+                
+            {% else %}
+                <!-- Empty State -->
+                <div class="empty-state">
+                    <i class="bx bx-book-open"></i>
+                    <h4>{% trans "Bạn chưa tạo tiểu thuyết nào" %}</h4>
+                    <p class="mb-3">{% trans "Hãy bắt đầu tạo tiểu thuyết đầu tiên của bạn ngay bây giờ!" %}</p>
+                    <a href="{% url 'novels:novel_create' %}" class="btn btn-primary">
+                        <i class="bx bx-plus"></i> {% trans "Tạo tiểu thuyết đầu tiên" %}
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

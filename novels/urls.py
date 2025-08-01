@@ -14,6 +14,7 @@ urlpatterns = [
     path("admin/novels/", views.Novels, name="novels"),
     path("admin/requests/", views.Requests, name="requests"),
     path("admin/comments/", views.Comments, name="comments"),
+    path("my-novels/", views.MyNovelsView.as_view(), name="my_novels"),
     path('<slug:novel_slug>/', views.novel_detail, name='novel_detail'),
     path('novel/<slug:novel_slug>/chapter/<slug:chapter_slug>/', 
          views.chapter_detail_view, 

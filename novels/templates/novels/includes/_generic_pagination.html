@@ -1,0 +1,92 @@
+{% load i18n %}
+<!-- Generic Pagination Controls -->
+{% if is_paginated and page_obj.paginator.num_pages > 1 %}
+    <div class="pagination-wrapper">
+        <nav aria-label="{% trans 'Phân trang' %} {{ pagination_label|default:'' }}">
+            <ul class="pagination justify-content-center">
+                <!-- Previous page -->
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page=1" aria-label="{% trans 'Trang đầu' %}">
+                            <i class="bx bx-chevrons-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.previous_page_number }}" aria-label="{% trans 'Trang trước' %}">
+                            <i class="bx bx-chevron-left"></i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <i class="bx bx-chevrons-left"></i>
+                        </span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <i class="bx bx-chevron-left"></i>
+                        </span>
+                    </li>
+                {% endif %}
+
+                <!-- Page numbers with smart range -->
+                {% with page_obj.number as current_page %}
+                    {% with page_obj.paginator.num_pages as total_pages %}
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if current_page == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num == 1 or num == total_pages or num >= current_page|add:"-2" and num <= current_page|add:"2" %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% elif num == 2 and current_page > 4 %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            {% elif num == total_pages|add:"-1" and current_page < total_pages|add:"-3" %}
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                {% endwith %}
+
+                <!-- Next page -->
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.next_page_number }}" aria-label="{% trans 'Trang tiếp' %}">
+                            <i class="bx bx-chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.paginator.num_pages }}" aria-label="{% trans 'Trang cuối' %}">
+                            <i class="bx bx-chevrons-right"></i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <i class="bx bx-chevron-right"></i>
+                        </span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <i class="bx bx-chevrons-right"></i>
+                        </span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        
+        <!-- Page info -->
+        <div class="pagination-info text-center mt-3">
+            <small class="text-muted">
+                {% trans "Hiển thị" %} {{ page_obj.start_index }} - {{ page_obj.end_index }} 
+                {% trans "trong tổng số" %} {{ page_obj.paginator.count }} {{ object_name|default:"items" }}
+            </small>
+        </div>
+    </div>
+{% endif %}

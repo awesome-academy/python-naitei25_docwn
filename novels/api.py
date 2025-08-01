@@ -4,7 +4,7 @@ External API services for novels app
 
 import requests
 import json
-from django.conf import settings
+from docwn import settings
 from django.utils.translation import gettext_lazy as _
 
 

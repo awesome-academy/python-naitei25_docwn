@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
 from django.utils.crypto import get_random_string
+from django.utils.translation import gettext_lazy as _
 from accounts.models import User
 from constants import (
     MAX_NAME_LENGTH,
@@ -101,6 +102,10 @@ class Novel(models.Model):
     
     created_by = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True, related_name='created_novels'
+    )
+    is_anonymous = models.BooleanField(
+        default=False,
+        help_text=_("Whether this novel should be displayed anonymously to public users")
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

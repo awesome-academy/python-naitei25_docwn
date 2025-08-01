@@ -1,0 +1,251 @@
+/* User Sidebar Styles */
+.user-sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100vh;
+  z-index: 9999;
+  transition: right 0.3s ease-in-out;
+}
+
+.user-sidebar.active {
+  right: 0;
+}
+
+.user-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: -100vw;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.user-sidebar.active .user-sidebar-overlay {
+  left: 0;
+  opacity: 1;
+}
+
+.user-sidebar-content {
+  background: var(--bs-body-bg, #fff);
+  height: 100%;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 10000;
+  border-left: 1px solid #dee2e6;
+}
+
+.user-sidebar-header {
+  padding: 2rem 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  position: relative;
+}
+
+.user-sidebar-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.user-sidebar-close:hover {
+  background: #f8f9fa;
+  color: #495057;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #dee2e6;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  font-size: 1.5rem;
+  color: #6c757d;
+}
+
+.user-details h5 {
+  margin: 0;
+  font-weight: 600;
+  color: #212529;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-details p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.user-details .badge {
+  font-size: 0.7rem;
+  margin-top: 0.25rem;
+}
+
+.user-sidebar-body {
+  flex: 1;
+  padding: 1.5rem;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  color: #495057;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  margin-bottom: 0.5rem;
+  border: 1px solid transparent;
+}
+
+.menu-item:hover {
+  background: #f8f9fa;
+  color: #495057;
+  text-decoration: none;
+  border-color: #dee2e6;
+}
+
+.menu-item.logout-item {
+  color: #dc3545;
+  border-color: transparent;
+}
+
+.menu-item.logout-item:hover {
+  background: #f8d7da;
+  color: #dc3545;
+  border-color: #f5c6cb;
+}
+
+.menu-item i {
+  font-size: 1.25rem;
+  width: 24px;
+  text-align: center;
+}
+
+.menu-item span {
+  font-weight: 500;
+}
+
+.menu-item .badge {
+  margin-left: auto;
+  background: #007bff;
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+/* Dark theme support */
+[data-bs-theme="dark"] .user-sidebar-content {
+  background: #212529;
+  border-left-color: #495057;
+}
+
+[data-bs-theme="dark"] .user-sidebar-header {
+  border-bottom-color: #495057;
+}
+
+[data-bs-theme="dark"] .user-sidebar-close {
+  color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .user-sidebar-close:hover {
+  background: #343a40;
+  color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .user-avatar {
+  background: #343a40;
+  border-color: #495057;
+}
+
+[data-bs-theme="dark"] .avatar-placeholder {
+  color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .user-details h5 {
+  color: #f8f9fa;
+}
+
+[data-bs-theme="dark"] .user-details p {
+  color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .user-details .badge {
+  background-color: #0d6efd !important;
+}
+
+[data-bs-theme="dark"] .menu-item {
+  color: #adb5bd;
+}
+
+[data-bs-theme="dark"] .menu-item:hover {
+  background: #343a40;
+  color: #f8f9fa;
+  border-color: #495057;
+}
+
+[data-bs-theme="dark"] .menu-item.logout-item {
+  color: #dc3545;
+}
+
+[data-bs-theme="dark"] .menu-item.logout-item:hover {
+  background: #2b1117;
+  color: #dc3545;
+  border-color: #842029;
+}
+
+[data-bs-theme="dark"] .menu-item .badge {
+  background: #0d6efd;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .user-sidebar {
+    width: 100%;
+    right: -100%;
+  }
+}

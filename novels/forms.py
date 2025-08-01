@@ -15,6 +15,7 @@ from constants import (
     MIN_NOVEL_SUMMARY_LENGTH,
     MAX_NOVEL_SUMMARY_LENGTH,
     MAX_NOVEL_IMAGE_SIZE,
+    ALLOWED_IMAGE_TYPES,
 )
 from accounts.models import User
 from django.utils.text import slugify
@@ -291,14 +292,7 @@ class NovelForm(forms.ModelForm):
                 )
 
             # Check file type
-            allowed_types = [
-                "image/jpeg",
-                "image/jpg",
-                "image/png",
-                "image/gif",
-                "image/webp",
-            ]
-            if image.content_type not in allowed_types:
+            if image.content_type not in ALLOWED_IMAGE_TYPES:
                 raise forms.ValidationError(
                     _("Chỉ chấp nhận file ảnh (JPEG, PNG, GIF, WebP).")
                 )

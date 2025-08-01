@@ -1,0 +1,7 @@
+{% load i18n %}
+{% load status_filters %}
+<div class="mb-2">
+    <span class="badge status-badge {{ novel.approval_status|status_class }}">
+        <i class="bx {{ novel.approval_status|status_icon }}"></i> {{ novel.approval_status|status_label }}
+    </span>
+</div>

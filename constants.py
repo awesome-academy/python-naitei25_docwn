@@ -75,6 +75,7 @@ SESSION_COOKIE_AGE_SECONDS = 86400  # 24 hours
 
 # Date
 DATE_FORMAT_DMY = "d/m/Y"
+DATE_FORMAT_DMYHI = "d/m/Y H:i"
 
 # Chapter
 MAX_CHAPTER_LIST = 4
@@ -89,3 +90,19 @@ MAX_NOVEL_IMAGE_SIZE = 5 * 1024 * 1024  # 5MB
 # PAGINATOR
 PAGINATOR_TAG_LIST = 5
 DEFAULT_PAGE_NUMBER = 1
+
+# Allowed image types for novel uploads
+ALLOWED_IMAGE_TYPES = [
+    "image/jpeg",
+    "image/jpg", 
+    "image/png",
+    "image/gif",
+    "image/webp",
+]
+
+MAX_TRUNCATED_REJECTED_REASON_LENGTH = 10
+MAX_REJECTTED_REASONS_LENGTH = 1000
+
+# Constants for pagination
+NOVEL_PER_PAGE = 10
+PAGINATION_PAGE_RANGE = 3  # Number of pages to show before and after current page
