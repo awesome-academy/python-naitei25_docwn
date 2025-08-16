@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import Novel, Author, Artist, Tag, NovelTag, Chapter, Chunk, Volume
+from .models import Novel, Author, Artist, Tag, Chapter, Chunk, Volume
 from .utils import ChunkManager
 
 # Register your models here.
@@ -39,14 +39,6 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ("name",)
     search_fields = ("name",)
     ordering = ("name",)
-
-
-@admin.register(NovelTag)
-class NovelTagAdmin(admin.ModelAdmin):
-    list_display = ("novel", "tag")
-    search_fields = ("novel__name", "tag__name")
-    ordering = ("novel", "tag")
-    list_filter = ("tag",)
 
 
 @admin.register(Volume)

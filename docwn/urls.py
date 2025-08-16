@@ -23,7 +23,11 @@ from django.conf.urls.static import static
 from .settings import STATIC_ROOT, STATIC_URL, MEDIA_URL, MEDIA_ROOT
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    # path("admin/", admin.site.urls),
+    path("admin/", include("accounts.urls.admin")),
+    path("admin/", include("novels.urls.admin")),
+    path("admin/", include("interactions.urls.admin")),
+    
     path("accounts/", include("accounts.urls")),
     path("novels/", include("novels.urls")),
     path("interactions/", include("interactions.urls")),

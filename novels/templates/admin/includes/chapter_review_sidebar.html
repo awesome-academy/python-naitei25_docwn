@@ -8,45 +8,35 @@
         </div>
         
         <div class="actions-body">
-
-            {% if not chapter.rejected_reason %}
-                <!-- Form từ chối chương -->
-                <form method="post" action="{% url 'novels:reject_chapter' chapter.slug %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="rejected_reason" class="form-label">
-                            <i class="fas fa-comment-dots"></i>
-                            {% trans "Lý do từ chối:" %}
-                        </label>
-                        <textarea name="rejected_reason" 
-                                id="rejected_reason"
-                                class="textarea-reason"
-                                placeholder="{% trans 'Vui lòng nhập lý do chi tiết nếu từ chối chương này...' %}"
-                                rows="4"
-                                data-tooltip="{% trans 'Nhập lý do từ chối chi tiết để giúp tác giả hiểu và cải thiện' %}">{{ chapter.rejected_reason|default_if_none:"" }}</textarea>
-                        
-                        <button type="submit"
-                                class="btn btn-reject">
-                            <i class="fas fa-times"></i>
-                            {% trans "Từ chối chương" %}
-                        </button>
-                    </div>
-                </form>
-            {% endif %}
-
-            {% if not chapter.approved %}
-                <!-- Form duyệt chương -->
-                <form method="post" action="{% url 'novels:approve_chapter' chapter.slug %}">
-                    {% csrf_token %}
-                    <button type="submit"
-                            class="btn btn-approve"
-                            data-tooltip="{% trans 'Duyệt chương này và xuất bản cho độc giả' %}">
-                        <i class="fas fa-check"></i>
-                        {% trans "Duyệt chương" %}
+            <!-- Form từ chối chương -->
+            <form method="post" action="{% url 'novels:reject_chapter' chapter.slug %}" id="rejectForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="rejected_reason" class="form-label">
+                        <i class="fas fa-comment-dots"></i>
+                        {% trans "Lý do từ chối:" %}
+                    </label>
+                    <textarea name="rejected_reason" 
+                            id="rejected_reason"
+                            class="textarea-reason"
+                            placeholder="{% trans 'Vui lòng nhập lý do chi tiết nếu từ chối chương này...' %}"
+                            rows="4">{{ chapter.rejected_reason|default_if_none:"" }}</textarea>
+                    
+                    <button type="submit" class="btn btn-reject">
+                        <i class="fas fa-times"></i>
+                        {% trans "Từ chối chương" %}
                     </button>
-                </form>
-            {% endif %}
+                </div>
+            </form>
 
+            <!-- Form duyệt chương -->
+            <form method="post" action="{% url 'novels:approve_chapter' chapter.slug %}" id="approveForm">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-approve">
+                    <i class="fas fa-check"></i>
+                    {% trans "Duyệt chương" %}
+                </button>
+            </form>
         </div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 from enum import Enum
+from django.utils.translation import gettext_lazy as _
 
 
 class UserRole(Enum):
@@ -41,6 +42,50 @@ class ApprovalStatus(Enum):
     @classmethod
     def choices(cls):
         return [(i.value, i.name) for i in cls]
+    
+
+class NotificationTypeChoices:
+    COMMENT = 'COMMENT'
+    REPLY = 'REPLY'
+    REVIEW = 'REVIEW'
+    LIKE = 'LIKE'
+    REPORT = 'REPORT'
+    SYSTEM = 'SYSTEM'
+    
+    CHOICES = (
+        (COMMENT, _('Bình luận mới')),
+        (REPLY, _('Trả lời bình luận')),
+        (REVIEW, _('Đánh giá mới')),
+        (LIKE, _('Thích bình luận')),
+        (REPORT, _('Báo cáo')),
+        (SYSTEM, _('Hệ thống')),
+    )
+
+class ReportReasonChoices:
+    SPAM = 'SPAM'
+    OFFENSIVE = 'OFFENSIVE'
+    HARASSMENT = 'HARASSMENT'
+    FAKE = 'FAKE'
+    COPYRIGHT = 'COPYRIGHT'
+    OTHER = 'OTHER'
+    
+    CHOICES = (
+        (SPAM, _('Spam')),
+        (OFFENSIVE, _('Nội dung không phù hợp')),
+        (HARASSMENT, _('Quấy rối')),
+        (FAKE, _('Thông tin giả mạo')),
+        (COPYRIGHT, _('Vi phạm bản quyền')),
+        (OTHER, _('Khác')),
+    )
+
+class ReportStatusChoices:
+    PENDING = 'PENDING'
+    RESOLVED = 'RESOLVED'
+    
+    CHOICES = (
+        (PENDING, _('Chờ xử lý')),
+        (RESOLVED, _('Đã xử lý')),
+    )
 
 START_POSITION_DEFAULT = 1
 PROGRESS_DEFAULT = 0.0
@@ -55,11 +100,13 @@ MAX_TAG_LENGTH = 255
 MAX_COUNTRY_LENGTH = 100
 MAX_IMAGE_URL_LENGTH = 255
 MAX_TITLE_LENGTH = 255
-MAX_SLUG_LENGTH = 600  # For chapter slugs combining volume and title
+MAX_SLUG_LENGTH = 255  # For chapter slugs combining volume and title
 MAX_TYPE_LENGTH = 255
 MAX_GENDER_LENGTH = 1
 MAX_STATUS_LENGTH = 1
 MAX_ROLE_LENGTH = 2
+MAX_REASON_LENGTH = 20
+MAX_REPORT_STATUS_LENGTH = 20
 MAX_SESSION_REMEMBER = 1209600
 MAX_RATE = 5
 MAX_TOKEN_LENGTH = 255
@@ -73,16 +120,16 @@ MAX_NEWUPDATE_NOVELS =12
 MAX_LATEST_CHAPTER = 14
 MIN_LATEST_CHAPTER = 1
 MAX_HOME_COMMENTS = 10  # Maximum comments to show on home page
-MAX_RANDOM_STRING_LENGTH = 10 
+MAX_RANDOM_STRING_LENGTH = 10
+MAX_SESSION_REMEMBER = 2592000  # 30 days
 
 # Constants for min_length
 MIN_RATE = 0
 MIN_PASSWORD_LENGTH = 8
 MIN_TEXTAREA_ROWS = 3
-MIN_SESSION_REMEMBER = 0
+MIN_SESSION_REMEMBER = 3600 # 1 hour
+MIN_LIKE_COUNT = 0
 
-# Session
-SESSION_COOKIE_AGE_SECONDS = 86400  # 24 hours
 
 # Date
 DATE_FORMAT_DMY = "d/m/Y"

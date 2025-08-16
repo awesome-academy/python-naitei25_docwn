@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
 from constants import (
     MIN_PASSWORD_LENGTH,
-    SESSION_COOKIE_AGE_SECONDS,
+    MAX_SESSION_REMEMBER,
     SECURE_HSTS_SECONDS_HEROKU,
     SECURE_HSTS_SECONDS_DEVELOPMENT,
 )
@@ -94,7 +94,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "accounts.context_processors.user_context"
+                "common.utils.user_context"
             ],
         },
     },
@@ -281,7 +281,7 @@ RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')
 
 # Security settings
-SESSION_COOKIE_AGE = SESSION_COOKIE_AGE_SECONDS
+SESSION_COOKIE_AGE = MAX_SESSION_REMEMBER
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 IMGBB_API_KEY = os.getenv('IMGBB_API_KEY')

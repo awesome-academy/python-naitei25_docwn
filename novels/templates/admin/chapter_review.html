@@ -8,7 +8,7 @@
 
 {% block extra_css %}
 <link href="{% static 'admin/css/chapter_review.css' %}" rel="stylesheet">
-<link href="admin/css/fontawesome.all.min.css" rel="stylesheet">
+<link href="{% static 'admin/css/fontawesome.all.min.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -24,7 +24,7 @@
 
     <!-- Rejection Reason -->
     {% if chapter.rejected_reason %}
-        <div class="card rejection-card">
+        <div class="rejection-card">
             <div class="rejection-content">
                 <i class="fas fa-exclamation-triangle"></i>
                 <div>
@@ -35,7 +35,7 @@
         </div>
     {% endif %}
 
-    <div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+    <div class="grid xl:grid-cols-4 gap-8">
         <!-- Nội dung chương -->
         {% include "admin/includes/chapter_review_content.html" %}
 
@@ -45,6 +45,23 @@
         {% endif %}
     </div>
 </div>
+
+<!-- Confirm Dialog Template -->
+<div id="confirmDialog" class="confirm-dialog" style="display: none;">
+    <div class="confirm-content">
+        <h3 class="confirm-title" id="confirmTitle"></h3>
+        <p class="confirm-message" id="confirmMessage"></p>
+        <div class="confirm-actions">
+            <button type="button" class="btn btn-secondary" id="confirmCancel">
+                {% trans "Hủy" %}
+            </button>
+            <button type="button" class="btn" id="confirmOk">
+                {% trans "Xác nhận" %}
+            </button>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
