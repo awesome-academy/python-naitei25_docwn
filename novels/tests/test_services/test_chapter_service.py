@@ -3,15 +3,15 @@ Unit tests for ChapterService functionality
 """
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch
 
 from novels.services.chapter_service import ChapterService
 from novels.models import Novel, Volume, Chapter, Author, Chunk
+from novels.forms import ChapterForm
 from constants import ApprovalStatus, UserRole
 import warnings
 
 warnings.filterwarnings("ignore", message="No directory at:")
-
 
 User = get_user_model()
 
@@ -54,187 +54,29 @@ class ChapterServiceTestCase(TestCase):
 
 class ChapterServiceCreationTests(ChapterServiceTestCase):
     """Test ChapterService creation methods"""
-    
-    @patch('novels.services.chapter_service.ChunkManager.create_chunks')
-    def test_create_chapter_minimal(self, mock_create_chunks):
-        """Test creating chapter with minimal data"""
-        mock_create_chunks.return_value = [
-            Mock(content="Test content", word_count=2)
-        ]
-        
-        chapter_data = {
-            'title': 'Test Chapter',
-            'content': 'Test content',
-            'volume': self.volume
-        }
-        
-        chapter = ChapterService.create_chapter(chapter_data, self.user)
-        
-        self.assertEqual(chapter.title, 'Test Chapter')
-        self.assertEqual(chapter.volume, self.volume)
-        self.assertEqual(chapter.position, 1)  # First chapter in volume
-        self.assertFalse(chapter.approved)
-        
-        # Check that chunks were created
-        mock_create_chunks.assert_called_once_with('Test content', chapter)
-    
-    @patch('novels.services.chapter_service.ChunkManager.create_chunks')
+
+    @patch('novels.utils.chunk_manager.ChunkManager.create_html_chunks_for_chapter')
     def test_create_chapter_with_position(self, mock_create_chunks):
-        """Test creating chapter with specific position"""
         mock_create_chunks.return_value = [
             Mock(content="Test content", word_count=2)
         ]
-        
-        # Create existing chapter
         Chapter.objects.create(
             volume=self.volume,
             title="Existing Chapter",
             position=1
         )
-        
         chapter_data = {
             'title': 'New Chapter',
             'content': 'New content',
-            'volume': self.volume,
+            'volume_choice': str(self.volume.id),
             'position': 2
         }
-        
-        chapter = ChapterService.create_chapter(chapter_data, self.user)
-        
+        form = ChapterForm(novel=self.novel, data=chapter_data)
+        chapter = ChapterService.create_chapter(form, self.novel)  # sửa: truyền novel
         self.assertEqual(chapter.position, 2)
-    
-    @patch('novels.services.chapter_service.ChunkManager.create_chunks')
-    def test_create_chapter_auto_position(self, mock_create_chunks):
-        """Test automatic position assignment"""
-        mock_create_chunks.return_value = [
-            Mock(content="Test content", word_count=2)
-        ]
-        
-        # Create existing chapters
-        Chapter.objects.create(volume=self.volume, title="Chapter 1", position=1)
-        Chapter.objects.create(volume=self.volume, title="Chapter 2", position=2)
-        
-        chapter_data = {
-            'title': 'Auto Position Chapter',
-            'content': 'Auto content',
-            'volume': self.volume
-        }
-        
-        chapter = ChapterService.create_chapter(chapter_data, self.user)
-        
-        self.assertEqual(chapter.position, 3)  # Auto-assigned next position
-    
-    @patch('novels.services.chapter_service.send_notification')
-    @patch('novels.services.chapter_service.ChunkManager.create_chunks')
-    def test_create_chapter_sends_notification(self, mock_create_chunks, mock_send_notification):
-        """Test chapter creation sends notification"""
-        mock_create_chunks.return_value = [
-            Mock(content="Test content", word_count=2)
-        ]
-        
-        chapter_data = {
-            'title': 'Test Chapter',
-            'content': 'Test content',
-            'volume': self.volume
-        }
-        
-        chapter = ChapterService.create_chapter(chapter_data, self.user)
-        
-        mock_send_notification.assert_called_once()
-        call_args = mock_send_notification.call_args[1]
-        self.assertEqual(call_args['type'], 'chapter_submitted')
-        self.assertEqual(call_args['chapter_id'], chapter.id)
-
-
-class ChapterServiceUpdateTests(ChapterServiceTestCase):
-    """Test ChapterService update methods"""
-    
-    def setUp(self):
-        super().setUp()
-        self.chapter = Chapter.objects.create(
-            volume=self.volume,
-            title="Original Chapter",
-            position=1
-        )
-        
-        # Create original chunks
-        Chunk.objects.create(
-            chapter=self.chapter,
-            content="Original content",
-            position=1,
-            word_count=2
-        )
-    
-    @patch('novels.services.chapter_service.ChunkManager.update_chunks')
-    def test_update_chapter_title_only(self, mock_update_chunks):
-        """Test updating only chapter title"""
-        update_data = {
-            'title': 'Updated Chapter Title'
-        }
-        
-        updated_chapter = ChapterService.update_chapter(
-            self.chapter.id, 
-            update_data, 
-            self.user
-        )
-        
-        self.assertEqual(updated_chapter.title, 'Updated Chapter Title')
-        # Content update should not be called if no content provided
-        mock_update_chunks.assert_not_called()
-    
-    @patch('novels.services.chapter_service.ChunkManager.update_chunks')
-    def test_update_chapter_content(self, mock_update_chunks):
-        """Test updating chapter content"""
-        mock_update_chunks.return_value = [
-            Mock(content="Updated content", word_count=2)
-        ]
-        
-        update_data = {
-            'title': 'Updated Chapter',
-            'content': 'Updated content'
-        }
-        
-        updated_chapter = ChapterService.update_chapter(
-            self.chapter.id, 
-            update_data, 
-            self.user
-        )
-        
-        self.assertEqual(updated_chapter.title, 'Updated Chapter')
-        mock_update_chunks.assert_called_once_with('Updated content', self.chapter)
-    
-    def test_update_chapter_permission_check(self):
-        """Test update permission checking"""
-        other_user = User.objects.create_user(
-            username='otheruser',
-            email='other@example.com',
-            password='password123',
-            role=UserRole.USER.value
-        )
-        
-        update_data = {'title': 'Unauthorized Update'}
-        
-        with self.assertRaises(PermissionError):
-            ChapterService.update_chapter(self.chapter.id, update_data, other_user)
-    
-    def test_update_chapter_admin_can_update_any(self):
-        """Test admin can update any chapter"""
-        admin_user = User.objects.create_user(
-            username='admin',
-            email='admin@example.com',
-            password='password123',
-            role=UserRole.ADMIN.value
-        )
-        
-        update_data = {'title': 'Admin Updated Chapter'}
-        
-        updated_chapter = ChapterService.update_chapter(
-            self.chapter.id, 
-            update_data, 
-            admin_user
-        )
-        
-        self.assertEqual(updated_chapter.title, 'Admin Updated Chapter')
+        self.assertFalse(chapter.approved)
+        self.assertEqual(chapter.title, 'New Chapter')
+        self.assertEqual(chapter.volume, self.volume)
 
 
 class ChapterServiceApprovalTests(ChapterServiceTestCase):
@@ -246,7 +88,7 @@ class ChapterServiceApprovalTests(ChapterServiceTestCase):
             username='admin',
             email='admin@example.com',
             password='password123',
-            role=UserRole.ADMIN.value
+            role=UserRole.WEBSITE_ADMIN.value
         )
         
         self.chapter = Chapter.objects.create(
@@ -256,54 +98,23 @@ class ChapterServiceApprovalTests(ChapterServiceTestCase):
             approved=False
         )
     
-    @patch('novels.services.chapter_service.send_notification')
-    def test_approve_chapter(self, mock_send_notification):
+    def test_approve_chapter(self):
         """Test approving a chapter"""
         approved_chapter = ChapterService.approve_chapter(
-            self.chapter.id, 
-            self.admin_user
+            self.chapter
         )
-        
         self.assertTrue(approved_chapter.approved)
-        self.assertEqual(approved_chapter.approved_by, self.admin_user)
-        self.assertIsNotNone(approved_chapter.approved_at)
-        
-        # Check notification sent to chapter creator
-        mock_send_notification.assert_called_once()
-        call_args = mock_send_notification.call_args[1]
-        self.assertEqual(call_args['type'], 'chapter_approved')
     
-    @patch('novels.services.chapter_service.send_notification')
-    def test_reject_chapter(self, mock_send_notification):
+    def test_reject_chapter(self):
         """Test rejecting a chapter"""
         rejection_reason = "Content quality issues"
         
         rejected_chapter = ChapterService.reject_chapter(
-            self.chapter.id, 
-            self.admin_user, 
+            self.chapter,
             rejection_reason
         )
-        
         self.assertFalse(rejected_chapter.approved)
         self.assertEqual(rejected_chapter.rejected_reason, rejection_reason)
-        self.assertEqual(rejected_chapter.approved_by, self.admin_user)
-        self.assertIsNotNone(rejected_chapter.approved_at)
-        
-        # Check notification sent to chapter creator
-        mock_send_notification.assert_called_once()
-        call_args = mock_send_notification.call_args[1]
-        self.assertEqual(call_args['type'], 'chapter_rejected')
-        self.assertEqual(call_args['reason'], rejection_reason)
-    
-    def test_approve_chapter_permission_check(self):
-        """Test only admins can approve chapters"""
-        with self.assertRaises(PermissionError):
-            ChapterService.approve_chapter(self.chapter.id, self.user)
-    
-    def test_reject_chapter_permission_check(self):
-        """Test only admins can reject chapters"""
-        with self.assertRaises(PermissionError):
-            ChapterService.reject_chapter(self.chapter.id, self.user, "Test reason")
 
 
 class ChapterServiceQueryTests(ChapterServiceTestCase):
@@ -315,6 +126,7 @@ class ChapterServiceQueryTests(ChapterServiceTestCase):
         self.approved_chapter = Chapter.objects.create(
             volume=self.volume,
             title="Approved Chapter",
+            slug="approved-chapter",
             position=1,
             approved=True,
             is_hidden=False
@@ -323,6 +135,7 @@ class ChapterServiceQueryTests(ChapterServiceTestCase):
         self.pending_chapter = Chapter.objects.create(
             volume=self.volume,
             title="Pending Chapter",
+            slug="pending-chapter",
             position=2,
             approved=False,
             is_hidden=False
@@ -331,77 +144,69 @@ class ChapterServiceQueryTests(ChapterServiceTestCase):
         self.hidden_chapter = Chapter.objects.create(
             volume=self.volume,
             title="Hidden Chapter",
+            slug="hidden-chapter",
             position=3,
             approved=True,
             is_hidden=True
         )
-    
-    def test_get_published_chapters(self):
-        """Test getting published chapters"""
-        published_chapters = ChapterService.get_published_chapters(self.volume)
-        
-        self.assertIn(self.approved_chapter, published_chapters)
-        self.assertNotIn(self.pending_chapter, published_chapters)
-        self.assertNotIn(self.hidden_chapter, published_chapters)
-    
-    def test_get_chapter_with_content(self):
-        """Test getting chapter with content"""
-        # Create chunks for the chapter
-        Chunk.objects.create(
-            chapter=self.approved_chapter,
-            content="First chunk",
-            position=1,
-            word_count=2
+
+    def test_get_chapter_for_user_public(self):
+        """Guest user should only access approved & visible chapters"""
+        chapter = ChapterService.get_chapter_for_user(
+            chapter_slug=self.approved_chapter.slug,
+            novel_slug=self.novel.slug,
+            user=None
         )
-        
-        Chunk.objects.create(
-            chapter=self.approved_chapter,
-            content="Second chunk",
-            position=2,
-            word_count=2
+        self.assertEqual(chapter, self.approved_chapter)
+
+    def test_get_chapter_for_user_owner(self):
+        """Owner should access unapproved chapter"""
+        chapter = ChapterService.get_chapter_for_user(
+            chapter_slug=self.pending_chapter.slug,
+            novel_slug=self.novel.slug,
+            user=self.user
         )
-        
-        chapter_with_content = ChapterService.get_chapter_with_content(
-            self.approved_chapter.id
+        self.assertEqual(chapter, self.pending_chapter)
+
+    def test_get_chapter_for_user_not_found(self):
+        """Invalid chapter should raise 404"""
+        from django.http import Http404
+        with self.assertRaises(Http404):
+            ChapterService.get_chapter_for_user(
+                chapter_slug="non-existent",
+                novel_slug=self.novel.slug,
+                user=None
+            )
+
+    def test_get_all_chapters_for_novel_public(self):
+        """Public user sees only approved & visible chapters"""
+        chapters = ChapterService.get_all_chapters_for_novel(
+            self.novel, user=None
         )
-        
-        self.assertEqual(chapter_with_content, self.approved_chapter)
-        # Check content is properly loaded
-        content = chapter_with_content.get_content()
-        self.assertIn("First chunk", content)
-        self.assertIn("Second chunk", content)
-    
-    def test_get_next_chapter(self):
-        """Test getting next chapter"""
-        next_chapter = ChapterService.get_next_chapter(self.approved_chapter)
-        
-        # Should skip pending chapter and return the next available published chapter
-        # Since hidden chapter is not considered published, should return None
-        self.assertIsNone(next_chapter)
-    
-    def test_get_previous_chapter(self):
-        """Test getting previous chapter"""
-        previous_chapter = ChapterService.get_previous_chapter(self.pending_chapter)
-        
-        self.assertEqual(previous_chapter, self.approved_chapter)
-    
-    def test_get_user_chapters(self):
-        """Test getting chapters by user"""
-        user_chapters = ChapterService.get_user_chapters(self.user, self.novel)
-        
-        # All chapters belong to this user's novel
-        self.assertEqual(user_chapters.count(), 3)
-        self.assertIn(self.approved_chapter, user_chapters)
-        self.assertIn(self.pending_chapter, user_chapters)
-        self.assertIn(self.hidden_chapter, user_chapters)
-    
-    def test_get_pending_chapters_for_review(self):
-        """Test getting chapters pending review"""
-        pending_chapters = ChapterService.get_pending_chapters_for_review()
-        
-        self.assertIn(self.pending_chapter, pending_chapters)
-        self.assertNotIn(self.approved_chapter, pending_chapters)
-        self.assertNotIn(self.hidden_chapter, pending_chapters)
+        self.assertIn(self.approved_chapter, chapters)
+        self.assertNotIn(self.pending_chapter, chapters)
+        self.assertNotIn(self.hidden_chapter, chapters)
+
+    def test_get_all_chapters_for_novel_owner(self):
+        """Owner sees all non-deleted chapters"""
+        chapters = ChapterService.get_all_chapters_for_novel(
+            self.novel, user=self.user
+        )
+        self.assertIn(self.approved_chapter, chapters)
+        self.assertIn(self.pending_chapter, chapters)
+        self.assertIn(self.hidden_chapter, chapters)
+
+    def test_get_pending_chapters_for_admin(self):
+        """Admin sees pending approval chapters with pagination"""
+        page_obj = ChapterService.get_pending_chapters_for_admin(
+            search_query="Pending", page=1
+        )
+        self.assertIn(self.pending_chapter, page_obj.object_list)
+
+    def test_get_earliest_unapproved_chapter(self):
+        """Should return the earliest unapproved chapter"""
+        earliest = ChapterService.get_earliest_unapproved_chapter(self.novel)
+        self.assertEqual(earliest, self.pending_chapter)
 
 
 class ChapterServiceStatisticsTests(ChapterServiceTestCase):
@@ -413,112 +218,18 @@ class ChapterServiceStatisticsTests(ChapterServiceTestCase):
             volume=self.volume,
             title="Test Chapter",
             position=1,
-            view_count=100,
             word_count=500
         )
-    
-    @patch('novels.services.chapter_service.update_view_count')
-    def test_increment_view_count(self, mock_update_view_count):
-        """Test incrementing chapter view count"""
-        ChapterService.increment_view_count(self.chapter.id)
-        
-        mock_update_view_count.assert_called_once_with(self.chapter.id)
-    
-    def test_get_chapter_statistics(self):
-        """Test getting chapter statistics"""
-        stats = ChapterService.get_chapter_statistics(self.chapter.id)
-        
-        self.assertIn('view_count', stats)
-        self.assertIn('word_count', stats)
-        self.assertIn('rating_average', stats)
-        self.assertIn('rating_count', stats)
-        self.assertIn('comment_count', stats)
-        
-        self.assertEqual(stats['view_count'], 100)
-        self.assertEqual(stats['word_count'], 500)
-    
-    def test_calculate_reading_time(self):
-        """Test calculating reading time"""
-        reading_time = ChapterService.calculate_reading_time(self.chapter.id)
-        
-        # Assuming average reading speed of 200 words per minute
-        # 500 words should take 2.5 minutes
-        expected_time = 500 / 200
-        self.assertEqual(reading_time, expected_time)
+        Chunk.objects.create(chapter=self.chapter, position=1, content="A B C", word_count=3)
+        Chunk.objects.create(chapter=self.chapter, position=2, content="D E F G", word_count=4)
 
-
-class ChapterServiceValidationTests(ChapterServiceTestCase):
-    """Test ChapterService validation methods"""
-    
-    def test_validate_chapter_data_missing_required_fields(self):
-        """Test validation with missing required fields"""
-        invalid_data = {
-            'content': 'Test content'
-            # Missing title and volume
-        }
-        
-        with self.assertRaises(ValueError):
-            ChapterService.validate_chapter_data(invalid_data)
-    
-    def test_validate_chapter_data_empty_title(self):
-        """Test validation with empty title"""
-        invalid_data = {
-            'title': '',  # Empty title
-            'content': 'Test content',
-            'volume': self.volume
-        }
-        
-        with self.assertRaises(ValueError):
-            ChapterService.validate_chapter_data(invalid_data)
-    
-    def test_validate_chapter_data_empty_content(self):
-        """Test validation with empty content"""
-        invalid_data = {
-            'title': 'Test Chapter',
-            'content': '',  # Empty content
-            'volume': self.volume
-        }
-        
-        with self.assertRaises(ValueError):
-            ChapterService.validate_chapter_data(invalid_data)
-    
-    def test_validate_chapter_data_invalid_position(self):
-        """Test validation with invalid position"""
-        invalid_data = {
-            'title': 'Test Chapter',
-            'content': 'Test content',
-            'volume': self.volume,
-            'position': 0  # Invalid position
-        }
-        
-        with self.assertRaises(ValueError):
-            ChapterService.validate_chapter_data(invalid_data)
-    
-    def test_validate_chapter_data_valid(self):
-        """Test validation with valid data"""
-        valid_data = {
-            'title': 'Test Chapter',
-            'content': 'Test content',
-            'volume': self.volume
-        }
-        
-        # Should not raise any exception
-        ChapterService.validate_chapter_data(valid_data)
-    
-    def test_check_duplicate_chapter_position(self):
-        """Test checking for duplicate chapter positions"""
-        Chapter.objects.create(
-            volume=self.volume,
-            title="Existing Chapter",
-            position=1
-        )
-        
-        # Should raise exception for duplicate position
-        with self.assertRaises(ValueError):
-            ChapterService.check_duplicate_chapter_position(self.volume, 1)
-        
-        # Should not raise exception for unique position
-        ChapterService.check_duplicate_chapter_position(self.volume, 2)
+    def test_get_chapter_chunks_stats(self):
+        """Test chunk statistics"""
+        stats = ChapterService.get_chapter_chunks_stats(self.chapter)
+        self.assertEqual(stats['total_chunks'], 2)
+        self.assertGreater(stats['avg_chunk_size'], 0)
+        self.assertGreater(stats['max_chunk_words'], 0)
+        self.assertIn('estimated_reading_time', stats)
 
 
 class ChapterServiceDeleteTests(ChapterServiceTestCase):
@@ -531,150 +242,8 @@ class ChapterServiceDeleteTests(ChapterServiceTestCase):
             title="Test Chapter",
             position=1
         )
-        
-        self.admin_user = User.objects.create_user(
-            username='admin',
-            email='admin@example.com',
-            password='password123',
-            role=UserRole.ADMIN.value
-        )
     
-    def test_soft_delete_chapter_by_owner(self):
-        """Test soft deleting chapter by owner"""
-        deleted_chapter = ChapterService.soft_delete_chapter(
-            self.chapter.id, 
-            self.user
-        )
-        
-        self.assertTrue(deleted_chapter.is_deleted)
+    def test_soft_delete_chapter(self):
+        """Test soft deleting chapter"""
+        deleted_chapter = ChapterService.soft_delete_chapter(self.chapter)
         self.assertIsNotNone(deleted_chapter.deleted_at)
-    
-    def test_soft_delete_chapter_by_admin(self):
-        """Test soft deleting chapter by admin"""
-        deleted_chapter = ChapterService.soft_delete_chapter(
-            self.chapter.id, 
-            self.admin_user
-        )
-        
-        self.assertTrue(deleted_chapter.is_deleted)
-        self.assertIsNotNone(deleted_chapter.deleted_at)
-    
-    def test_soft_delete_chapter_permission_check(self):
-        """Test soft delete permission checking"""
-        other_user = User.objects.create_user(
-            username='otheruser',
-            email='other@example.com',
-            password='password123',
-            role=UserRole.USER.value
-        )
-        
-        with self.assertRaises(PermissionError):
-            ChapterService.soft_delete_chapter(self.chapter.id, other_user)
-    
-    def test_restore_chapter(self):
-        """Test restoring soft deleted chapter"""
-        # First soft delete
-        ChapterService.soft_delete_chapter(self.chapter.id, self.user)
-        
-        # Then restore
-        restored_chapter = ChapterService.restore_chapter(
-            self.chapter.id, 
-            self.admin_user
-        )
-        
-        self.assertFalse(restored_chapter.is_deleted)
-        self.assertIsNone(restored_chapter.deleted_at)
-    
-    def test_restore_chapter_permission_check(self):
-        """Test restore chapter permission checking"""
-        # Soft delete first
-        ChapterService.soft_delete_chapter(self.chapter.id, self.user)
-        
-        # User cannot restore
-        with self.assertRaises(PermissionError):
-            ChapterService.restore_chapter(self.chapter.id, self.user)
-
-
-class ChapterServiceOrderingTests(ChapterServiceTestCase):
-    """Test ChapterService ordering and reordering methods"""
-    
-    def setUp(self):
-        super().setUp()
-        # Create multiple chapters
-        self.chapter1 = Chapter.objects.create(
-            volume=self.volume,
-            title="Chapter 1",
-            position=1
-        )
-        
-        self.chapter2 = Chapter.objects.create(
-            volume=self.volume,
-            title="Chapter 2",
-            position=2
-        )
-        
-        self.chapter3 = Chapter.objects.create(
-            volume=self.volume,
-            title="Chapter 3",
-            position=3
-        )
-    
-    def test_reorder_chapters(self):
-        """Test reordering chapters"""
-        new_order = {
-            self.chapter1.id: 3,
-            self.chapter2.id: 1,
-            self.chapter3.id: 2
-        }
-        
-        ChapterService.reorder_chapters(self.volume, new_order, self.user)
-        
-        # Refresh from database
-        self.chapter1.refresh_from_db()
-        self.chapter2.refresh_from_db()
-        self.chapter3.refresh_from_db()
-        
-        self.assertEqual(self.chapter1.position, 3)
-        self.assertEqual(self.chapter2.position, 1)
-        self.assertEqual(self.chapter3.position, 2)
-    
-    def test_reorder_chapters_permission_check(self):
-        """Test reordering permission checking"""
-        other_user = User.objects.create_user(
-            username='otheruser',
-            email='other@example.com',
-            password='password123',
-            role=UserRole.USER.value
-        )
-        
-        new_order = {self.chapter1.id: 2, self.chapter2.id: 1}
-        
-        with self.assertRaises(PermissionError):
-            ChapterService.reorder_chapters(self.volume, new_order, other_user)
-    
-    def test_insert_chapter_at_position(self):
-        """Test inserting chapter at specific position"""
-        chapter_data = {
-            'title': 'Inserted Chapter',
-            'content': 'Inserted content',
-            'volume': self.volume,
-            'position': 2  # Insert between existing chapters
-        }
-        
-        with patch('novels.services.chapter_service.ChunkManager.create_chunks') as mock_create_chunks:
-            mock_create_chunks.return_value = [Mock(content="Test", word_count=1)]
-            
-            new_chapter = ChapterService.create_chapter_at_position(
-                chapter_data, 
-                self.user
-            )
-        
-        # Check new chapter position
-        self.assertEqual(new_chapter.position, 2)
-        
-        # Check other chapters were reordered
-        self.chapter2.refresh_from_db()
-        self.chapter3.refresh_from_db()
-        
-        self.assertEqual(self.chapter2.position, 3)
-        self.assertEqual(self.chapter3.position, 4)

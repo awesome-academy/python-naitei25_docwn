@@ -12,6 +12,7 @@ function initializeForm() {
     setupFormValidation();
     setupInputEventListeners();
     setupUnsavedChangesDetection();
+    setupAuthorArtistHandlers();
 }
 
 /**
@@ -21,21 +22,21 @@ function initializeSelect2() {
     if (typeof $.fn.select2 !== 'undefined') {
         // Author select2
         $('#id_author').select2({
-            placeholder: $('#id_author').data('placeholder') || "Select author...",
+            placeholder: $('#id_author').data('placeholder') || (window.gettext ? window.gettext("Chọn tác giả...") : "Chọn tác giả..."),
             allowClear: true,
             width: '100%'
         });
 
         // Artist select2
         $('#id_artist').select2({
-            placeholder: $('#id_artist').data('placeholder') || "Select artist...",
+            placeholder: $('#id_artist').data('placeholder') || (window.gettext ? window.gettext("Chọn họa sĩ...") : "Chọn họa sĩ..."),
             allowClear: true,
             width: '100%'
         });
 
         // Tags select2 (multiple)
         $('#id_tags').select2({
-            placeholder: $('#id_tags').data('placeholder') || "Select tags...",
+            placeholder: $('#id_tags').data('placeholder') || (window.gettext ? window.gettext("Chọn thẻ...") : "Chọn thẻ..."),
             allowClear: true,
             width: '100%'
         });
@@ -69,7 +70,7 @@ function setupFileInput() {
             // Validate file type
             const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
             if (!allowedTypes.includes(file.type)) {
-                const errorMsg = $form.data('file-type-error') || 'Please select a valid image file (JPEG, PNG, GIF, WebP)';
+                const errorMsg = $form.data('file-type-error') || (window.gettext ? window.gettext('Vui lòng chọn một tệp hình ảnh hợp lệ (JPEG, PNG, GIF, WebP)') : 'Vui lòng chọn một tệp hình ảnh hợp lệ (JPEG, PNG, GIF, WebP)');
                 alert(errorMsg); // Simple alert instead of notification
                 this.value = '';
                 return;
@@ -78,7 +79,7 @@ function setupFileInput() {
             // Validate file size (max 5MB)
             const maxSize = 5 * 1024 * 1024; // 5MB in bytes
             if (file.size > maxSize) {
-                const errorMsg = $form.data('file-size-error') || 'File size must be less than 5MB';
+                const errorMsg = $form.data('file-size-error') || (window.gettext ? window.gettext('Dung lượng tệp phải nhỏ hơn 5MB') : 'Dung lượng tệp phải nhỏ hơn 5MB');
                 alert(errorMsg); // Simple alert instead of notification
                 this.value = '';
                 return;
@@ -162,8 +163,8 @@ function validateForm() {
 
     // Required fields validation
     const requiredFields = [
-        { id: '#id_name', name: 'Novel name', label: $('#id_name').data('label') || 'Novel Name'},
-        { id: '#id_summary', name: 'summary', label: $('#id_summary').data('label') || 'Summary'}
+    { id: '#id_name', name: 'Tên truyện', label: $('#id_name').data('label') || (window.gettext ? window.gettext('Tên truyện') : 'Tên truyện')},
+    { id: '#id_summary', name: 'Tóm tắt', label: $('#id_summary').data('label') || (window.gettext ? window.gettext('Tóm tắt') : 'Tóm tắt')}
     ];
 
     requiredFields.forEach(function(field) {
@@ -172,7 +173,7 @@ function validateForm() {
         
         if (!value || !value.trim()) {
             $field.addClass('error');
-            const requiredMsg = $field.data('required-msg') || `${field.label} is required`;
+            const requiredMsg = $field.data('required-msg') || (window.gettext ? window.gettext(`${field.label} là bắt buộc`) : `${field.label} là bắt buộc`);
             errors.push(requiredMsg);
             isValid = false;
         } else {
@@ -184,7 +185,7 @@ function validateForm() {
     const nameValue = $('#id_name').val();
     if (nameValue && nameValue.trim().length < 3) {
         $('#id_name').addClass('error');
-        const minLengthMsg = $('#id_name').data('min-length-msg') || 'Novel name must be at least 3 characters long';
+    const minLengthMsg = $('#id_name').data('min-length-msg') || (window.gettext ? window.gettext('Tên truyện phải có ít nhất 3 ký tự') : 'Tên truyện phải có ít nhất 3 ký tự');
         errors.push(minLengthMsg);
         isValid = false;
     }
@@ -193,7 +194,7 @@ function validateForm() {
     const summaryValue = $('#id_summary').val();
     if (summaryValue && summaryValue.trim().length < 10) {
         $('#id_summary').addClass('error');
-        const minLengthMsg = $('#id_summary').data('min-length-msg') || 'Summary must be at least 10 characters long';
+    const minLengthMsg = $('#id_summary').data('min-length-msg') || (window.gettext ? window.gettext('Tóm tắt phải có ít nhất 10 ký tự') : 'Tóm tắt phải có ít nhất 10 ký tự');
         errors.push(minLengthMsg);
         isValid = false;
     }
@@ -213,7 +214,7 @@ function showValidationErrors() {
     const errors = JSON.parse(sessionStorage.getItem('formErrors') || '[]');
     
     if (errors.length > 0) {
-        const errorPrefix = $('#novelForm').data('error-prefix') || 'Please fix the following errors:';
+    const errorPrefix = $('#novelForm').data('error-prefix') || (window.gettext ? window.gettext('Vui lòng sửa các lỗi sau:') : 'Vui lòng sửa các lỗi sau:');
         const errorMessage = errorPrefix + '\n\n' + errors.join('\n');
         alert(errorMessage);
         
@@ -240,7 +241,7 @@ function showLoadingState() {
     const $submitBtn = $('.submit-btn');
     
     $form.addClass('form-loading');
-    const loadingText = $submitBtn.data('loading-text') || 'Creating...';
+    const loadingText = $submitBtn.data('loading-text') || (window.gettext ? window.gettext('Đang tạo...') : 'Đang tạo...');
     $submitBtn.prop('disabled', true).text(loadingText);
 }
 
@@ -252,7 +253,7 @@ function hideLoadingState() {
     const $submitBtn = $('.submit-btn');
     
     $form.removeClass('form-loading');
-    const defaultText = $submitBtn.data('default-text') || 'Submit';
+    const defaultText = $submitBtn.data('default-text') || (window.gettext ? window.gettext('Gửi') : 'Gửi');
     $submitBtn.prop('disabled', false).text(defaultText);
 }
 
@@ -303,7 +304,7 @@ function setupInputEventListeners() {
         $summaryField.on('input.charCounter', function() {
             const length = $(this).val().length;
             const maxLength = $(this).data('max-length') || 2000;
-            const counterTemplate = $(this).data('counter-template') || '{current}/{max} characters';
+            const counterTemplate = $(this).data('counter-template') || (window.gettext ? window.gettext('{current}/{max} ký tự') : '{current}/{max} ký tự');
             
             const counterText = counterTemplate.replace('{current}', length).replace('{max}', maxLength);
             $charCounter.text(counterText);
@@ -530,5 +531,144 @@ function discardChanges(redirectUrl) {
         window.location.href = redirectUrl;
     } else {
         window.history.back();
+    }
+}
+
+/**
+ * Setup handlers for author and artist create new options
+ */
+function setupAuthorArtistHandlers() {
+    // Handle author selection
+    $('#id_author').on('change', function() {
+        const selectedValue = $(this).val();
+        if (selectedValue === 'create_new_author') {
+            handleCreateNewAuthor();
+        }
+    });
+
+    // Handle artist selection
+    $('#id_artist').on('change', function() {
+        const selectedValue = $(this).val();
+        if (selectedValue === 'create_new_artist') {
+            handleCreateNewArtist();
+        }
+    });
+}
+
+/**
+ * Handle create new author
+ */
+function handleCreateNewAuthor() {
+    const authorCreateUrl = '/novels/requests/author/create/';
+    
+    // Open in a new window/tab
+    const newWindow = window.open(authorCreateUrl, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    
+    if (newWindow) {
+        // Reset the select to previous value
+        $('#id_author').val('').trigger('change');
+        
+        // Listen for messages from the new window
+        const messageHandler = function(event) {
+            if (event.origin !== window.location.origin) return;
+            
+            if (event.data && event.data.type === 'authorRequestCreated') {
+                // Add the new option to the select
+                const newOption = new Option(
+                    event.data.name + ' (Chờ duyệt)', 
+                    'author_request_' + event.data.id, 
+                    true, 
+                    true
+                );
+                $('#id_author').append(newOption).trigger('change');
+                
+                // Remove the event listener
+                window.removeEventListener('message', messageHandler);
+                
+                // Close the popup if still open
+                if (!newWindow.closed) {
+                    newWindow.close();
+                }
+                
+                // Show success message
+                if (typeof showNotification === 'function') {
+                    showNotification(window.gettext ? window.gettext('Yêu cầu thêm tác giả đã được tạo thành công!') : 'yêu cầu thêm tác giả đã được tạo thành công!', 'success');
+                } else {
+                    alert(window.gettext ? window.gettext('Yêu cầu thêm tác giả đã được tạo thành công!') : 'yêu cầu thêm tác giả đã được tạo thành công!');
+                }
+            }
+        };
+        
+        window.addEventListener('message', messageHandler);
+        
+        // Clean up if window is closed manually
+        const checkClosed = setInterval(function() {
+            if (newWindow.closed) {
+                window.removeEventListener('message', messageHandler);
+                clearInterval(checkClosed);
+            }
+        }, 1000);
+    } else {
+        // Popup blocked, redirect to the page
+        window.location.href = authorCreateUrl;
+    }
+}
+
+/**
+ * Handle create new artist
+ */
+function handleCreateNewArtist() {
+    const artistCreateUrl = '/novels/requests/artist/create/';
+    
+    // Open in a new window/tab
+    const newWindow = window.open(artistCreateUrl, '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    
+    if (newWindow) {
+        // Reset the select to previous value
+        $('#id_artist').val('').trigger('change');
+        
+        // Listen for messages from the new window
+        const messageHandler = function(event) {
+            if (event.origin !== window.location.origin) return;
+            
+            if (event.data && event.data.type === 'artistRequestCreated') {
+                // Add the new option to the select
+                const newOption = new Option(
+                    event.data.name + ' (Chờ duyệt)', 
+                    'artist_request_' + event.data.id, 
+                    true, 
+                    true
+                );
+                $('#id_artist').append(newOption).trigger('change');
+                
+                // Remove the event listener
+                window.removeEventListener('message', messageHandler);
+                
+                // Close the popup if still open
+                if (!newWindow.closed) {
+                    newWindow.close();
+                }
+                
+                // Show success message
+                if (typeof showNotification === 'function') {
+                    showNotification(window.gettext ? window.gettext('yêu cầu thêm họa sĩ đã được tạo thành công!') : 'yêu cầu thêm họa sĩ đã được tạo thành công!', 'success');
+                } else {
+                    alert(window.gettext ? window.gettext('yêu cầu thêm họa sĩ đã được tạo thành công!') : 'yêu cầu thêm họa sĩ đã được tạo thành công!');
+                }
+            }
+        };
+        
+        window.addEventListener('message', messageHandler);
+        
+        // Clean up if window is closed manually
+        const checkClosed = setInterval(function() {
+            if (newWindow.closed) {
+                window.removeEventListener('message', messageHandler);
+                clearInterval(checkClosed);
+            }
+        }, 1000);
+    } else {
+        // Popup blocked, redirect to the page
+        window.location.href = artistCreateUrl;
     }
 }

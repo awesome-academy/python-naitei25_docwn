@@ -4,7 +4,9 @@
     <thead>
         <tr>
             <th>{% trans "Tên" %}</th>
-            <th>{% trans "Bút danh" %}</th>
+            <th>{% trans "Nghệ danh" %}</th>
+            <th>{% trans "Giới tính" %}</th>
+            <th>{% trans "Quốc gia" %}</th>
             <th>{% trans "Hành động" %}</th>
         </tr>
     </thead>
@@ -12,7 +14,9 @@
         {% for artist in page_obj %}
         <tr>
             <td>{{ artist.name }}</td>
-            <td>{{ artist.pen_name }}</td>
+            <td>{{ artist.pen_name|default:"-" }}</td>
+            <td>{{ artist.get_gender_display|default:"-" }}</td>
+            <td>{{ artist.country|default:"-" }}</td>
             <td>
                 <button class="btn btn-sm btn-warning edit-btn" data-url="{% url 'admin:artist_update' artist.pk %}">{% trans "Sửa" %}</button>
                 <button class="btn btn-sm btn-danger delete-btn" data-url="{% url 'admin:artist_delete' artist.pk %}">{% trans "Xóa" %}</button>

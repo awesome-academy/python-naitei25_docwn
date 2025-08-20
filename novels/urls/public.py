@@ -12,6 +12,14 @@ urlpatterns = [
     path('search/', search_novels, name='search_novels'),
     path('like_novel/', liked_novels, name='liked_novels'),
     
+    # Author/Artist request routes
+    path('requests/author/create/', author_request_create, name='author_request_create'),
+    path('requests/author/', author_request_list, name='author_request_list'),
+    path('requests/author/<int:pk>/', author_request_detail, name='author_request_detail'),
+    path('requests/artist/create/', artist_request_create, name='artist_request_create'),
+    path('requests/artist/', artist_request_list, name='artist_request_list'),
+    path('requests/artist/<int:pk>/', artist_request_detail, name='artist_request_detail'),
+    
     # Novel and chapter routes
     path('<slug:novel_slug>/', novel_detail, name='novel_detail'),
     path('<slug:novel_slug>/chapters/', chapter_list_view, name='chapter_list'),

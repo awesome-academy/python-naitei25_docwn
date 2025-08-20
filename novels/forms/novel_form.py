@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_select2.forms import Select2MultipleWidget, Select2Widget
-from novels.models import Novel, Tag, Author, Artist
+from novels.models import Novel, Tag, Author, Artist, AuthorRequest, ArtistRequest
 from constants import (
     MIN_NOVEL_NAME_LENGTH,
     MIN_NOVEL_SUMMARY_LENGTH,
@@ -12,6 +12,7 @@ from constants import (
     DEFAULT_DRAFT_FALLBACK_NAME,
     DEFAULT_DRAFT_SUMMARY,
     ProgressStatus,
+    ApprovalStatus,
 )
 from common.utils import ExternalAPIManager
 
@@ -186,6 +187,22 @@ class NovelForm(forms.ModelForm):
         for author in Author.objects.all():
             author_choices.append((f"author_{author.id}", author.name))
 
+        # Add user's pending/approved author requests
+        if self.user:
+            user_author_requests = AuthorRequest.objects.filter(
+                created_by=self.user,
+                approval_status__in=[ApprovalStatus.PENDING.value, ApprovalStatus.APPROVED.value]
+            ).order_by('-created_at')
+            
+            for request in user_author_requests:
+                status_label = _("(Chờ duyệt)") if request.approval_status == ApprovalStatus.PENDING.value else _("(Đã duyệt)")
+                display_name = f"{request.get_display_name()} {status_label}"
+                author_choices.append((f"author_request_{request.id}", display_name))
+
+        # Add option to create new author request
+        if self.user:
+            author_choices.append(("create_new_author", _("+ Tạo yêu cầu thêm tác giả mới")))
+
         self.fields["author"].choices = author_choices
 
         # Populate artist choices
@@ -201,6 +218,22 @@ class NovelForm(forms.ModelForm):
         # Add existing artists (including user if they are already an artist)
         for artist in Artist.objects.all():
             artist_choices.append((f"artist_{artist.id}", artist.name))
+
+        # Add user's pending/approved artist requests
+        if self.user:
+            user_artist_requests = ArtistRequest.objects.filter(
+                created_by=self.user,
+                approval_status__in=[ApprovalStatus.PENDING.value, ApprovalStatus.APPROVED.value]
+            ).order_by('-created_at')
+            
+            for request in user_artist_requests:
+                status_label = _("(Chờ duyệt)") if request.approval_status == ApprovalStatus.PENDING.value else _("(Đã duyệt)")
+                display_name = f"{request.get_display_name()} {status_label}"
+                artist_choices.append((f"artist_request_{request.id}", display_name))
+
+        # Add option to create new artist request
+        if self.user:
+            artist_choices.append(("create_new_artist", _("+ Tạo yêu cầu thêm họa sĩ mới")))
 
         self.fields["artist"].choices = artist_choices
 
@@ -247,29 +280,53 @@ class NovelForm(forms.ModelForm):
 
     def clean_author(self):
         author = self.cleaned_data.get("author")
-        # Allow empty, "unknown", "me", or valid author IDs
-        if author and author not in ["", "unknown", "me"]:
-            if not author.startswith("author_"):
-                raise forms.ValidationError(_("Lựa chọn tác giả không hợp lệ."))
-            try:
-                author_id = int(author.replace("author_", ""))
-                if not Author.objects.filter(id=author_id).exists():
-                    raise forms.ValidationError(_("Tác giả được chọn không tồn tại."))
-            except ValueError:
+        # Allow empty, "unknown", "me", "create_new_author", or valid author IDs/requests
+        if author and author not in ["", "unknown", "me", "create_new_author"]:
+            if author.startswith("author_request_"):
+                try:
+                    request_id = int(author.replace("author_request_", ""))
+                    if not AuthorRequest.objects.filter(
+                        id=request_id,
+                        created_by=self.user,
+                        approval_status__in=[ApprovalStatus.PENDING.value, ApprovalStatus.APPROVED.value]
+                    ).exists():
+                        raise forms.ValidationError(_("Yêu cầu thêm tác giả được chọn không tồn tại hoặc không hợp lệ."))
+                except ValueError:
+                    raise forms.ValidationError(_("Lựa chọn tác giả không hợp lệ."))
+            elif author.startswith("author_"):
+                try:
+                    author_id = int(author.replace("author_", ""))
+                    if not Author.objects.filter(id=author_id).exists():
+                        raise forms.ValidationError(_("Tác giả được chọn không tồn tại."))
+                except ValueError:
+                    raise forms.ValidationError(_("Lựa chọn tác giả không hợp lệ."))
+            else:
                 raise forms.ValidationError(_("Lựa chọn tác giả không hợp lệ."))
         return author
 
     def clean_artist(self):
         artist = self.cleaned_data.get("artist")
-        # Allow empty, "unknown", "me", or valid artist IDs
-        if artist and artist not in ["", "unknown", "me"]:
-            if not artist.startswith("artist_"):
-                raise forms.ValidationError(_("Lựa chọn họa sĩ không hợp lệ."))
-            try:
-                artist_id = int(artist.replace("artist_", ""))
-                if not Artist.objects.filter(id=artist_id).exists():
-                    raise forms.ValidationError(_("Họa sĩ được chọn không tồn tại."))
-            except ValueError:
+        # Allow empty, "unknown", "me", "create_new_artist", or valid artist IDs/requests
+        if artist and artist not in ["", "unknown", "me", "create_new_artist"]:
+            if artist.startswith("artist_request_"):
+                try:
+                    request_id = int(artist.replace("artist_request_", ""))
+                    if not ArtistRequest.objects.filter(
+                        id=request_id,
+                        created_by=self.user,
+                        approval_status__in=[ApprovalStatus.PENDING.value, ApprovalStatus.APPROVED.value]
+                    ).exists():
+                        raise forms.ValidationError(_("yêu cầu thêm họa sĩ được chọn không tồn tại hoặc không hợp lệ."))
+                except ValueError:
+                    raise forms.ValidationError(_("Lựa chọn họa sĩ không hợp lệ."))
+            elif artist.startswith("artist_"):
+                try:
+                    artist_id = int(artist.replace("artist_", ""))
+                    if not Artist.objects.filter(id=artist_id).exists():
+                        raise forms.ValidationError(_("Họa sĩ được chọn không tồn tại."))
+                except ValueError:
+                    raise forms.ValidationError(_("Lựa chọn họa sĩ không hợp lệ."))
+            else:
                 raise forms.ValidationError(_("Lựa chọn họa sĩ không hợp lệ."))
         return artist
 
@@ -328,6 +385,7 @@ class NovelForm(forms.ModelForm):
         if not author_choice or author_choice == "unknown":
             # Empty choice or Unknown author -> set to null
             novel.author = None
+            novel.pending_author_request = None
         elif author_choice == "me" and self.user:
             # Create or get Author record for the user
             author, created = Author.objects.get_or_create(
@@ -335,20 +393,40 @@ class NovelForm(forms.ModelForm):
                 defaults={"description": f"Tác giả: {self.user.get_name()}"},
             )
             novel.author = author
+            novel.pending_author_request = None
+        elif author_choice and author_choice.startswith("author_request_"):
+            # Author request selected
+            request_id = author_choice.replace("author_request_", "")
+            try:
+                author_request = AuthorRequest.objects.get(id=int(request_id))
+                if author_request.approval_status == ApprovalStatus.APPROVED.value and author_request.created_author:
+                    # Use the approved author
+                    novel.author = author_request.created_author
+                    novel.pending_author_request = None
+                else:
+                    # Use the pending request
+                    novel.author = None
+                    novel.pending_author_request = author_request
+            except (AuthorRequest.DoesNotExist, ValueError):
+                novel.author = None
+                novel.pending_author_request = None
         elif author_choice and author_choice.startswith("author_"):
             # Existing author selected
             author_id = author_choice.replace("author_", "")
             try:
                 author = Author.objects.get(id=int(author_id))
                 novel.author = author
+                novel.pending_author_request = None
             except (Author.DoesNotExist, ValueError):
                 novel.author = None
+                novel.pending_author_request = None
 
         # Handle artist selection
         artist_choice = self.cleaned_data.get("artist")
         if not artist_choice or artist_choice == "unknown":
             # Empty choice or Unknown artist -> set to null
             novel.artist = None
+            novel.pending_artist_request = None
         elif artist_choice == "me" and self.user:
             # Create or get Artist record for the user
             artist, created = Artist.objects.get_or_create(
@@ -356,14 +434,33 @@ class NovelForm(forms.ModelForm):
                 defaults={"description": f"Họa sĩ: {self.user.get_name()}"},
             )
             novel.artist = artist
+            novel.pending_artist_request = None
+        elif artist_choice and artist_choice.startswith("artist_request_"):
+            # Artist request selected
+            request_id = artist_choice.replace("artist_request_", "")
+            try:
+                artist_request = ArtistRequest.objects.get(id=int(request_id))
+                if artist_request.approval_status == ApprovalStatus.APPROVED.value and artist_request.created_artist:
+                    # Use the approved artist
+                    novel.artist = artist_request.created_artist
+                    novel.pending_artist_request = None
+                else:
+                    # Use the pending request
+                    novel.artist = None
+                    novel.pending_artist_request = artist_request
+            except (ArtistRequest.DoesNotExist, ValueError):
+                novel.artist = None
+                novel.pending_artist_request = None
         elif artist_choice and artist_choice.startswith("artist_"):
             # Existing artist selected
             artist_id = artist_choice.replace("artist_", "")
             try:
                 artist = Artist.objects.get(id=int(artist_id))
                 novel.artist = artist
+                novel.pending_artist_request = None
             except (Artist.DoesNotExist, ValueError):
                 novel.artist = None
+                novel.pending_artist_request = None
 
         # Handle image upload
         image = self.cleaned_data.get("image_file")

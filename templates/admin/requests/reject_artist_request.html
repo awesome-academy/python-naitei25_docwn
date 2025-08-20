@@ -1,0 +1,76 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ title }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5>{% trans "Từ chối yêu cầu thêm họa sĩ" %}</h5>
+                        <p>{% trans "Bạn có chắc chắn muốn từ chối yêu cầu này không? Vui lòng cung cấp lý do để người dùng hiểu rõ nguyên nhân." %}</p>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5>{% trans "Thông tin yêu cầu" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>{% trans "Tên họa sĩ:" %}</strong></td>
+                                    <td>{{ request.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Người yêu cầu:" %}</strong></td>
+                                    <td>{{ request.created_by.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{% trans "Ngày tạo:" %}</strong></td>
+                                    <td>{{ request.created_at|date:"d/m/Y H:i" }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label for="rejected_reason" class="form-label">
+                                <strong>{% trans "Lý do từ chối *" %}</strong>
+                            </label>
+                            <textarea 
+                                id="rejected_reason" 
+                                name="rejected_reason" 
+                                class="form-control" 
+                                rows="4" 
+                                placeholder="{% trans 'Nhập lý do từ chối yêu cầu...' %}"
+                                required
+                            ></textarea>
+                            <div class="form-text">
+                                {% trans "Lý do này sẽ được gửi cho người dùng, vui lòng viết rõ ràng và lịch sự." %}
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'admin:artist_request_detail' request.pk %}" class="btn btn-secondary">
+                                {% trans "Hủy" %}
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                {% trans "Xác nhận từ chối" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

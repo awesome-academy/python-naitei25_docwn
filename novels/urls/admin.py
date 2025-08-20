@@ -14,6 +14,17 @@ urlpatterns = [
     path("requests/chapter/<slug:chapter_slug>/", chapter_review, name="chapter_review"),
     path("requests/chapter/<slug:chapter_slug>/approve/", approve_chapter_view, name="approve_chapter"),
     path("requests/chapter/<slug:chapter_slug>/reject/", reject_chapter_view, name="reject_chapter"),
+    
+    # Author/Artist request management
+    path("requests/author/", author_request_admin_list, name="author_request_list"),
+    path("requests/author/<int:pk>/", author_request_admin_detail, name="author_request_detail"),
+    path("requests/author/<int:pk>/approve/", approve_author_request, name="approve_author_request"),
+    path("requests/author/<int:pk>/reject/", reject_author_request, name="reject_author_request"),
+    path("requests/artist/", artist_request_admin_list, name="artist_request_list"),
+    path("requests/artist/<int:pk>/", artist_request_admin_detail, name="artist_request_detail"),
+    path("requests/artist/<int:pk>/approve/", approve_artist_request, name="approve_artist_request"),
+    path("requests/artist/<int:pk>/reject/", reject_artist_request, name="reject_artist_request"),
+    
     path("tags/", admin_tag_list, name="admin_tag_list"),
     path("tags/create/", admin_tag_create, name="admin_tag_create"),
     path("tags/<slug:tag_slug>/edit/", admin_tag_update, name="admin_tag_update"),

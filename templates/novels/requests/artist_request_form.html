@@ -1,0 +1,191 @@
+{% extends "base_home.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ title }}</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="artist-request-form">
+                        {% csrf_token %}
+                        <div id="ajax-error-box" class="alert alert-danger d-none" role="alert"></div>
+                        <div class="form-group mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.name.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="{{ form.pen_name.id_for_label }}" class="form-label">{{ form.pen_name.label }}</label>
+                            {{ form.pen_name }}
+                            {% if form.pen_name.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.pen_name.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="{{ form.description.id_for_label }}" class="form-label">{{ form.description.label }}</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.description.errors %}
+                                        <small>{{ error }}</small>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.birthday.id_for_label }}" class="form-label">{{ form.birthday.label }}</label>
+                                    {{ form.birthday }}
+                                    {% if form.birthday.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.birthday.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.deathday.id_for_label }}" class="form-label">{{ form.deathday.label }}</label>
+                                    {{ form.deathday }}
+                                    {% if form.deathday.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.deathday.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.gender.id_for_label }}" class="form-label">{{ form.gender.label }}</label>
+                                    {{ form.gender }}
+                                    {% if form.gender.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.gender.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="{{ form.country.id_for_label }}" class="form-label">{{ form.country.label }}</label>
+                                    {{ form.country }}
+                                    {% if form.country.errors %}
+                                        <div class="text-danger">
+                                            {% for error in form.country.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">
+                                {{ submit_text }}
+                            </button>
+                            <a href="{% url 'novels:artist_request_list' %}" class="btn btn-secondary">
+                                {% trans "Hủy" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#artist-request-form').on('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = $(this).find('button[type="submit"]');
+        const originalText = submitBtn.text();
+        submitBtn.prop('disabled', true).text('{% trans "Đang gửi..." %}');
+        
+        $.ajax({
+            url: $(this).attr('action'),
+            method: 'POST',
+            data: $(this).serialize(),
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Check if we're in a popup window
+                    if (window.opener) {
+                        // Send message to parent window
+                        window.opener.postMessage({
+                            type: 'artistRequestCreated',
+                            id: response.request_id,
+                            name: response.request_name
+                        }, window.location.origin);
+                        
+                        // Close the popup
+                        window.close();
+                    } else {
+                        // Regular redirect
+                        window.location.href = '{% url "novels:artist_request_list" %}';
+                    }
+                } else {
+                    // Handle form errors
+                    let errorBox = $('#ajax-error-box');
+                    let errorMsg = 'Có lỗi xảy ra. Vui lòng kiểm tra lại thông tin.';
+                    if (response.errors) {
+                        errorMsg += '<ul>';
+                        for (const field in response.errors) {
+                            response.errors[field].forEach(function(msg) {
+                                errorMsg += '<li>' + msg + '</li>';
+                            });
+                        }
+                        errorMsg += '</ul>';
+                    }
+                    errorBox.html(errorMsg).removeClass('d-none');
+                    submitBtn.prop('disabled', false).text(originalText);
+                }
+            },
+            error: function() {
+                let errorBox = $('#ajax-error-box');
+                errorBox.html('Có lỗi xảy ra. Vui lòng thử lại.').removeClass('d-none');
+                submitBtn.prop('disabled', false).text(originalText);
+        // Hide error box on input
+        $('#artist-request-form input, #artist-request-form textarea, #artist-request-form select').on('input change', function() {
+            $('#ajax-error-box').addClass('d-none').html('');
+        });
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

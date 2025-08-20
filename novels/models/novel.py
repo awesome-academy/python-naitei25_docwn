@@ -26,6 +26,13 @@ class Novel(models.Model):
     artist = models.ForeignKey(
         Artist, on_delete=models.SET_NULL, null=True, blank=True, related_name='novels'
     )
+    # Pending author/artist requests
+    pending_author_request = models.ForeignKey(
+        'AuthorRequest', on_delete=models.SET_NULL, null=True, blank=True, related_name='novels'
+    )
+    pending_artist_request = models.ForeignKey(
+        'ArtistRequest', on_delete=models.SET_NULL, null=True, blank=True, related_name='novels'
+    )
     tags = models.ManyToManyField(Tag, related_name='novels')
     image_url = models.TextField(null=True, blank=True)
     progress_status = models.CharField(

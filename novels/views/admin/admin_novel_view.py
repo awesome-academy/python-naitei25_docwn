@@ -129,7 +129,8 @@ def novel_request_detail(request, slug):
 @website_admin_required
 def admin_approve_novel(request, slug):
     """Approve novel using service"""
-    novel = NovelService.approve_novel(slug)
+    result = NovelService.approve_novel(slug)
+    novel = result.get('novel')
     if novel:
         notification = NotificationService.create_notification(
             user=novel.created_by,
@@ -144,11 +145,16 @@ def admin_approve_novel(request, slug):
             notification=notification,
             redirect_url=NotificationService.attach_link(notification)
         )
-
+    if result['success']:
         messages.success(request, _("Tiểu thuyết đã được phê duyệt thành công."))
     else:
-        messages.error(request, _("Không thể phê duyệt tiểu thuyết này."))
-        
+        if result.get('reason') == 'author_not_approved':
+            messages.error(request, _("Không thể phê duyệt tiểu thuyết này vì tác giả chưa được duyệt. Vui lòng duyệt yêu cầu thêm tác giả trước."))
+        elif result.get('reason') == 'novel_not_found':
+            messages.error(request, _("Không tìm thấy tiểu thuyết cần duyệt."))
+        else:
+            messages.error(request, _("Không thể phê duyệt tiểu thuyết này."))
+    
     return redirect('admin:upload_novel_requests')
 
 @require_POST

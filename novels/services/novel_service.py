@@ -48,7 +48,8 @@ class NovelService:
         """Get finished novels with their latest volumes and chapters"""
         finish_novels = Novel.objects.filter(
             progress_status=ProgressStatus.COMPLETED.value,
-            approval_status=ApprovalStatus.APPROVED.value
+            approval_status=ApprovalStatus.APPROVED.value,
+            volumes__chapters__isnull=False 
         ).order_by('-updated_at')
         
         novel_ids = list(finish_novels.values_list('id', flat=True)[:MAX_FINISH_NOVELS])
@@ -347,12 +348,25 @@ class NovelService:
         """Approve a pending novel"""
         try:
             novel = Novel.objects.get(slug=slug, approval_status=ApprovalStatus.PENDING.value)
+            
+            # Check if author is approved before approving novel
+            if novel.author:
+                # If novel has a direct author reference, check if author exists (means it's approved)
+                pass  # Author is already approved since it exists in Author table
+            elif novel.pending_author_request:
+                # If novel has pending author request, check if it's approved
+                if novel.pending_author_request.approval_status != ApprovalStatus.APPROVED.value:
+                    return {'success': False, 'reason': 'author_not_approved'}
+            else:
+                # Novel has no author - this might be allowed depending on business rules
+                # For now, we'll allow novels without authors to be approved
+                pass
+            
             novel.approval_status = ApprovalStatus.APPROVED.value
             novel.save()
-
-            return novel
+            return {'success': True, 'novel': novel}
         except Novel.DoesNotExist:
-            return False
+            return {'success': False, 'reason': 'novel_not_found'}
 
     @staticmethod
     def reject_novel(slug, reason=None):

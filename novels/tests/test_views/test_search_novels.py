@@ -77,7 +77,7 @@ class SearchNovelsFilterTests(SearchNovelsViewTestCase):
     """Test search novels with filters"""
 
     def test_filter_by_status(self):
-        response = self.client.get(self.url, {"status": "ongoing"})
+        response = self.client.get(self.url, {"status": ProgressStatus.ONGOING.value})
         self.assertEqual(response.status_code, HTTPStatus.OK)
         content = response.content.decode()
         self.assertIn("Alpha Novel", content)

@@ -49,6 +49,18 @@
             </a>
           </li>
           <li>
+            <a href="{% url 'novels:author_request_list' %}" class="menu-item">
+              <i class="bx bx-user-plus"></i>
+              <span>{% trans "Yêu cầu thêm tác giả" %}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'novels:artist_request_list' %}" class="menu-item">
+              <i class="bx bx-paint"></i>
+              <span>{% trans "Yêu cầu thêm họa sĩ" %}</span>
+            </a>
+          </li>
+          <li>
             <a href="{% url 'novels:novel_create' %}" class="menu-item">
               <i class="bx bx-plus-circle"></i>
               <span>{% trans "Đăng tiểu thuyết" %}</span>

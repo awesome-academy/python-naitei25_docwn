@@ -1,15 +1,60 @@
 from django import forms
 from novels.models import Artist
 from django.utils.translation import gettext_lazy as _
+from constants import Gender
 
 class ArtistForm(forms.ModelForm):
     class Meta:
         model = Artist
-        fields = ['name', 'pen_name']
+        fields = ['name', 'pen_name', 'description', 'birthday', 'deathday', 'gender', 'country', 'image_url']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'pen_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': _('Tên thật của họa sĩ'),
+            }),
+            'pen_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': _('Nghệ danh (nếu có)'),
+            }),
+            'description': forms.Textarea(attrs={
+                'class': 'form-control',
+                'rows': 4,
+                'placeholder': _('Mô tả về họa sĩ (tiểu sử, phong cách, thành tựu, v.v.)'),
+            }),
+            'birthday': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date',
+            }),
+            'deathday': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date',
+            }),
+            'gender': forms.Select(attrs={
+                'class': 'form-control',
+            }),
+            'country': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': _('Quốc gia'),
+            }),
+            'image_url': forms.URLInput(attrs={
+                'class': 'form-control',
+                'placeholder': _('URL hình ảnh'),
+            }),
         }
+        labels = {
+            'name': _('Tên họa sĩ *'),
+            'pen_name': _('Nghệ danh'),
+            'description': _('Mô tả'),
+            'birthday': _('Ngày sinh'),
+            'deathday': _('Ngày mất'),
+            'gender': _('Giới tính'),
+            'country': _('Quốc gia'),
+            'image_url': _('Hình ảnh'),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['gender'].choices = [('', _('--- Chọn giới tính ---'))] + Gender.choices()
 
     def clean_name(self):
         name = self.cleaned_data['name']
@@ -19,4 +64,13 @@ class ArtistForm(forms.ModelForm):
             raise forms.ValidationError(_("Họa sĩ này đã tồn tại."))
 
         return name
+
+    def clean_deathday(self):
+        birthday = self.cleaned_data.get('birthday')
+        deathday = self.cleaned_data.get('deathday')
+        
+        if birthday and deathday and deathday <= birthday:
+            raise forms.ValidationError(_("Ngày mất phải sau ngày sinh."))
+        
+        return deathday
 

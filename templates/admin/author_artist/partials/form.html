@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<div class="modal-dialog">
+<div class="modal-dialog modal-lg">
     <div class="modal-content">
         <form method="post" id="itemForm" action="{{ request.path }}">
             {% csrf_token %}
@@ -9,13 +9,67 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-3">
-                    {{ form.name.label_tag }}
-                    {{ form.name }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                                <div class="text-danger small">{{ form.name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.pen_name.label_tag }}
+                            {{ form.pen_name }}
+                            {% if form.pen_name.errors %}
+                                <div class="text-danger small">{{ form.pen_name.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.gender.label_tag }}
+                            {{ form.gender }}
+                            {% if form.gender.errors %}
+                                <div class="text-danger small">{{ form.gender.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.country.label_tag }}
+                            {{ form.country }}
+                            {% if form.country.errors %}
+                                <div class="text-danger small">{{ form.country.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            {{ form.birthday.label_tag }}
+                            {{ form.birthday }}
+                            {% if form.birthday.errors %}
+                                <div class="text-danger small">{{ form.birthday.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.deathday.label_tag }}
+                            {{ form.deathday }}
+                            {% if form.deathday.errors %}
+                                <div class="text-danger small">{{ form.deathday.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.image_url.label_tag }}
+                            {{ form.image_url }}
+                            {% if form.image_url.errors %}
+                                <div class="text-danger small">{{ form.image_url.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    {{ form.pen_name.label_tag }}
-                    {{ form.pen_name }}
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="text-danger small">{{ form.description.errors.0 }}</div>
+                    {% endif %}
                 </div>
             </div>
             <div class="modal-footer">

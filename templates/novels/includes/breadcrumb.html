@@ -11,7 +11,61 @@
     </li>
 
     <!-- Dynamic breadcrumb items based on current page -->
-    {% if request.resolver_match.url_name == 'novel_detail' and novel %}
+    {% if request.resolver_match.url_name == 'author_request_list' %}
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="fas fa-user-plus"></i>
+        {% trans "Yêu cầu thêm tác giả" %}
+      </li>
+    {% elif request.resolver_match.url_name == 'author_request_create' %}
+      <li class="breadcrumb-item">
+        <a href="{% url 'novels:author_request_list' %}">
+          <i class="fas fa-user-plus"></i>
+          {% trans "Yêu cầu thêm tác giả" %}
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="fas fa-plus"></i>
+        {% trans "Tạo yêu cầu thêm tác giả" %}
+      </li>
+    {% elif request.resolver_match.url_name == 'author_request_detail' %}
+      <li class="breadcrumb-item">
+        <a href="{% url 'novels:author_request_list' %}">
+          <i class="fas fa-user-plus"></i>
+          {% trans "yêu cầu thêm tác giả" %}
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="fas fa-info-circle"></i>
+        {% trans "Chi tiết yêu cầu thêm tác giả" %}
+      </li>
+    {% elif request.resolver_match.url_name == 'artist_request_list' %}
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="fas fa-paint-brush"></i>
+        {% trans "Yêu cầu thêm họa sĩ" %}
+      </li>
+    {% elif request.resolver_match.url_name == 'artist_request_create' %}
+      <li class="breadcrumb-item">
+        <a href="{% url 'novels:artist_request_list' %}">
+          <i class="fas fa-paint-brush"></i>
+          {% trans "Yêu cầu thêm họa sĩ" %}
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="fas fa-plus"></i>
+        {% trans "Tạo yêu cầu thêm họa sĩ" %}
+      </li>
+    {% elif request.resolver_match.url_name == 'artist_request_detail' %}
+      <li class="breadcrumb-item">
+        <a href="{% url 'novels:artist_request_list' %}">
+          <i class="fas fa-paint-brush"></i>
+          {% trans "yêu cầu thêm họa sĩ" %}
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <i class="fas fa-info-circle"></i>
+        {% trans "Chi tiết yêu cầu thêm họa sĩ" %}
+      </li>
+    {% elif request.resolver_match.url_name == 'novel_detail' and novel %}
       <li class="breadcrumb-item">
         <a href="{% url 'novels:home' %}">
           <i class="fas fa-book"></i>

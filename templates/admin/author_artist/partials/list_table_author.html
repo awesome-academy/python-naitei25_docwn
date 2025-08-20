@@ -5,6 +5,8 @@
         <tr>
             <th>{% trans "Tên" %}</th>
             <th>{% trans "Bút danh" %}</th>
+            <th>{% trans "Giới tính" %}</th>
+            <th>{% trans "Quốc gia" %}</th>
             <th>{% trans "Hành động" %}</th>
         </tr>
     </thead>
@@ -12,7 +14,9 @@
         {% for author in page_obj %}
         <tr>
             <td>{{ author.name }}</td>
-            <td>{{ author.pen_name }}</td>
+            <td>{{ author.pen_name|default:"-" }}</td>
+            <td>{{ author.get_gender_display|default:"-" }}</td>
+            <td>{{ author.country|default:"-" }}</td>
             <td>
                 <button class="btn btn-sm btn-warning edit-btn" data-url="{% url 'admin:author_update' author.pk %}">{% trans "Sửa" %}</button>
                 <button class="btn btn-sm btn-danger delete-btn" data-url="{% url 'admin:author_delete' author.pk %}">{% trans "Xóa" %}</button>

@@ -141,7 +141,7 @@ class NovelApprovalAdminViewTests(NovelAdminViewTestCase):
     @patch('novels.views.admin.admin_novel_view.NovelService.approve_novel')
     def test_approve_novel_success(self, mock_approve_novel):
         """Test successful novel approval"""
-        mock_approve_novel.return_value = self.pending_novel
+        mock_approve_novel.return_value = {'success': True}
         
         self.client.login(username='admin@example.com', password='password123')
         
@@ -185,3 +185,19 @@ class NovelApprovalAdminViewTests(NovelAdminViewTestCase):
         })
         
         self.assertEqual(response.status_code, HTTPStatus.FORBIDDEN)
+
+    @patch('novels.views.admin.admin_novel_view.NovelService.approve_novel')
+    def test_approve_novel_author_not_approved(self, mock_approve_novel):
+        """Test cannot approve novel when author is not approved"""
+        mock_approve_novel.return_value = {'success': False, 'reason': 'author_not_approved'}
+        
+        self.client.login(username='admin@example.com', password='password123')
+        
+        url = reverse('admin:admin_approve_novel', kwargs={'slug': self.pending_novel.slug})
+        response = self.client.post(url)
+        
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)  # Redirect after failure
+        mock_approve_novel.assert_called_once()
+        # Check that error message contains information about author not approved
+        messages = list(response.wsgi_request._messages)
+        self.assertTrue(any('tác giả chưa được duyệt' in str(message) for message in messages))

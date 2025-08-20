@@ -1,0 +1,203 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ title }}</h2>
+        <div>
+            {% if request.approval_status == PENDING %}
+                <a href="{% url 'admin:approve_artist_request' request.pk %}" class="btn btn-success">
+                    {% trans "Duyệt yêu cầu" %}
+                </a>
+                <a href="{% url 'admin:reject_artist_request' request.pk %}" class="btn btn-danger">
+                    {% trans "Từ chối yêu cầu" %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>{% trans "Thông tin họa sĩ" %}</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td width="30%"><strong>{% trans "Tên họa sĩ:" %}</strong></td>
+                            <td>{{ request.name }}</td>
+                        </tr>
+                        {% if request.pen_name %}
+                        <tr>
+                            <td><strong>{% trans "Nghệ danh:" %}</strong></td>
+                            <td>{{ request.pen_name }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if request.description %}
+                        <tr>
+                            <td><strong>{% trans "Mô tả:" %}</strong></td>
+                            <td>{{ request.description|linebreaks }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if request.birthday %}
+                        <tr>
+                            <td><strong>{% trans "Ngày sinh:" %}</strong></td>
+                            <td>{{ request.birthday|date:"d/m/Y" }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if request.deathday %}
+                        <tr>
+                            <td><strong>{% trans "Ngày mất:" %}</strong></td>
+                            <td>{{ request.deathday|date:"d/m/Y" }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if request.gender %}
+                        <tr>
+                            <td><strong>{% trans "Giới tính:" %}</strong></td>
+                            <td>
+                                {% if request.gender == MALE %}{% trans "Nam" %}
+                                {% elif request.gender == FEMALE %}{% trans "Nữ" %}
+                                {% else %}{% trans "Khác" %}{% endif %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if request.country %}
+                        <tr>
+                            <td><strong>{% trans "Quốc gia:" %}</strong></td>
+                            <td>{{ request.country }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+
+            {% if request.rejected_reason %}
+            <div class="card mt-4">
+                <div class="card-header bg-danger text-white">
+                    <h5>{% trans "Lý do từ chối" %}</h5>
+                </div>
+                <div class="card-body">
+                    {{ request.rejected_reason|linebreaks }}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Novels using this request -->
+            {% if novels_using_request %}
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5>{% trans "Tiểu thuyết sử dụng yêu cầu này" %}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>{% trans "Tên tiểu thuyết" %}</th>
+                                    <th>{% trans "Người tạo" %}</th>
+                                    <th>{% trans "Trạng thái" %}</th>
+                                    <th>{% trans "Hành động" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for novel in novels_using_request %}
+                                <tr>
+                                    <td>{{ novel.name }}</td>
+                                    <td>{{ novel.created_by.username }}</td>
+                                    <td>
+                                        {% if novel.approval_status == PENDING %}
+                                            <span class="badge bg-warning">{% trans "Chờ duyệt" %}</span>
+                                        {% elif novel.approval_status == APPROVED %}
+                                            <span class="badge bg-success">{% trans "Đã duyệt" %}</span>
+                                        {% elif novel.approval_status == REJECTED %}
+                                            <span class="badge bg-danger">{% trans "Bị từ chối" %}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{% trans "Nháp" %}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'admin:novel_request_detail' novel.slug %}" class="btn btn-sm btn-outline-primary">
+                                            {% trans "Xem chi tiết" %}
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{% trans "Thông tin yêu cầu" %}</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td><strong>{% trans "ID:" %}</strong></td>
+                            <td>#{{ request.id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{% trans "Người tạo:" %}</strong></td>
+                            <td>{{ request.created_by.username }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{% trans "Trạng thái:" %}</strong></td>
+                            <td>
+                                {% if request.approval_status == PENDING %}
+                                    <span class="badge bg-warning">{% trans "Chờ duyệt" %}</span>
+                                {% elif request.approval_status == APPROVED %}
+                                    <span class="badge bg-success">{% trans "Đã duyệt" %}</span>
+                                {% elif request.approval_status == REJECTED %}
+                                    <span class="badge bg-danger">{% trans "Bị từ chối" %}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{% trans "Nháp" %}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{% trans "Ngày tạo:" %}</strong></td>
+                            <td>{{ request.created_at|date:"d/m/Y H:i" }}</td>
+                        </tr>
+                        {% if request.updated_at != request.created_at %}
+                        <tr>
+                            <td><strong>{% trans "Ngày cập nhật:" %}</strong></td>
+                            <td>{{ request.updated_at|date:"d/m/Y H:i" }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if request.approved_by %}
+                        <tr>
+                            <td><strong>{% trans "Người duyệt:" %}</strong></td>
+                            <td>{{ request.approved_by.username }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if request.created_artist %}
+                        <tr>
+                            <td><strong>{% trans "Họa sĩ đã tạo:" %}</strong></td>
+                            <td>
+                                <a href="#" class="text-primary">{{ request.created_artist.name }}</a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'admin:artist_request_list' %}" class="btn btn-secondary">
+            {% trans "Quay lại danh sách" %}
+        </a>
+    </div>
+</div>
+{% endblock %}

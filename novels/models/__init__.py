@@ -1,5 +1,7 @@
 from .artist import Artist
 from .author import Author
+from .artist_request import ArtistRequest
+from .author_request import AuthorRequest
 from .novel import Novel
 from .reading_favorite import Favorite
 from .tag import Tag

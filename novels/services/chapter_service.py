@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 from django.core.paginator import Paginator
@@ -6,6 +7,7 @@ from novels.models import Chapter
 from constants import (
     PAGINATOR_COMMON_LIST,
     DEFAULT_PAGE_NUMBER,
+    ApprovalStatus
 )
 
 class ChapterService:
@@ -183,10 +185,45 @@ class ChapterService:
         }
         
     @staticmethod
-    def get_earliest_unapproved_chapter():
+    def get_earliest_unapproved_chapter(novel):
         return Chapter.objects.filter(
+            volume__novel=novel,
             approved=False,
             rejected_reason__isnull=True,
             is_hidden=False,
             deleted_at__isnull=True
         ).order_by('created_at').first()
+
+    @staticmethod
+    def create_chapter(form, novel):
+        """Create a new chapter from form"""
+        chapter = form.save()
+        return chapter
+
+    @staticmethod
+    def can_user_add_chapter(novel, user):
+        """Check if user can add chapter to novel"""
+        return (novel.created_by == user and
+                novel.approval_status == ApprovalStatus.APPROVED.value)
+
+    @staticmethod
+    def get_user_chapter_for_deletion(chapter_slug, novel_slug, user):
+        """Get chapter for deletion with ownership check"""
+        chapter = get_object_or_404(
+            Chapter.objects.select_related('volume__novel'),
+            slug=chapter_slug,
+            volume__novel__slug=novel_slug,
+            deleted_at__isnull=True
+        )
+        
+        if chapter.volume.novel.created_by != user:
+            return None
+        
+        return chapter
+
+    @staticmethod
+    def soft_delete_chapter(chapter):
+        """Perform soft delete on chapter"""
+        chapter.deleted_at = timezone.now()
+        chapter.save(update_fields=['deleted_at'])
+        return chapter

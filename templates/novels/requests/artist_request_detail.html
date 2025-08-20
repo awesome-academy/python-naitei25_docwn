@@ -1,0 +1,174 @@
+{% extends "base_home.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ title }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <strong>{% trans "Tên họa sĩ:" %}</strong>
+                        </div>
+                        <div class="col-md-9">
+                            {{ request.name }}
+                        </div>
+                    </div>
+
+                    {% if request.pen_name %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Nghệ danh:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                {{ request.pen_name }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if request.description %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Mô tả:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                {{ request.description|linebreaks }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if request.birthday %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Ngày sinh:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                {{ request.birthday|date:"d/m/Y" }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if request.deathday %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Ngày mất:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                {{ request.deathday|date:"d/m/Y" }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if request.gender %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Giới tính:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                {% if request.gender == MALE %}{% trans "Nam" %}
+                                {% elif request.gender == FEMALE %}{% trans "Nữ" %}
+                                {% else %}{% trans "Khác" %}{% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if request.country %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Quốc gia:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                {{ request.country }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <strong>{% trans "Trạng thái:" %}</strong>
+                        </div>
+                        <div class="col-md-9">
+                            {% if request.approval_status == PENDING %}
+                                <span class="badge bg-warning">{% trans "Chờ duyệt" %}</span>
+                            {% elif request.approval_status == APPROVED %}
+                                <span class="badge bg-success">{% trans "Đã duyệt" %}</span>
+                            {% elif request.approval_status == REJECTED %}
+                                <span class="badge bg-danger">{% trans "Bị từ chối" %}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{% trans "Nháp" %}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if request.rejected_reason %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Lý do từ chối:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="alert alert-danger">
+                                    {{ request.rejected_reason|linebreaks }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <strong>{% trans "Ngày tạo:" %}</strong>
+                        </div>
+                        <div class="col-md-9">
+                            {{ request.created_at|date:"d/m/Y H:i" }}
+                        </div>
+                    </div>
+
+                    {% if request.updated_at != request.created_at %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <strong>{% trans "Ngày cập nhật:" %}</strong>
+                            </div>
+                            <div class="col-md-9">
+                                {{ request.updated_at|date:"d/m/Y H:i" }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'novels:artist_request_list' %}" class="btn btn-secondary">
+                        {% trans "Quay lại danh sách" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{% trans "Thông tin yêu cầu" %}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>{% trans "ID:" %}</strong> #{{ request.id }}</p>
+                    <p><strong>{% trans "Người tạo:" %}</strong> {{ request.created_by.username }}</p>
+                    
+                    {% if request.approved_by %}
+                        <p><strong>{% trans "Người duyệt:" %}</strong> {{ request.approved_by.username }}</p>
+                    {% endif %}
+                    
+                    {% if request.created_artist %}
+                        <p><strong>{% trans "Họa sĩ đã tạo:" %}</strong> 
+                            <a href="#" class="text-primary">{{ request.created_artist.name }}</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

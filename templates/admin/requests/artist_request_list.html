@@ -1,0 +1,118 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+        <h2>{{ title }}</h2>
+        <form method="get" class="d-flex flex-wrap gap-2 align-items-center">
+            <input type="text" name="search" value="{{ search_query }}" class="form-control" placeholder="{% trans 'Tìm tên hoặc nghệ danh' %}" style="min-width:180px;">
+            <input type="text" name="creator" value="{{ creator }}" class="form-control" placeholder="{% trans 'Người tạo' %}" style="min-width:120px;">
+            <select name="status" class="form-select">
+                <option value="">{% trans 'Tất cả trạng thái' %}</option>
+                <option value="p" {% if status_filter == PENDING %}selected{% endif %}>{% trans 'Chờ duyệt' %}</option>
+                <option value="a" {% if status_filter == APPROVED %}selected{% endif %}>{% trans 'Đã duyệt' %}</option>
+                <option value="r" {% if status_filter == REJECTED %}selected{% endif %}>{% trans 'Bị từ chối' %}</option>
+            </select>
+            <button type="submit" class="btn btn-primary">{% trans 'Lọc' %}</button>
+        </form>
+    </div>
+
+    {% if page_obj %}
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>{% trans "ID" %}</th>
+                                <th>{% trans "Tên họa sĩ" %}</th>
+                                <th>{% trans "Nghệ danh" %}</th>
+                                <th>{% trans "Người tạo" %}</th>
+                                <th>{% trans "Trạng thái" %}</th>
+                                <th>{% trans "Ngày tạo" %}</th>
+                                <th>{% trans "Hành động" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for request in page_obj %}
+                                <tr>
+                                    <td>#{{ request.id }}</td>
+                                    <td>{{ request.name }}</td>
+                                    <td>{{ request.pen_name|default:"-" }}</td>
+                                    <td>{{ request.created_by.username }}</td>
+                                    <td>
+                                        {% if request.approval_status == PENDING %}
+                                            <span class="badge bg-warning">{% trans "Chờ duyệt" %}</span>
+                                        {% elif request.approval_status == APPROVED %}
+                                            <span class="badge bg-success">{% trans "Đã duyệt" %}</span>
+                                        {% elif request.approval_status == REJECTED %}
+                                            <span class="badge bg-danger">{% trans "Bị từ chối" %}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{% trans "Nháp" %}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ request.created_at|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{% url 'admin:artist_request_detail' request.pk %}" class="btn btn-sm btn-outline-primary">
+                                                {% trans "Chi tiết" %}
+                                            </a>
+                                            {% if request.approval_status == PENDING %}
+                                                <a href="{% url 'admin:approve_artist_request' request.pk %}" class="btn btn-sm btn-success">
+                                                    {% trans "Duyệt" %}
+                                                </a>
+                                                <a href="{% url 'admin:reject_artist_request' request.pk %}" class="btn btn-sm btn-danger">
+                                                    {% trans "Từ chối" %}
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                    <nav aria-label="{% trans 'Phân trang' %}">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}">{% trans "Trước" %}</a>
+                                </li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}{% if status_filter %}&status={{ status_filter }}{% endif %}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if status_filter %}&status={{ status_filter }}{% endif %}">{% trans "Sau" %}</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p>{% trans "Chưa có yêu cầu thêm họa sĩ nào." %}</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

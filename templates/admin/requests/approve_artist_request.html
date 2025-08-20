@@ -1,0 +1,72 @@
+{% extends "base_admin.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>{{ title }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5>{% trans "Xác nhận duyệt yêu cầu" %}</h5>
+                        <p>{% trans "Bạn có chắc chắn muốn duyệt yêu cầu thêm họa sĩ này không? Hành động này sẽ:" %}</p>
+                        <ul>
+                            <li>{% trans "Tạo một họa sĩ mới trong hệ thống" %}</li>
+                            <li>{% trans "Cập nhật tất cả tiểu thuyết đang sử dụng yêu cầu này" %}</li>
+                            <li>{% trans "Không thể hoàn tác sau khi thực hiện" %}</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>{% trans "Thông tin họa sĩ sẽ được tạo" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td><strong>{% trans "Tên:" %}</strong></td>
+                                    <td>{{ request.name }}</td>
+                                </tr>
+                                {% if request.pen_name %}
+                                <tr>
+                                    <td><strong>{% trans "Nghệ danh:" %}</strong></td>
+                                    <td>{{ request.pen_name }}</td>
+                                </tr>
+                                {% endif %}
+                                {% if request.description %}
+                                <tr>
+                                    <td><strong>{% trans "Mô tả:" %}</strong></td>
+                                    <td>{{ request.description|truncatewords:MAX_TRUNCATED_PERSON_DESCRIPTION_LENGTH }}</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <td><strong>{% trans "Người yêu cầu:" %}</strong></td>
+                                    <td>{{ request.created_by.username }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'admin:artist_request_detail' request.pk %}" class="btn btn-secondary">
+                                {% trans "Hủy" %}
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                {% trans "Xác nhận duyệt" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

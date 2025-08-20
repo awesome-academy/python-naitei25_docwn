@@ -1,0 +1,101 @@
+{% extends "base_home.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+{% include "novels/includes/breadcrumb.html" %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ title }}</h2>
+        <a href="{% url 'novels:artist_request_create' %}" class="btn btn-primary">
+            {% trans "Tạo yêu cầu thêm họa sĩ mới" %}
+        </a>
+    </div>
+    {% include "novels/requests/request_filter.html" %}
+    
+    {% if page_obj %}
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>{% trans "Tên họa sĩ" %}</th>
+                                <th>{% trans "Nghệ danh" %}</th>
+                                <th>{% trans "Trạng thái" %}</th>
+                                <th>{% trans "Ngày tạo" %}</th>
+                                <th>{% trans "Hành động" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for request in page_obj %}
+                                <tr>
+                                    <td>{{ request.name }}</td>
+                                    <td>{{ request.pen_name|default:"-" }}</td>
+                                    <td>
+                                        {% if request.approval_status == PENDING %}
+                                            <span class="badge bg-warning">{% trans "Chờ duyệt" %}</span>
+                                        {% elif request.approval_status == APPROVED %}
+                                            <span class="badge bg-success">{% trans "Đã duyệt" %}</span>
+                                        {% elif request.approval_status == REJECTED %}
+                                            <span class="badge bg-danger">{% trans "Bị từ chối" %}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{% trans "Nháp" %}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ request.created_at|date:"d/m/Y H:i" }}</td>
+                                    <td>
+                                        <a href="{% url 'novels:artist_request_detail' request.pk %}" class="btn btn-sm btn-outline-primary">
+                                            {% trans "Chi tiết" %}
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                {% if page_obj.has_other_pages %}
+                    <nav aria-label="{% trans 'Phân trang' %}">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Trước" %}</a>
+                                </li>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ num }}</span>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Sau" %}</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center">
+            <p>{% trans "Bạn chưa có yêu cầu thêm họa sĩ nào." %}</p>
+            <a href="{% url 'novels:artist_request_create' %}" class="btn btn-primary">
+                {% trans "Tạo yêu cầu thêm họa sĩ đầu tiên" %}
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

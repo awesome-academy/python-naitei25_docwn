@@ -121,7 +121,7 @@ def chapter_review(request, chapter_slug):
         'REJECTED': ApprovalStatus.REJECTED.value,
     })
     
-    earliest_unapproved_chapter = ChapterService.get_earliest_unapproved_chapter()
+    earliest_unapproved_chapter = ChapterService.get_earliest_unapproved_chapter(novel=chapter.volume.novel)
     
     if (earliest_unapproved_chapter and earliest_unapproved_chapter != chapter):
         context['unapproved_chapter_url'] = reverse(

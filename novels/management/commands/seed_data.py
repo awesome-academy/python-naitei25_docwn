@@ -92,7 +92,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         """Main command handler"""
         self.stdout.write("Starting seed data generation...")
-        
+        self.create_user_groups()
         # Extract options
         user_count = options['users']
         author_count = options['authors'] 
@@ -124,6 +124,18 @@ class Command(BaseCommand):
                 self.style.SUCCESS("Seed data generation completed successfully!")
             )
             
+            # Display login credentials for testing
+            self.stdout.write("\n" + "="*50)
+            self.stdout.write(self.style.WARNING("TEST LOGIN CREDENTIALS:"))
+            self.stdout.write("="*50)
+            self.stdout.write("Admin Account:")
+            self.stdout.write("  Email: admin@test.com")
+            self.stdout.write("  Password: admin123")
+            self.stdout.write("\nRegular Users:")
+            self.stdout.write("  Email: user1@test.com, user2@test.com, etc.")
+            self.stdout.write("  Password: 123456 (for all users)")
+            self.stdout.write("="*50 + "\n")
+            
         except Exception as e:
             self.stdout.write(
                 self.style.ERROR(f"Error during seed data generation: {e}")
@@ -145,21 +157,55 @@ class Command(BaseCommand):
         existing_users = list(User.objects.all())
         users.extend(existing_users)
         
-        for i in range(count):
-            username = fake.user_name()
-            # Ensure unique username
-            while User.objects.filter(username=username).exists():
-                username = fake.user_name()
+        # Create a known admin user if it doesn't exist
+        if not User.objects.filter(username='admin').exists():
+            admin_user = User.objects.create_user(
+                email='admin@test.com',
+                username='admin',
+                password='admin123',
+                role=UserRole.WEBSITE_ADMIN.value,
+                is_active=True,
+                is_staff=True,
+                is_superuser=True
+            )
+            admin_user.groups.add(users_group)
             
-            email = fake.email()
-            # Ensure unique email
+            # Create admin profile
+            UserProfile.objects.get_or_create(
+                user=admin_user,
+                defaults={
+                    'display_name': 'Administrator',
+                    'description': 'System Administrator Account',
+                    'interest': 'Managing the platform',
+                    'birthday': fake.date_of_birth(minimum_age=25, maximum_age=45),
+                    'gender': Gender.MALE.value
+                }
+            )
+            users.append(admin_user)
+            self.stdout.write(f"Created admin user: admin@test.com / admin123")
+        
+        for i in range(count):
+            # Create predictable usernames and emails for testing
+            username = f"user{i+1}"
+            email = f"user{i+1}@test.com"
+            
+            # Ensure unique username and email
+            counter = 1
+            base_username = username
+            base_email = email
+            while User.objects.filter(username=username).exists():
+                username = f"{base_username}_{counter}"
+                counter += 1
+            
+            counter = 1
             while User.objects.filter(email=email).exists():
-                email = fake.email()
+                email = f"user{i+1}_{counter}@test.com"
+                counter += 1
             
             user = User.objects.create_user(
                 email=email,
                 username=username,
-                password='password123',
+                password='123456',  # Simple, known password
                 role=random.choice([UserRole.USER.value, UserRole.WEBSITE_ADMIN.value]),
                 is_active=True
             )
@@ -177,6 +223,7 @@ class Command(BaseCommand):
                 }
             )
             users.append(user)
+            self.stdout.write(f"Created user: {email} / 123456")
         
         return users
 

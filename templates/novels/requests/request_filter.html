@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<form method="get" class="row mb-3 g-2">
+  <div class="col-md-3">
+    <input type="text" name="search" class="form-control"
+           placeholder="{% trans 'Tìm theo tên hoặc bút danh' %}"
+           value="{{ current_search|default_if_none:'' }}">
+  </div>
+  <div class="col-md-3">
+    <select name="status" class="form-select" onchange="this.form.submit()">
+      <option value="">{% trans "Tất cả trạng thái" %}</option>
+      <option value="{{ PENDING }}" {% if current_status == PENDING %}selected{% endif %}>{% trans "Chờ duyệt" %}</option>
+      <option value="{{ APPROVED }}" {% if current_status == APPROVED %}selected{% endif %}>{% trans "Đã duyệt" %}</option>
+      <option value="{{ REJECTED }}" {% if current_status == REJECTED %}selected{% endif %}>{% trans "Bị từ chối" %}</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <select name="gender" class="form-select" onchange="this.form.submit()">
+      <option value="">{% trans "Tất cả giới tính" %}</option>
+      <option value="{{ MALE }}" {% if current_gender == MALE %}selected{% endif %}>{% trans "Nam" %}</option>
+      <option value="{{ FEMALE }}" {% if current_gender == FEMALE %}selected{% endif %}>{% trans "Nữ" %}</option>
+    </select>
+  </div>
+  <div class="col-md-3">
+    <button type="submit" class="btn btn-primary w-100">{% trans "Lọc" %}</button>
+  </div>
+</form>

@@ -126,15 +126,14 @@ def chapter_add_view(request, novel_slug):
     novel = get_object_or_404(Novel, slug=novel_slug)
     
     # Check permissions
-    if (novel.created_by != request.user or
-            novel.approval_status != ApprovalStatus.APPROVED.value):
+    if not ChapterService.can_user_add_chapter(novel, request.user):
         messages.error(request, _("Bạn không có quyền thêm chapter cho truyện này."))
         return redirect('novels:novel_detail', novel_slug=novel.slug)
     
     if request.method == 'POST':
         form = ChapterForm(novel=novel, data=request.POST)
         if form.is_valid():
-            chapter = form.save()
+            chapter = ChapterService.create_chapter(form, novel)
             messages.success(request, _("Chapter đã được thêm thành công!"))
             return redirect('novels:novel_detail', novel_slug=novel.slug)
     else:
@@ -150,21 +149,14 @@ def chapter_add_view(request, novel_slug):
 @require_http_methods(["POST"])
 def chapter_delete_view(request, novel_slug, chapter_slug):
     """Soft delete a chapter"""
-    chapter = get_object_or_404(
-        Chapter.objects.select_related('volume__novel'),
-        slug=chapter_slug,
-        volume__novel__slug=novel_slug,
-        deleted_at__isnull=True
-    )
+    chapter = ChapterService.get_user_chapter_for_deletion(chapter_slug, novel_slug, request.user)
     
-    # Check ownership
-    if chapter.volume.novel.created_by != request.user:
+    if not chapter:
         messages.error(request, _("Bạn không có quyền xóa chapter này."))
         return redirect('novels:novel_detail', novel_slug=novel_slug)
     
     # Perform soft delete
-    chapter.deleted_at = timezone.now()
-    chapter.save(update_fields=['deleted_at'])
+    ChapterService.soft_delete_chapter(chapter)
     
     messages.success(request, _("Chapter đã được xóa thành công."))
     return redirect('novels:novel_detail', novel_slug=novel_slug)

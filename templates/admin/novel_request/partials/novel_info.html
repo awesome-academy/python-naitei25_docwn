@@ -11,11 +11,29 @@
         <span class="badge bg-secondary me-1">{{ tag.name }}</span>
       {% endfor %}
     </div>
-    <p><strong>{% trans "Tác giả:" %}</strong>
-      {% if novel.author %}{{ novel.author.name }}{% else %}{% trans "Không rõ" %}{% endif %}
+    <p><strong>{% trans "Tác giả:" %}</strong> 
+      {% if novel.author %}
+        {{ novel.author.name }}
+      {% elif novel.pending_author_request %}
+        <a href="{% url 'admin:author_request_detail' novel.pending_author_request.pk %}" class="text-warning">
+          {{ novel.pending_author_request.get_display_name }} 
+          <span class="badge bg-warning ms-1">{% trans "Chờ duyệt" %}</span>
+        </a>
+      {% else %}
+        <span class="text-muted">{% trans "Không rõ" %}</span>
+      {% endif %}
     </p>
-    <p><strong>{% trans "Họa sĩ:" %}</strong>
-      {% if novel.artist %}{{ novel.artist.name }}{% else %}{% trans "Không rõ" %}{% endif %}
+    <p><strong>{% trans "Họa sĩ:" %}</strong> 
+      {% if novel.artist %}
+        {{ novel.artist.name }}
+      {% elif novel.pending_artist_request %}
+        <a href="{% url 'admin:artist_request_detail' novel.pending_artist_request.pk %}" class="text-warning">
+          {{ novel.pending_artist_request.get_display_name }} 
+          <span class="badge bg-warning ms-1">{% trans "Chờ duyệt" %}</span>
+        </a>
+      {% else %}
+        <span class="text-muted">{% trans "Không rõ" %}</span>
+      {% endif %}
     </p>
     <p><strong>{% trans "Ngày gửi yêu cầu:" %}</strong> {{ novel.created_at|localtime_format:DATE_FORMAT_DMYHI }}</p>
     <p><strong>{% trans "Trạng thái hiện tại:" %}</strong>
