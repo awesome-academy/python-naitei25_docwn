@@ -94,7 +94,7 @@ class ReportStatusChoices:
 START_POSITION_DEFAULT = 1
 PROGRESS_DEFAULT = 0.0
 COUNT_DEFAULT = 0
-LIMIT_DEFAULT = 10
+LIMIT_DEFAULT = 3
 OFFSET_DEFAULT = 0
 DEFAULT_TIMEOUT = 5.0
 
@@ -161,6 +161,7 @@ MAX_NOVEL_IMAGE_SIZE = 5 * 1024 * 1024  # 5MB
 PAGINATOR_TAG_LIST = 10  # Increased for better consistency
 PAGINATOR_COMMENT_LIST = 7
 PAGINATOR_COMMON_LIST = 10  # Increased for better consistency
+PAGINATOR_REVIEW_LIST = 10
 DEFAULT_PAGE_NUMBER = 1
 
 # Allowed image types for novel uploads

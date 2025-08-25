@@ -12,4 +12,5 @@ urlpatterns = [
         name='notification_mark_read'
     ),
     path("<slug:novel_slug>/comments/", views.novel_comments, name="novel_comments"),
+    path('<slug:novel_slug>/reviews/', views.novel_reviews, name='novel_reviews'),
 ]

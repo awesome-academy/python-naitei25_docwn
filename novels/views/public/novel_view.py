@@ -13,7 +13,7 @@ from constants import (
     ApprovalStatus, ProgressStatus, DATE_FORMAT_DMY, MAX_CHAPTER_LIST,
     MAX_CHAPTER_LIST_PLUS, DATE_FORMAT_DMYHI, SEARCH_RESULTS_LIMIT,
     MAX_TRUNCATED_REJECTED_REASON_LENGTH, PAGINATION_PAGE_RANGE,
-    SUMMARY_TRUNCATE_WORDS, DEFAULT_RATING_AVERAGE,
+    SUMMARY_TRUNCATE_WORDS, DEFAULT_RATING_AVERAGE, MIN_RATE, MAX_RATE
 )
 from common.decorators import require_active_novel
 
@@ -34,7 +34,8 @@ def novel_detail(request, novel_slug):
         'can_add_chapter': novel_data['can_add_chapter'],
         'DATE_FORMAT_DMY': DATE_FORMAT_DMY,
         'MAX_CHAPTER_LIST': MAX_CHAPTER_LIST,
-        'MAX_CHAPTER_LIST_PLUS': MAX_CHAPTER_LIST_PLUS
+        'MAX_CHAPTER_LIST_PLUS': MAX_CHAPTER_LIST_PLUS,
+        'rating_stars': range(MIN_RATE + 1, MAX_RATE + 1),
     }
     return render(request, "novels/pages/novel_detail.html", context)
 

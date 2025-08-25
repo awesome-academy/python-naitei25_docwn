@@ -1,0 +1,52 @@
+{% load i18n %}
+
+<div class="reviews-section" data-novel-slug="{{ novel.slug }}">
+    <div class="reviews-header">
+        <h3 class="reviews-title">
+            {% trans "Đánh giá" %}
+            <span class="review-count">({{ novel.total_reviews }})</span>
+        </h3>
+    </div>
+
+    <!-- Rating Filter -->
+    <div class="reviews-filter">
+        <select id="rating-filter" class="rating-filter-select">
+            <option value="">{% trans "Tất cả đánh giá" %}</option>
+            {% for rating in rating_stars %}
+            <option value="{{ rating }}">{{ rating }} {% trans "sao" %}</option>
+            {% endfor %}
+        </select>
+        
+        <select id="sort-filter" class="sort-filter-select">
+            <option value="-created_at">{% trans "Mới nhất" %}</option>
+            <option value="created_at">{% trans "Cũ nhất" %}</option>
+            <option value="-rating">{% trans "Đánh giá cao nhất" %}</option>
+            <option value="rating">{% trans "Đánh giá thấp nhất" %}</option>
+        </select>
+    </div>
+
+    <!-- Reviews List -->
+    <div class="reviews-list" id="reviews-list">
+        <div class="reviews-loading">
+            <div class="loading-spinner"></div>
+            <p>{% trans "Đang tải đánh giá..." %}</p>
+        </div>
+    </div>
+
+    <!-- Load More Button -->
+    <div class="load-more-container" style="display: none;">
+        <button id="load-more-reviews" class="load-more-btn">
+            <i class="fas fa-chevron-down"></i>
+            {% trans "Tải thêm đánh giá" %}
+        </button>
+    </div>
+
+    <!-- Empty State -->
+    <div class="reviews-empty" style="display: none;">
+        <div class="empty-icon">
+            <i class="far fa-comment-alt"></i>
+        </div>
+        <h4>{% trans "Chưa có đánh giá nào" %}</h4>
+        <p>{% trans "Hãy là người đầu tiên chia sẻ cảm nhận về cuốn tiểu thuyết này!" %}</p>
+    </div>
+</div>

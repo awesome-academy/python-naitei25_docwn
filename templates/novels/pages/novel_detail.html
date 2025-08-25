@@ -7,9 +7,12 @@
 <link rel="stylesheet" href="{% static 'novels/css/novel.detail.css' %}">
 <link rel="stylesheet" href="{% static 'novels/css/fontawesome.all.min.css' %}">
 <link rel="stylesheet" href="{% static 'interactions/css/comments.css' %}">
+<link rel="stylesheet" href="{% static 'interactions/css/reviews.css' %}">
+
 <script src="{% static 'novels/js/jquery.min.js' %}"></script>
 <script src="{% static 'interactions/js/comment.load.js' %}"></script>
 <script src="{% static 'interactions/js/comment_pagination.js' %}"></script>
+<script src="{% static 'interactions/js/reviews.js' %}"></script>
 <script src="{% static 'novels/js/summary-toggle.js' %}" defer></script>
 <script src="{% static 'novels/js/chapter-toggle.js' %}" defer></script>
 <script src="{% static 'novels/js/toc-popup.js' %}" defer></script>
@@ -36,6 +39,8 @@
         </div>
 
         {% include "novels/includes/volume_list.html" %}
+        
+        {% include "interactions/includes/reviews.html" %}
         
         <div id="comment-container"
         data-url="{% url 'interactions:novel_comments' novel.slug %}">
