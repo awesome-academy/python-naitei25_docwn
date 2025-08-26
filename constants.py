@@ -91,6 +91,36 @@ class ReportStatusChoices:
         (RESOLVED, _('Đã xử lý')),
     )
 
+class RequestStatusChoices:
+    PENDING = 'PENDING'
+    PROCESSED = 'PROCESSED'
+    
+    CHOICES = (
+        (PENDING, _('Chờ xử lý')),
+        (PROCESSED, _('Đã xử lý')),
+    )
+
+class RequestSortChoices:
+    CREATED_DESC = '-created_at'
+    CREATED_ASC = 'created_at'
+    TITLE_ASC = 'title'
+    TITLE_DESC = '-title'
+    STATUS_ASC = 'status'
+    STATUS_DESC = '-status'
+    USER_ASC = 'user__username'
+    USER_DESC = '-user__username'
+    
+    CHOICES = (
+        (CREATED_DESC, _('Ngày tạo (mới nhất)')),
+        (CREATED_ASC, _('Ngày tạo (cũ nhất)')),
+        (TITLE_ASC, _('Tiêu đề (A-Z)')),
+        (TITLE_DESC, _('Tiêu đề (Z-A)')),
+        (STATUS_ASC, _('Trạng thái (chờ xử lý trước)')),
+        (STATUS_DESC, _('Trạng thái (đã xử lý trước)')),
+        (USER_ASC, _('Người gửi (A-Z)')),
+        (USER_DESC, _('Người gửi (Z-A)')),
+    )
+
 START_POSITION_DEFAULT = 1
 PROGRESS_DEFAULT = 0.0
 COUNT_DEFAULT = 0
@@ -114,6 +144,8 @@ MAX_STATUS_LENGTH = 1
 MAX_ROLE_LENGTH = 2
 MAX_REASON_LENGTH = 20
 MAX_REPORT_STATUS_LENGTH = 20
+MAX_REQUEST_STATUS_LENGTH = 20
+MAX_REQUEST_TITLE_LENGTH = 255
 MAX_SESSION_REMEMBER = 1209600
 MAX_RATE = 5
 MAX_TOKEN_LENGTH = 255
@@ -164,6 +196,8 @@ PAGINATOR_TAG_LIST = 10  # Increased for better consistency
 PAGINATOR_COMMENT_LIST = 7
 PAGINATOR_COMMON_LIST = 10  # Increased for better consistency
 PAGINATOR_REVIEW_LIST = 10
+PAGINATOR_REQUEST_LIST = 10  # For user requests
+PAGINATOR_ADMIN_REQUEST_LIST = 20  # For admin requests
 DEFAULT_PAGE_NUMBER = 1
 
 # Allowed image types for novel uploads

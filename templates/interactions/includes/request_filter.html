@@ -1,0 +1,45 @@
+{% load i18n %}
+
+<!-- Filter and Sort Form -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label for="search" class="form-label">{% trans "Tìm kiếm" %}</label>
+                <input type="text" name="search" id="search" class="form-control" 
+                       value="{{ current_search }}" placeholder="{{ search_placeholder }}">
+            </div>
+            <div class="col-md-3">
+                <label for="status" class="form-label">{% trans "Trạng thái" %}</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="">{{ all_status_text }}</option>
+                    {% for value, label in status_choices %}
+                        <option value="{{ value }}" {% if current_status_filter == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="sort" class="form-label">{% trans "Sắp xếp theo" %}</label>
+                <select name="sort" id="sort" class="form-select">
+                    {% for value, label in sort_choices %}
+                        <option value="{{ value }}" {% if current_sort == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bx bx-search me-1"></i>
+                    {% trans "Tìm kiếm" %}
+                </button>
+                <a href="{% url 'interactions:my_requests' %}" class="btn btn-secondary">
+                    <i class="bx bx-refresh me-1"></i>
+                    {% trans "Đặt lại" %}
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

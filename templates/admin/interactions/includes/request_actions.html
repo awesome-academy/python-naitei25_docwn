@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div class="btn-group" role="group">
+    <a href="{% url 'interactions:admin_request_detail' request_obj.id %}" 
+       class="btn btn-sm btn-outline-primary" 
+       title="{% trans 'Xem chi tiết' %}">
+        <i class="bx bx-show"></i>
+    </a>
+    {% if can_mark_processed %}
+        <form method="post" 
+              action="{% url 'interactions:admin_mark_processed' request_obj.id %}" 
+              class="d-inline">
+            {% csrf_token %}
+            <button type="submit" 
+                    class="btn btn-sm btn-outline-success" 
+                    title="{% trans 'Đánh dấu đã xử lý' %}"
+                    onclick="return confirm('{% trans 'Bạn có chắc muốn đánh dấu yêu cầu này đã được xử lý?' %}')">
+                <i class="bx bx-check"></i>
+            </button>
+        </form>
+    {% endif %}
+</div>

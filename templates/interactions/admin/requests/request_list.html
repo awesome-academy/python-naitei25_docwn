@@ -1,0 +1,28 @@
+{% extends "base_admin.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'interactions/css/admin_request.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bx bx-support me-2"></i>
+        {{ page_title }}
+    </h2>
+</div>
+
+<!-- Always show filter form -->
+{% include "interactions/admin/includes/admin_request_filter.html" %}
+
+{% if requests %}
+    {% include "interactions/admin/includes/admin_request_table.html" %}
+    {% include "interactions/admin/includes/admin_request_pagination.html" %}
+{% else %}
+    {% include "interactions/admin/includes/admin_request_empty_state.html" %}
+{% endif %}
+{% endblock %}

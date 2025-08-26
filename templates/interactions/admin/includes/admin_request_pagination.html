@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<!-- Pagination -->
+{% if requests.has_other_pages %}
+    <nav aria-label="{% trans 'Phân trang yêu cầu' %}" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if requests.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ requests.previous_page_number }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_search %}&search={{ current_search }}{% endif %}{% if current_user_filter %}&user={{ current_user_filter }}{% endif %}{% if current_date_from %}&date_from={{ current_date_from }}{% endif %}{% if current_date_to %}&date_to={{ current_date_to }}{% endif %}">
+                        <i class="bx bx-chevron-left"></i>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% for num in requests.paginator.page_range %}
+                {% if requests.number == num %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ num }}</span>
+                    </li>
+                {% elif num > requests.number|add:'-3' and num < requests.number|add:'3' %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_search %}&search={{ current_search }}{% endif %}{% if current_user_filter %}&user={{ current_user_filter }}{% endif %}{% if current_date_from %}&date_from={{ current_date_from }}{% endif %}{% if current_date_to %}&date_to={{ current_date_to }}{% endif %}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if requests.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ requests.next_page_number }}{% if current_status_filter %}&status={{ current_status_filter }}{% endif %}{% if current_sort %}&sort={{ current_sort }}{% endif %}{% if current_search %}&search={{ current_search }}{% endif %}{% if current_user_filter %}&user={{ current_user_filter }}{% endif %}{% if current_date_from %}&date_from={{ current_date_from }}{% endif %}{% if current_date_to %}&date_to={{ current_date_to }}{% endif %}">
+                        <i class="bx bx-chevron-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}
