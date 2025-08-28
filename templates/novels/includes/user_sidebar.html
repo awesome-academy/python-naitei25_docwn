@@ -49,6 +49,12 @@
             </a>
           </li>
           <li>
+            <a href="{% url 'accounts:profile' user_name|default:user.username %}" class="menu-item">
+              <i class="bx bx-user-circle"></i>
+              <span>{% trans "Trang cá nhân" %}</span>
+            </a>
+          </li>
+          <li>
             <a href="{% url 'novels:reading_history' %}" class="menu-item">
               <i class="bx bx-history"></i>
               <span>{% trans "Lịch sử đọc" %}</span>

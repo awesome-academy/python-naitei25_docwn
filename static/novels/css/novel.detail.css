@@ -879,3 +879,14 @@ hr {
     left: auto;
     transform: translateX(0);
 }
+
+[data-bs-theme="dark"] .rejection-box {
+    background: #dc3545;
+    border: 1px solid #7f1d1d;
+    color: #ffb3b3;
+}
+
+[data-bs-theme="dark"] .rejection-header {
+    background: #7f1d1d;
+    color: #ffb3b3;
+}

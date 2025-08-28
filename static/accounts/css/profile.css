@@ -186,3 +186,11 @@
         margin-bottom: 0;
     }
 }
+
+/* Dark mode */
+[data-bs-theme="dark"] .text-center.text-muted.py-4 {
+    background: linear-gradient(135deg, #2c2f33, #23272a);
+    border-radius: 10px;
+    margin: 20px 0;
+    color: #f1f3f4; /* chữ sáng cho dễ nhìn */
+}
