@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load request_tags %}
+
+<tr>
+    <td>{{ request_obj.id }}</td>
+    <td>
+        <a href="{% url 'interactions:admin_request_detail' request_obj.id %}" 
+           class="text-decoration-none">
+            {{ request_obj.title|truncatechars:title_truncate_length }}
+        </a>
+    </td>
+    <td>{{ request_obj.user.get_name }}</td>
+    <td>
+        {{ request_obj|request_status_badge }}
+    </td>
+    <td>{{ request_obj.created_at|date:date_format }}</td>
+    <td>
+        {% if request_obj.processed_at %}
+            {{ request_obj.processed_at|date:date_format }}
+        {% else %}
+            <span class="text-muted">{{ not_processed_text }}</span>
+        {% endif %}
+    </td>
+    <td>
+        {% request_admin_actions request_obj user %}
+    </td>
+</tr>

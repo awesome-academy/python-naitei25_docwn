@@ -1,0 +1,55 @@
+{% load i18n %}
+
+<tr>
+    <td>{{ request_obj.id }}</td>
+    <td>
+        <a href="{% url 'interactions:admin_request_detail' request_obj.id %}" 
+           class="text-decoration-none">
+            {{ request_obj.title|truncatechars:50 }}
+        </a>
+    </td>
+    <td>{{ request_obj.user.get_name }}</td>
+    <td>
+        {% if request_obj.is_pending %}
+            <span class="badge bg-warning text-dark">
+                <i class="bx bx-clock me-1"></i>
+                {% trans "Chờ xử lý" %}
+            </span>
+        {% else %}
+            <span class="badge bg-success">
+                <i class="bx bx-check me-1"></i>
+                {% trans "Đã xử lý" %}
+            </span>
+        {% endif %}
+    </td>
+    <td>{{ request_obj.created_at|date:"d/m/Y H:i" }}</td>
+    <td>
+        {% if request_obj.processed_at %}
+            {{ request_obj.processed_at|date:"d/m/Y H:i" }}
+        {% else %}
+            <span class="text-muted">-</span>
+        {% endif %}
+    </td>
+    <td>
+        <div class="btn-group" role="group">
+            <a href="{% url 'interactions:admin_request_detail' request_obj.id %}" 
+               class="btn btn-sm btn-outline-primary" 
+               title="{% trans 'Xem chi tiết' %}">
+                <i class="bx bx-show"></i>
+            </a>
+            {% if request_obj.is_pending %}
+                <form method="post" 
+                      action="{% url 'interactions:admin_mark_processed' request_obj.id %}" 
+                      class="d-inline">
+                    {% csrf_token %}
+                    <button type="submit" 
+                            class="btn btn-sm btn-outline-success" 
+                            title="{% trans 'Đánh dấu đã xử lý' %}"
+                            onclick="return confirm('{% trans 'Bạn có chắc muốn đánh dấu yêu cầu này đã được xử lý?' %}')">
+                        <i class="bx bx-check"></i>
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </td>
+</tr>

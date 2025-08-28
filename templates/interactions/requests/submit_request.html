@@ -1,0 +1,99 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'interactions/css/request.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        <i class="bx bx-help-circle me-2"></i>
+                        {{ page_title }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="bx bx-info-circle me-2"></i>
+                        {% trans "Chúng tôi luôn sẵn sàng hỗ trợ bạn. Vui lòng mô tả chi tiết vấn đề hoặc yêu cầu của bạn để chúng tôi có thể hỗ trợ tốt nhất." %}
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <i class="bx bx-warning me-2"></i>
+                        <strong>{% trans "Lưu ý quan trọng:" %}</strong>
+                        {% trans "Sau khi gửi yêu cầu, bạn sẽ không thể chỉnh sửa hoặc xóa yêu cầu này. Vui lòng kiểm tra kỹ thông tin trước khi gửi." %}
+                    </div>
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.title.id_for_label }}" class="form-label required">
+                                {{ form.title.label }}
+                            </label>
+                            {{ form.title }}
+                            {% if form.title.help_text %}
+                                <div class="form-text">{{ form.title.help_text }}</div>
+                            {% endif %}
+                            {% if form.title.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.title.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="{{ form.content.id_for_label }}" class="form-label required">
+                                {{ form.content.label }}
+                            </label>
+                            {{ form.content }}
+                            {% if form.content.help_text %}
+                                <div class="form-text">{{ form.content.help_text }}</div>
+                            {% endif %}
+                            {% if form.content.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.content.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'interactions:my_requests' %}" class="btn btn-secondary">
+                                <i class="bx bx-arrow-back me-1"></i>
+                                {% trans "Quay lại" %}
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bx bx-paper-plane me-1"></i>
+                                {% trans "Gửi yêu cầu" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Auto-resize textarea
+    $('textarea').on('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+});
+</script>
+{% endblock %}

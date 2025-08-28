@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<!-- Requests Table -->
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>{% trans "ID" %}</th>
+                        <th>{% trans "Tiêu đề" %}</th>
+                        <th>{% trans "Người gửi" %}</th>
+                        <th>{% trans "Trạng thái" %}</th>
+                        <th>{% trans "Ngày gửi" %}</th>
+                        <th>{% trans "Ngày xử lý" %}</th>
+                        <th>{% trans "Thao tác" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request_obj in requests %}
+                        {% include "interactions/admin/includes/admin_request_table_row.html" %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

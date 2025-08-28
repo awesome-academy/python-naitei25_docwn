@@ -61,6 +61,18 @@
             </a>
           </li>
           <li>
+            <a href="{% url 'interactions:my_requests' %}" class="menu-item">
+              <i class="bx bx-help-circle"></i>
+              <span>{% trans "Yêu cầu của tôi" %}</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'interactions:submit_request' %}" class="menu-item">
+              <i class="bx bx-support"></i>
+              <span>{% trans "Gửi yêu cầu hỗ trợ" %}</span>
+            </a>
+          </li>
+          <li>
             <a href="{% url 'accounts:change_password' %}" class="menu-item">
               <i class="bx bx-lock"></i>
               <span>{% trans "Đổi mật khẩu" %}</span>

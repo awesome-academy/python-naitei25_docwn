@@ -1,0 +1,50 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'interactions/css/request.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>
+            <i class="bx bx-list-ul me-2"></i>
+            {{ page_title }}
+        </h2>
+        <a href="{% url 'interactions:submit_request' %}" class="btn btn-primary">
+            <i class="bx bx-plus me-1"></i>
+            {% trans "Gửi yêu cầu mới" %}
+        </a>
+    </div>
+
+    <!-- Always show filter form -->
+    {% include "interactions/includes/request_filter.html" %}
+
+    {% if requests %}
+        {% if total_count > 0 %}
+            <div class="alert alert-info">
+                <i class="bx bx-info-circle me-2"></i>
+                {% blocktrans count counter=total_count %}
+                    Tìm thấy {{ counter }} yêu cầu.
+                {% plural %}
+                    Tìm thấy {{ counter }} yêu cầu.
+                {% endblocktrans %}
+            </div>
+        {% endif %}
+
+        <div class="row">
+            {% for request_obj in requests %}
+                {% include "interactions/includes/request_card.html" %}
+            {% endfor %}
+        </div>
+
+        {% include "interactions/includes/request_pagination.html" %}
+    {% else %}
+        {% include "interactions/includes/request_empty_state.html" %}
+    {% endif %}
+</div>
+{% endblock %}

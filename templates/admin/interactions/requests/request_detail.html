@@ -1,0 +1,217 @@
+{% extends "base_admin.html" %}
+{% load static %}
+{% load i18n %}
+{% load request_tags %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'interactions/css/admin_request.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+        <i class="bx bx-detail me-2"></i>
+        {{ page_title }}
+    </h2>
+    <a href="{% url 'interactions:admin_request_list' %}" class="btn btn-secondary">
+        <i class="bx bx-arrow-back me-1"></i>
+        {% trans "Quay lại danh sách" %}
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Request Details Card -->
+        <div class="card shadow">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">{{ request_obj.title }}</h4>
+                    {{ request_obj|request_status_badge }}
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-3 fw-bold">{% trans "ID yêu cầu" %}:</div>
+                    <div class="col-sm-9">#{{ request_obj.id }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm-3 fw-bold">{% trans "Người gửi" %}:</div>
+                    <div class="col-sm-9">
+                        <strong>{{ request_obj.user.get_name }}</strong>
+                        <br>
+                        <small class="text-muted">{{ request_obj.user.email }}</small>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm-3 fw-bold">{% trans "Ngày gửi" %}:</div>
+                    <div class="col-sm-9">{{ request_obj.created_at|date:date_format }}</div>
+                </div>
+
+                {% if request_obj.is_processed %}
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">{% trans "Ngày xử lý" %}:</div>
+                        <div class="col-sm-9">{{ request_obj.processed_at|date:date_format }}</div>
+                    </div>
+                    {% if request_obj.processed_by %}
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">{% trans "Người xử lý" %}:</div>
+                            <div class="col-sm-9">{{ request_obj.processed_by.get_name }}</div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                <div class="row mb-3">
+                    <div class="col-sm-3 fw-bold">{% trans "Nội dung" %}:</div>
+                    <div class="col-sm-9">
+                        <div class="border rounded p-3 bg-light">
+                            {{ request_obj.content|linebreaks }}
+                        </div>
+                    </div>
+                </div>
+
+                {% if request_obj.is_processed and request_obj.admin_note %}
+                    <div class="row">
+                        <div class="col-sm-3 fw-bold">{% trans "Ghi chú admin" %}:</div>
+                        <div class="col-sm-9">
+                            <div class="alert alert-info">
+                                {{ request_obj.admin_note|linebreaks }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Actions Card -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bx bx-cog me-2"></i>
+                    {% trans "Thao tác" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if request_obj.is_pending %}
+                    <div class="alert alert-warning">
+                        <i class="bx bx-info-circle me-2"></i>
+                        {{ pending_message }}
+                    </div>
+
+                    <!-- Process Request Form -->
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ form.admin_note.id_for_label }}" class="form-label">
+                                {{ form.admin_note.label }}
+                            </label>
+                            {{ form.admin_note }}
+                            {% if form.admin_note.help_text %}
+                                <div class="form-text">{{ form.admin_note.help_text }}</div>
+                            {% endif %}
+                            {% if form.admin_note.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {% for error in form.admin_note.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="bx bx-check me-1"></i>
+                                {{ mark_processed_text }}
+                            </button>
+                        </div>
+                    </form>
+
+                    <hr>
+
+                    <!-- Quick Process -->
+                    <form method="post" action="{% url 'interactions:admin_mark_processed' request_obj.id %}">
+                        {% csrf_token %}
+                        <div class="d-grid">
+                            <button type="submit" 
+                                    class="btn btn-outline-success"
+                                    onclick="return confirm('{{ quick_process_confirm }}')">
+                                <i class="bx bx-check me-1"></i>
+                                {{ quick_process_text }}
+                            </button>
+                        </div>
+                    </form>
+                {% else %}
+                    <div class="alert alert-success">
+                        <i class="bx bx-check-circle me-2"></i>
+                        {{ processed_message }}
+                    </div>
+
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "Trạng thái" %}:</span>
+                            <span class="badge bg-success">{{ request_obj|request_status_text }}</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{% trans "Ngày xử lý" %}:</span>
+                            <span>{{ request_obj.processed_at|date:date_format }}</span>
+                        </div>
+                        {% if request_obj.processed_by %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{% trans "Người xử lý" %}:</span>
+                                <span>{{ request_obj.processed_by.get_name }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- User Info Card -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bx bx-user me-2"></i>
+                    {% trans "Thông tin người gửi" %}
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{% trans "Tên" %}:</span>
+                        <span>{{ request_obj.user.get_name }}</span>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{% trans "Email" %}:</span>
+                        <span>{{ request_obj.user.email }}</span>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{% trans "Tên đăng nhập" %}:</span>
+                        <span>{{ request_obj.user.username }}</span>
+                    </div>
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{% trans "Ngày tham gia" %}:</span>
+                        <span>{{ request_obj.user.date_joined|date:date_format_short }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Auto-resize textarea
+    $('textarea').on('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+});
+</script>
+{% endblock %}

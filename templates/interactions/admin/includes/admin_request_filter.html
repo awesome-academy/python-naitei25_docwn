@@ -1,0 +1,77 @@
+{% load i18n %}
+
+<!-- Enhanced Filter Form -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">
+            <i class="bx bx-filter me-2"></i>
+            {% trans "Bộ lọc và tìm kiếm" %}
+        </h5>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <label for="search" class="form-label">{% trans "Tìm kiếm" %}</label>
+                <input type="text" name="search" id="search" class="form-control" 
+                       value="{{ current_search }}" 
+                       placeholder="{% trans 'Tìm theo tiêu đề, nội dung, người dùng...' %}">
+            </div>
+            <div class="col-md-2">
+                <label for="status" class="form-label">{% trans "Trạng thái" %}</label>
+                <select name="status" id="status" class="form-select">
+                    <option value="">{% trans "Tất cả" %}</option>
+                    {% for value, label in status_choices %}
+                        <option value="{{ value }}" {% if current_status_filter == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="sort" class="form-label">{% trans "Sắp xếp theo" %}</label>
+                <select name="sort" id="sort" class="form-select">
+                    {% for value, label in sort_choices %}
+                        <option value="{{ value }}" {% if current_sort == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="user" class="form-label">{% trans "Người gửi" %}</label>
+                <input type="text" name="user" id="user" class="form-control" 
+                       value="{{ current_user_filter }}" 
+                       placeholder="{% trans 'Tên đăng nhập hoặc email' %}">
+            </div>
+            <div class="col-md-3">
+                <label for="date_from" class="form-label">{% trans "Từ ngày" %}</label>
+                <input type="date" name="date_from" id="date_from" class="form-control" 
+                       value="{{ current_date_from }}">
+            </div>
+            <div class="col-md-3">
+                <label for="date_to" class="form-label">{% trans "Đến ngày" %}</label>
+                <input type="date" name="date_to" id="date_to" class="form-control" 
+                       value="{{ current_date_to }}">
+            </div>
+            <div class="col-md-6 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bx bx-search me-1"></i>
+                    {% trans "Tìm kiếm" %}
+                </button>
+                <a href="{% url 'interactions:admin_request_list' %}" class="btn btn-secondary">
+                    <i class="bx bx-refresh me-1"></i>
+                    {% trans "Đặt lại" %}
+                </a>
+                {% if total_count > 0 %}
+                    <span class="ms-3 text-muted">
+                        {% blocktrans count counter=total_count %}
+                            {{ counter }} kết quả
+                        {% plural %}
+                            {{ counter }} kết quả
+                        {% endblocktrans %}
+                    </span>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>

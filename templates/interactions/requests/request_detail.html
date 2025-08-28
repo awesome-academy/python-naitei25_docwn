@@ -1,0 +1,95 @@
+{% extends "base_home.html" %}
+{% load static %}
+{% load i18n %}
+{% load request_tags %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'interactions/css/request.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>
+                    <i class="bx bx-detail me-2"></i>
+                    {{ page_title }}
+                </h2>
+                <a href="{% url 'interactions:my_requests' %}" class="btn btn-secondary">
+                    <i class="bx bx-arrow-back me-1"></i>
+                    {% trans "Quay lại danh sách" %}
+                </a>
+            </div>
+
+            <div class="card shadow">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">{{ request_obj.title }}</h4>
+                        {{ request_obj|request_status_badge }}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">{% trans "Ngày gửi" %}:</div>
+                        <div class="col-sm-9">{{ request_obj.created_at|date:date_format }}</div>
+                    </div>
+
+                    {% if request_obj.is_processed %}
+                        <div class="row mb-3">
+                            <div class="col-sm-3 fw-bold">{% trans "Ngày xử lý" %}:</div>
+                            <div class="col-sm-9">{{ request_obj.processed_at|date:date_format }}</div>
+                        </div>
+                        {% if request_obj.processed_by %}
+                            <div class="row mb-3">
+                                <div class="col-sm-3 fw-bold">{% trans "Người xử lý" %}:</div>
+                                <div class="col-sm-9">{{ request_obj.processed_by.get_name }}</div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <div class="row mb-3">
+                        <div class="col-sm-3 fw-bold">{% trans "Nội dung" %}:</div>
+                        <div class="col-sm-9">
+                            <div class="border rounded p-3 bg-light">
+                                {{ request_obj.content|linebreaks }}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if request_obj.is_processed and request_obj.admin_note %}
+                        <div class="row">
+                            <div class="col-sm-3 fw-bold">{% trans "Phản hồi" %}:</div>
+                            <div class="col-sm-9">
+                                <div class="alert alert-info">
+                                    <i class="bx bx-info-circle me-2"></i>
+                                    <strong>{{ admin_response_title }}</strong>
+                                    <div class="mt-2">
+                                        {{ request_obj.admin_note|linebreaks }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                            <i class="bx bx-hash me-1"></i>
+                            {% trans "ID yêu cầu" %}: {{ request_obj.id }}
+                        </small>
+                        {% if request_obj.is_pending %}
+                            <small class="text-muted">
+                                <i class="bx bx-time me-1"></i>
+                                {{ pending_note }}
+                            </small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
