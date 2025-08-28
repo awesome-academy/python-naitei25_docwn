@@ -69,7 +69,7 @@
             class="form-control me-2"
             type="search"
             name="q"
-            placeholder="Tìm kiếm..."
+            placeholder="{% trans "Tìm kiếm..." %}"
             aria-label="Search"
             value="{{ request.GET.q }}"
           />
@@ -138,14 +138,31 @@
 
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <div class="dropdown-item mode" id="toggleThemeBtn">
-                <i class="bx bx-moon-star"></i>
-                <p>{% trans "Dark" %}</p>
-              </div>
+                <div class="dropdown-item mode" id="toggleThemeBtn">
+                    <i class="bx bx-moon-star"></i>
+                    <p>{% trans "Dark" %}</p>
+                </div>
             </li>
-
-            <li><a class="dropdown-item" href="#">Ch nghĩ ra để tạm</a></li>
-          </ul>
+        
+            <li>
+              <li>
+                <form action="{% url 'set_language' %}" method="post" class="dropdown-item text-center p-0 m-0">
+                    {% csrf_token %}
+                    {% get_current_language as LANGUAGE_CODE %}
+                    <input type="hidden" name="language" value="{% if LANGUAGE_CODE == 'vi' %}en{% else %}vi{% endif %}">
+                    <button type="submit" class="border-0 w-100 py-2 bg-transparent">
+                        {% if LANGUAGE_CODE == 'vi' %}
+                            Tiếng Anh
+                        {% else %}
+                            Vietnamese
+                        {% endif %}
+                    </button>
+                </form>
+            </li>
+            
+            </li>
+        </ul>
+        
         </div>
       </div>
     </div>
