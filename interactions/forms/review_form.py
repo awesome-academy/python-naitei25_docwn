@@ -23,7 +23,7 @@ class ReviewForm(forms.ModelForm):
         widget=forms.Textarea(attrs={
             'rows': 5,
             'placeholder': _('Chia sẻ cảm nhận của bạn về cuốn tiểu thuyết này...'),
-            'class': 'form-control'
+            'class': 'form-control bg-body text-body'
         }),
         label=_("Nội dung đánh giá"),
         max_length=MAX_LENGTH_REVIEW_CONTENT,
@@ -42,9 +42,9 @@ class ReviewForm(forms.ModelForm):
         # Thêm CSS classes
         for field_name, field in self.fields.items():
             if field_name == 'rating':
-                field.widget.attrs.update({'class': 'form-select rating-select'})
+                field.widget.attrs.update({'class': 'form-select bg-body text-body rating-select'})
             elif field_name == 'content':
-                field.widget.attrs.update({'class': 'form-control'})
+                field.widget.attrs.update({'class': 'form-control bg-body text-body'})
 
     def clean_content(self):
         content = self.cleaned_data.get('content', '').strip()
@@ -68,5 +68,5 @@ class ReviewDeleteForm(forms.Form):
     confirm = forms.BooleanField(
         required=True,
         label=_("Tôi xác nhận muốn xóa đánh giá này"),
-        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input bg-body text-body'})
     )
