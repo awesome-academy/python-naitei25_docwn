@@ -36,6 +36,7 @@ urlpatterns = [
     path("", RedirectView.as_view(url="novels/"), name='home'),
     path('oauth/', include('social_django.urls', namespace='social')),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    path('i18n/', include('django.conf.urls.i18n')),
 ] + static(STATIC_URL, document_root=STATIC_ROOT)
 
 if settings.DEBUG:

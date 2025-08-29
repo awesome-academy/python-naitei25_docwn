@@ -1,0 +1,3500 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-28 20:31+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: accounts/forms/auth_form.py:13 accounts/forms/auth_form.py:93
+msgid "Mật khẩu"
+msgstr "Password"
+
+#: accounts/forms/auth_form.py:16 accounts/forms/auth_form.py:96
+msgid "Nhập mật khẩu"
+msgstr "Enter the password"
+
+#: accounts/forms/auth_form.py:19
+msgid "Mật khẩu phải có ít nhất 8 ký tự"
+msgstr "Password must have at least 8 characters"
+
+#: accounts/forms/auth_form.py:22
+msgid "Xác nhận mật khẩu"
+msgstr "Confirm the password"
+
+#: accounts/forms/auth_form.py:25
+msgid "Nhập lại mật khẩu"
+msgstr "Enter the password again"
+
+#: accounts/forms/auth_form.py:39
+msgid "Nhập tên đăng nhập"
+msgstr "Enter the username"
+
+#: accounts/forms/auth_form.py:43 accounts/forms/auth_form.py:87
+msgid "Nhập địa chỉ email"
+msgstr "Enter email address"
+
+#: accounts/forms/auth_form.py:47 accounts/models/user.py:43
+#: accounts/services/profile_service.py:72
+msgid "Tên đăng nhập"
+msgstr "Username"
+
+#: accounts/forms/auth_form.py:48
+msgid "Địa chỉ email"
+msgstr "Email address"
+
+#: accounts/forms/auth_form.py:54
+msgid "Tên đăng nhập đã tồn tại."
+msgstr "Username existed."
+
+#: accounts/forms/auth_form.py:60
+msgid "Email đã được sử dụng."
+msgstr "Email has been used."
+
+#: accounts/forms/auth_form.py:70
+msgid "Mật khẩu không khớp."
+msgstr "Password does not match."
+
+#: accounts/forms/auth_form.py:84 accounts/models/user.py:44
+#: accounts/services/profile_service.py:77
+#: templates/accounts/forgot_password.html:19
+#: templates/admin/pages/users_admin.html:20
+msgid "Email"
+msgstr "E-mail"
+
+#: accounts/forms/auth_form.py:105 templates/accounts/login.html:45
+msgid "Ghi nhớ đăng nhập"
+msgstr "Remember to log in"
+
+#: accounts/forms/auth_form.py:122 accounts/forms/auth_form.py:124
+#: accounts/services/auth_service.py:16
+msgid "Email hoặc mật khẩu không đúng."
+msgstr "Email or password incorrectly."
+
+#: accounts/forms/password_form.py:11
+msgid "Mật khẩu hiện tại"
+msgstr "Current password"
+
+#: accounts/forms/password_form.py:14
+msgid "Nhập mật khẩu hiện tại"
+msgstr "Enter the current password"
+
+#: accounts/forms/password_form.py:19
+#: templates/accounts/reset_password.html:13
+msgid "Mật khẩu mới"
+msgstr "New password"
+
+#: accounts/forms/password_form.py:22
+#: templates/accounts/reset_password.html:15
+msgid "Nhập mật khẩu mới"
+msgstr "Enter the new password"
+
+#: accounts/forms/password_form.py:26
+#, python-format
+msgid "Mật khẩu phải có ít nhất %(min_length)d ký tự."
+msgstr "The password must have at least %(min_length)d character."
+
+#: accounts/forms/password_form.py:31
+#: templates/accounts/reset_password.html:19
+msgid "Xác nhận mật khẩu mới"
+msgstr "Confirm the new password"
+
+#: accounts/forms/password_form.py:34
+#: templates/accounts/reset_password.html:21
+msgid "Nhập lại mật khẩu mới"
+msgstr "Enter the new password"
+
+#: accounts/forms/password_form.py:46 accounts/services/password_service.py:21
+msgid "Mật khẩu hiện tại không đúng."
+msgstr "The current password is not true."
+
+#: accounts/forms/password_form.py:65 accounts/utils/validators.py:11
+msgid "Mật khẩu mới không khớp."
+msgstr "New password does not match."
+
+#: accounts/forms/password_form.py:70 accounts/services/password_service.py:28
+msgid "Mật khẩu mới không được trùng mật khẩu hiện tại."
+msgstr "The new password does not have the current password."
+
+#: accounts/forms/profile_form.py:22
+msgid "Upload ảnh đại diện mới"
+msgstr "Upload a new avatar"
+
+#: accounts/forms/profile_form.py:31
+msgid "Nhập tên hiển thị của bạn"
+msgstr "Enter your display name"
+
+#: accounts/forms/profile_form.py:43
+msgid "Mô tả về bản thân bạn..."
+msgstr "Description of yourself ..."
+
+#: accounts/forms/profile_form.py:48
+msgid "Sở thích, thể loại truyện yêu thích..."
+msgstr "Hobbies, favorite stories ..."
+
+#: accounts/forms/profile_form.py:57 templates/accounts/profile_edit.html:58
+msgid "Dịch vụ upload ảnh hiện không khả dụng. Vui lòng thử lại sau."
+msgstr ""
+"Image uploading service is currently not available.Please try again later."
+
+#: accounts/forms/profile_form.py:71
+msgid "Định dạng ảnh không được hỗ trợ."
+msgstr "Image format is not supported."
+
+#: accounts/forms/profile_form.py:85
+msgid "Không thể upload ảnh. Vui lòng thử lại."
+msgstr "Unable to upload photos.Please try again."
+
+#: accounts/forms/profile_form.py:87
+msgid "Lỗi khi upload ảnh: {}"
+msgstr "Error when uploading photos: {}"
+
+#: accounts/management/commands/setup_groups.py:9
+msgid "Setup Django Groups và Permissions"
+msgstr "Setup Django Groups and Permissions"
+
+#: accounts/management/commands/setup_groups.py:15
+msgid "Reset tất cả groups và permissions"
+msgstr "Reset all groups and permissions"
+
+#: accounts/management/commands/setup_groups.py:26
+msgid "Successfully setup groups and permissions!"
+msgstr "Successfully Setup Groups and Permissions!"
+
+#: accounts/management/commands/setup_groups.py:31
+msgid "Resetting groups..."
+msgstr "Resetting Groups ..."
+
+#: accounts/management/commands/setup_groups.py:40
+msgid "Created System Admins group"
+msgstr "Created System Administration Group"
+
+#: accounts/management/commands/setup_groups.py:48
+msgid "Created Website Admins group"
+msgstr "Created website admin"
+
+#: accounts/management/commands/setup_groups.py:85
+msgid "Created Regular Users group"
+msgstr "Created Regular Users Group"
+
+#: accounts/management/commands/setup_groups.py:114
+msgid "Created Guests group"
+msgstr "Created Guests Group"
+
+#: accounts/management/commands/setup_groups.py:135
+#, python-format
+msgid "Added %(email)s to System Admins"
+msgstr "Added %(email)s to system admin"
+
+#: accounts/management/commands/setup_groups.py:143
+#, python-format
+msgid "Added %(email)s to Website Admins"
+msgstr "Added %(email)s to website admin"
+
+#: accounts/management/commands/setup_groups.py:151
+#, python-format
+msgid "Added %(email)s to Regular Users"
+msgstr "Added %(email)s to Regular Users"
+
+#: accounts/management/commands/setup_groups.py:159
+#, python-format
+msgid "Added %(email)s to Guests"
+msgstr "Added %(email)s to guests"
+
+#: accounts/models/profile.py:19 accounts/models/user.py:69
+#: accounts/models/user.py:70 interactions/models/comment.py:20
+#: interactions/models/notification.py:18 interactions/models/review.py:17
+#: templates/admin/pages/comments_admin.html:34
+#: templates/admin/pages/home_admin.html:11
+msgid "Người dùng"
+msgstr "User"
+
+#: accounts/models/profile.py:25
+msgid "Tên hiển thị của người dùng"
+msgstr "Show name of the user"
+
+#: accounts/models/profile.py:26 accounts/services/profile_service.py:108
+msgid "Tên hiển thị"
+msgstr "Show name"
+
+#: accounts/models/profile.py:33 accounts/services/profile_service.py:115
+msgid "Giới tính"
+msgstr "Sex"
+
+#: accounts/models/profile.py:35 accounts/services/profile_service.py:122
+msgid "Ngày sinh"
+msgstr "Date of birth"
+
+#: accounts/models/profile.py:40
+msgid "URL ảnh đại diện từ ImgBB"
+msgstr "URL avatar from IMGBB"
+
+#: accounts/models/profile.py:41
+msgid "URL Ảnh đại diện"
+msgstr "URL avatar"
+
+#: accounts/models/profile.py:47
+msgid "Mô tả về bản thân"
+msgstr "Description of yourself"
+
+#: accounts/models/profile.py:48 accounts/services/profile_service.py:129
+#: templates/admin/tags/partials/form_modal.html:24
+#: templates/admin/tags/partials/list.html:7
+msgid "Mô tả"
+msgstr "Describe"
+
+#: accounts/models/profile.py:53
+msgid "Sở thích, thể loại truyện yêu thích"
+msgstr "Hobbies, favorite stories"
+
+#: accounts/models/profile.py:54 accounts/services/profile_service.py:136
+msgid "Sở thích"
+msgstr "Interest"
+
+#: accounts/models/profile.py:58
+msgid "Khóa profile"
+msgstr "Lock profile"
+
+#: accounts/models/profile.py:59 accounts/models/user.py:45
+#: accounts/services/profile_service.py:98
+msgid "Bị khóa"
+msgstr "Locked"
+
+#: accounts/models/profile.py:61
+#: templates/novels/includes/my_novels_list.html:44
+msgid "Tạo lúc"
+msgstr "Create"
+
+#: accounts/models/profile.py:62
+msgid "Cập nhật lúc"
+msgstr "Update at"
+
+#: accounts/models/profile.py:65 accounts/models/profile.py:66
+msgid "Hồ sơ người dùng"
+msgstr "User profile"
+
+#: accounts/models/profile.py:82 constants.py:24
+msgid "Nam"
+msgstr "Male"
+
+#: accounts/models/profile.py:83 constants.py:25
+msgid "Nữ"
+msgstr "Female"
+
+#: accounts/models/profile.py:84 constants.py:26 constants.py:82
+msgid "Khác"
+msgstr "Other"
+
+#: accounts/models/profile.py:86
+#: novels/templatetags/status_novel_request.py:23
+msgid "Không xác định"
+msgstr "Unknown"
+
+#: accounts/models/user.py:20
+msgid "Email là bắt buộc"
+msgstr "Email is required"
+
+#: accounts/models/user.py:22
+msgid "Username là bắt buộc"
+msgstr "Username is mandatory"
+
+#: accounts/models/user.py:36
+msgid "Superuser phải có is_staff=True."
+msgstr "Superuser must have IS_STAFF = True."
+
+#: accounts/models/user.py:38
+msgid "Superuser phải có is_superuser=True."
+msgstr "Superuser must have IS_Superuser = True."
+
+#: accounts/models/user.py:50 accounts/services/profile_service.py:86
+msgid "Vai trò"
+msgstr "Role"
+
+#: accounts/models/user.py:53 accounts/services/profile_service.py:98
+#: interactions/models/comment.py:46 interactions/models/review.py:34
+#: templates/admin/pages/users_admin.html:34
+msgid "Hoạt động"
+msgstr "Work"
+
+#: accounts/models/user.py:54
+msgid "Là nhân viên"
+msgstr "As an employee"
+
+#: accounts/models/user.py:55 accounts/services/profile_service.py:92
+msgid "Ngày tham gia"
+msgstr "Participation date"
+
+#: accounts/models/user.py:57
+msgid "Đã xác thực email"
+msgstr "Has authenticated email"
+
+#: accounts/pipeline.py:21
+msgid "Email này đã tồn tại nhưng chưa liên kết với Google."
+msgstr "This email exists but has not been linked to Google."
+
+#: accounts/services/auth_service.py:21
+msgid "Tài khoản của bạn đã bị khóa."
+msgstr "Your account has been locked."
+
+#: accounts/services/auth_service.py:23
+msgid "Tài khoản chưa được kích hoạt."
+msgstr "The account has not been activated."
+
+#: accounts/services/auth_service.py:34
+#, python-format
+msgid "Chào mừng %(username)s!"
+msgstr "Welcome %(username)s!"
+
+#: accounts/services/auth_service.py:40
+msgid "Đăng nhập thành công!"
+msgstr "Successfully logged in!"
+
+#: accounts/services/auth_service.py:49
+#, python-format
+msgid "Tạm biệt %(username)s!"
+msgstr "Goodbye %(username)s!"
+
+#: accounts/services/password_service.py:35
+#: accounts/services/password_service.py:36
+#: accounts/services/password_service.py:39
+msgid "Đổi mật khẩu thành công!"
+msgstr "Change the password successfully!"
+
+#: accounts/services/password_service.py:38
+msgid "Đổi mật khẩu thành công! Vui lòng đăng nhập lại."
+msgstr "Change the password successfully!Please login again."
+
+#: accounts/services/password_service.py:46
+msgid "Email không tồn tại trong hệ thống."
+msgstr "Email does not exist in the system."
+
+#: accounts/services/password_service.py:55
+msgid "Liên kết đặt lại mật khẩu đã được gửi đến email của bạn."
+msgstr "Link the password reset has been sent to your email."
+
+#: accounts/services/password_service.py:85
+msgid "Đặt lại mật khẩu thành công!"
+msgstr "Successful password reset!"
+
+#: accounts/services/password_service.py:96
+msgid "Cập nhật thông tin và ảnh đại diện thành công!"
+msgstr "Update information and avatar successfully!"
+
+#: accounts/services/password_service.py:98
+#: accounts/services/password_service.py:102
+msgid "Cập nhật thông tin thành công!"
+msgstr "Update successful information!"
+
+#: accounts/services/password_service.py:112
+msgid "Có lỗi xảy ra. Vui lòng kiểm tra lại."
+msgstr "Error occurs.Please check again."
+
+#: accounts/services/password_service.py:121
+msgid "Có lỗi xảy ra khi cập nhật: {}"
+msgstr "Error occurs when updated: {}"
+
+#: accounts/services/profile_service.py:97 interactions/models/report.py:51
+#: templates/admin/includes/upvolumeTable.html:14
+#: templates/admin/pages/comments_admin.html:37
+#: templates/admin/pages/novels_admin.html:42
+#: templates/admin/pages/request_novel_admin.html:41
+#: templates/admin/pages/users_admin.html:22
+msgid "Trạng thái"
+msgstr "Status"
+
+#: accounts/services/profile_service.py:148
+msgid "Cập nhật profile thành công!"
+msgstr "Update successful profile!"
+
+#: accounts/services/profile_service.py:151
+msgid "Có lỗi xảy ra khi cập nhật profile: {}"
+msgstr "Error occurs when updating profile: {}"
+
+#: accounts/utils/validators.py:14
+#, python-format
+msgid "Mật khẩu phải có ít nhất %(n)d ký tự."
+msgstr "The password must have at least %(n)d characters."
+
+#: accounts/utils/validators.py:21
+msgid "Mật khẩu hợp lệ."
+msgstr "Valid password."
+
+#: accounts/views/public/auth_view.py:28
+msgid "Đăng ký thành công! Vui lòng đăng nhập để tiếp tục."
+msgstr "Successful registration!Please login to continue."
+
+#: accounts/views/public/auth_view.py:32
+msgid "Có lỗi xảy ra. Vui lòng kiểm tra lại thông tin."
+msgstr "Error occurs.Please check the information."
+
+#: accounts/views/public/auth_view.py:59
+msgid "Thông tin đăng nhập không hợp lệ."
+msgstr "Invalid login information."
+
+#: accounts/views/public/password_view.py:48
+msgid "Đặt lại mật khẩu của bạn"
+msgstr "Reset your password"
+
+#: accounts/views/public/password_view.py:50
+#, python-format
+msgid ""
+"Xin chào,\n"
+"\n"
+"Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản của mình.\n"
+"Vui lòng nhấp vào liên kết sau để đặt lại mật khẩu:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"Nếu bạn không yêu cầu, hãy bỏ qua email này."
+msgstr ""
+"Hello,\n"
+"\n"
+"You have asked to reset the password for your account.\n"
+"Please click on the following link to reset the password:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"If you do not request, skip this email."
+
+#: accounts/views/public/password_view.py:70
+msgid "Liên kết đặt lại mật khẩu không hợp lệ hoặc đã hết hạn."
+msgstr "Link the password reset invalid or expired."
+
+#: accounts/views/public/profile_view.py:24
+msgid "Bạn không có quyền xem profile này."
+msgstr "You have no right to view this profile."
+
+#: accounts/views/public/profile_view.py:31
+msgid "Không tìm thấy thông tin profile."
+msgstr "Profile information is not found."
+
+#: common/decorators.py:16
+msgid "Tài khoản của bạn đã bị khóa hoặc vô hiệu hóa."
+msgstr "Your account has been locked or disabled."
+
+#: common/decorators.py:28 common/decorators.py:40
+msgid "Bạn không có quyền truy cập trang này."
+msgstr "You do not have access to this page."
+
+#: common/decorators.py:53
+msgid "Bạn không có quyền thực hiện hành động này."
+msgstr "You have no right to take this action."
+
+#: common/decorators.py:79
+msgid "Bạn không có quyền truy cập vào tài nguyên này."
+msgstr "You do not have access to this resource."
+
+#: constants.py:60
+msgid "Bình luận mới"
+msgstr "New commentary"
+
+#: constants.py:61
+msgid "Trả lời bình luận"
+msgstr "Answer comments"
+
+#: constants.py:62 interactions/views/public/review_view.py:82
+msgid "Đánh giá mới"
+msgstr "New review"
+
+#: constants.py:63
+msgid "Thích bình luận"
+msgstr "Like comment"
+
+#: constants.py:64 interactions/models/report.py:65
+#: interactions/models/report.py:66
+#: templates/interactions/includes/report.html:7
+msgid "Báo cáo"
+msgstr "Report"
+
+#: constants.py:65
+msgid "Hệ thống"
+msgstr "System"
+
+#: constants.py:77
+msgid "Spam"
+msgstr "Spam"
+
+#: constants.py:78
+msgid "Nội dung không phù hợp"
+msgstr "Content is not suitable"
+
+#: constants.py:79
+msgid "Quấy rối"
+msgstr "Harass"
+
+#: constants.py:80
+msgid "Thông tin giả mạo"
+msgstr "Fake information"
+
+#: constants.py:81
+msgid "Vi phạm bản quyền"
+msgstr "Copyright infringement"
+
+#: constants.py:90
+msgid "Chờ xử lý"
+msgstr "Wait for handling"
+
+#: constants.py:91
+msgid "Đã xử lý"
+msgstr "Processed"
+
+#: interactions/forms/comment_form.py:12
+msgid "Viết bình luận..."
+msgstr "Write a comment ..."
+
+#: interactions/forms/review_form.py:18 interactions/models/review.py:28
+#: interactions/models/review.py:37 interactions/models/review.py:38
+#: templates/interactions/includes/reviews.html:7
+#: templates/interactions/includes/reviews.html:37
+#: templates/novels/includes/meta.html:6
+#: templates/novels/includes/search_form.html:33
+#: templates/novels/includes/stats.html:19
+msgid "Đánh giá"
+msgstr "Evaluate"
+
+#: interactions/forms/review_form.py:25
+#: templates/interactions/includes/reviews.html:52
+msgid "Chia sẻ cảm nhận của bạn về cuốn tiểu thuyết này..."
+msgstr "Share your feelings about this novel ..."
+
+#: interactions/forms/review_form.py:28
+#: templates/interactions/includes/reviews.html:47
+msgid "Nội dung đánh giá"
+msgstr "Review content"
+
+#: interactions/forms/review_form.py:52
+#: interactions/views/public/review_view.py:145
+msgid "Nội dung đánh giá không được để trống."
+msgstr "The evaluation content is not blank."
+
+#: interactions/forms/review_form.py:70
+msgid "Tôi xác nhận muốn xóa đánh giá này"
+msgstr "I confirm that I want to delete this assessment"
+
+#: interactions/models/comment.py:26 interactions/models/review.py:23
+#: templates/admin/pages/comments_admin.html:35
+#: templates/admin/pages/home_admin.html:20
+#: templates/novels/includes/breadcrumb.html:18
+#: templates/novels/includes/breadcrumb.html:29
+#: templates/novels/includes/breadcrumb.html:46
+#: templates/novels/includes/breadcrumb.html:94
+msgid "Tiểu thuyết"
+msgstr "Novel"
+
+#: interactions/models/comment.py:29 interactions/models/notification.py:33
+#: interactions/models/review.py:31 novels/forms/chapter_form.py:50
+#: templates/admin/pages/comments_admin.html:36
+msgid "Nội dung"
+msgstr "Content"
+
+#: interactions/models/comment.py:30 interactions/models/notification.py:42
+#: interactions/models/report.py:53 interactions/models/review.py:32
+#: templates/admin/includes/chapter_review_header.html:34
+msgid "Ngày tạo"
+msgstr "Day creation"
+
+#: interactions/models/comment.py:31 interactions/models/review.py:33
+#: templates/novels/includes/search_form.html:32
+msgid "Ngày cập nhật"
+msgstr "Update date"
+
+#: interactions/models/comment.py:37
+msgid "Bình luận cha"
+msgstr "Father comment"
+
+#: interactions/models/comment.py:43
+msgid "Số lượt thích"
+msgstr "Number of likes"
+
+#: interactions/models/comment.py:45
+msgid "Đã báo cáo"
+msgstr "Reported"
+
+#: interactions/models/comment.py:49 interactions/models/comment.py:50
+#: templates/admin/pages/home_admin.html:29
+#: templates/novels/includes/comment.html:4
+#: templates/novels/includes/comment_list.html:6
+msgid "Bình luận"
+msgstr "Comment"
+
+#: interactions/models/notification.py:25
+msgid "Loại thông báo"
+msgstr "Type of notification"
+
+#: interactions/models/notification.py:30
+msgid "Tiêu đề"
+msgstr "Title"
+
+#: interactions/models/notification.py:37
+#: templates/novels/includes/reading_history_list.html:48
+msgid "Đã đọc"
+msgstr "Read"
+
+#: interactions/models/notification.py:51
+msgid "Loại đối tượng"
+msgstr "Object type"
+
+#: interactions/models/notification.py:56
+msgid "ID đối tượng"
+msgstr "Object ID"
+
+#: interactions/models/notification.py:61
+#: interactions/models/notification.py:62
+#: templates/admin/pages/chapter_review.html:49
+#: templates/interactions/includes/notifications.html:13
+msgid "Thông báo"
+msgstr "Notification"
+
+#: interactions/models/report.py:19
+msgid "Người báo cáo"
+msgstr "Annunciator"
+
+#: interactions/models/report.py:27
+msgid "Bình luận bị báo cáo"
+msgstr "Comments were reported"
+
+#: interactions/models/report.py:35
+msgid "Đánh giá bị báo cáo"
+msgstr "The evaluation is reported"
+
+#: interactions/models/report.py:41
+msgid "Lý do báo cáo"
+msgstr "Report reason"
+
+#: interactions/models/report.py:45
+msgid "Mô tả chi tiết"
+msgstr "Detailed description"
+
+#: interactions/models/report.py:54
+msgid "Ngày xử lý"
+msgstr "Date of handling"
+
+#: interactions/models/report.py:60
+msgid "Người xử lý"
+msgstr "Processor"
+
+#: interactions/services/report_service.py:10
+msgid "Bạn đã báo cáo bình luận này rồi."
+msgstr "You have reported this comment."
+
+#: interactions/views/public/report_view.py:25
+msgid "Báo cáo đã được gửi."
+msgstr "The report was sent."
+
+#: interactions/views/public/report_view.py:33
+#: interactions/views/public/review_view.py:178
+msgid "Dữ liệu không hợp lệ."
+msgstr "The data is invalid."
+
+#: interactions/views/public/review_view.py:74
+msgid "Có lỗi trong dữ liệu. Vui lòng kiểm tra lại."
+msgstr "Error in data.Please check again."
+
+#: interactions/views/public/review_view.py:83
+#, python-format
+msgid "Tiểu thuyết của bạn '%s' vừa nhận được đánh giá mới."
+msgstr "Your novel '%s' has just received a new review."
+
+#: interactions/views/public/review_view.py:96
+msgid "Đánh giá của bạn đã được thêm thành công!"
+msgstr "Your review has been added!"
+
+#: interactions/views/public/review_view.py:114
+msgid "Bạn đã đánh giá cuốn tiểu thuyết này rồi."
+msgstr "You have rated this novel."
+
+#: interactions/views/public/review_view.py:119
+msgid "Có lỗi xảy ra khi thêm đánh giá."
+msgstr "Error occurs when extra reviews."
+
+#: interactions/views/public/review_view.py:139
+msgid "Bạn không có quyền chỉnh sửa đánh giá này."
+msgstr "You have no right to edit this assessment."
+
+#: interactions/views/public/review_view.py:151
+#, python-format
+msgid "Đánh giá phải từ %s đến %s sao."
+msgstr "Review must be from %s to %s star."
+
+#: interactions/views/public/review_view.py:162
+msgid "Đánh giá đã được cập nhật thành công!"
+msgstr "Review has been successfully updated!"
+
+#: interactions/views/public/review_view.py:183
+msgid "Có lỗi xảy ra khi cập nhật đánh giá."
+msgstr "Error occurs when updating the evaluation."
+
+#: interactions/views/public/review_view.py:194
+msgid "Đánh giá đã được xóa thành công!"
+msgstr "Review has been deleted successfully!"
+
+#: novels/forms/artist_form.py:19
+msgid "Họa sĩ này đã tồn tại."
+msgstr "This artist has existed."
+
+#: novels/forms/author_form.py:19
+msgid "Tác giả này đã tồn tại."
+msgstr "This author has existed."
+
+#: novels/forms/chapter_form.py:21
+msgid "Chọn Volume"
+msgstr "Select Volume"
+
+#: novels/forms/chapter_form.py:33
+msgid "Tên Volume mới"
+msgstr "New Volume name"
+
+#: novels/forms/chapter_form.py:37
+msgid "Nhập tên volume mới..."
+msgstr "Enter the new Volume name ..."
+
+#: novels/forms/chapter_form.py:40
+msgid "Chap mới sẽ được thêm vào volume mới này"
+msgstr "The new chapter will be added to this new volume"
+
+#: novels/forms/chapter_form.py:51
+msgid ""
+"Sử dụng trình soạn thảo để định dạng văn bản với rich text. Nội dung sẽ được"
+" lưu dưới dạng HTML."
+msgstr ""
+"Use the editor to format text with Rich Text.The content will be saved as "
+"HTML."
+
+#: novels/forms/chapter_form.py:61
+msgid "Nhập tiêu đề chapter..."
+msgstr "Enter the chapter title ..."
+
+#: novels/forms/chapter_form.py:66
+msgid "Tiêu đề Chapter"
+msgstr "Topic Chapter"
+
+#: novels/forms/chapter_form.py:76
+msgid "-- Chọn Volume --"
+msgstr "-Select Volume-"
+
+#: novels/forms/chapter_form.py:78
+msgid "Tạo Volume mới"
+msgstr "Create new volume"
+
+#: novels/forms/chapter_form.py:89 novels/forms/chapter_form.py:117
+msgid "Tên volume đã tồn tại trong tiểu thuyết này"
+msgstr "Volume's name has existed in this novel"
+
+#: novels/forms/chapter_form.py:96
+msgid "Tiêu đề chapter là bắt buộc"
+msgstr "The chapter title is mandatory"
+
+#: novels/forms/chapter_form.py:106
+msgid "Vui lòng chọn volume hoặc tạo volume mới"
+msgstr "Please choose volume or create new volume"
+
+#: novels/forms/chapter_form.py:109
+msgid "Vui lòng nhập tên volume mới"
+msgstr "Please enter the new Volume name"
+
+#: novels/forms/chapter_form.py:112
+msgid "Không thể vừa chọn volume có sẵn vừa tạo volume mới"
+msgstr ""
+"It is impossible to choose the available volume and create a new volume"
+
+#: novels/forms/chapter_form.py:140
+msgid "Kết hợp tên volume và tiêu đề chapter này sẽ tạo ra slug trùng lặp"
+msgstr ""
+"Combining the Volume name and the title of this chapter will create a "
+"duplicate Slug"
+
+#: novels/forms/chapter_form.py:153
+msgid "Tiêu đề chapter đã tồn tại trong volume này"
+msgstr "The chapter title has existed in this volume"
+
+#: novels/forms/chapter_form.py:155
+msgid "Volume được chọn không hợp lệ"
+msgstr "Volume is chosen invalid"
+
+#: novels/forms/novel_form.py:24
+msgid "Chọn thể loại..."
+msgstr "Choose genre ..."
+
+#: novels/forms/novel_form.py:25 novels/forms/novel_form.py:29
+#: templates/admin/includes/upnovelTable.html:12
+#: templates/admin/pages/novels_admin.html:20
+#: templates/admin/pages/novels_admin.html:66
+#: templates/admin/pages/request_novel_admin.html:18
+#: templates/admin/pages/request_novel_admin.html:68
+#: templates/novels/includes/search_form.html:96
+msgid "Thể loại"
+msgstr "Category"
+
+#: novels/forms/novel_form.py:30
+msgid "Chọn một hoặc nhiều thể loại cho tiểu thuyết"
+msgstr "Choose one or more genres for novels"
+
+#: novels/forms/novel_form.py:36 novels/forms/novel_form.py:40
+#: templates/admin/pages/novels_admin.html:67
+#: templates/novels/includes/search_form.html:49
+msgid "Tác giả"
+msgstr "Author"
+
+#: novels/forms/novel_form.py:39
+msgid "Chọn tác giả..."
+msgstr "Choose the author ..."
+
+#: novels/forms/novel_form.py:49 novels/forms/novel_form.py:53
+#: templates/novels/includes/search_form.html:58
+msgid "Họa sĩ"
+msgstr "Painter"
+
+#: novels/forms/novel_form.py:52
+msgid "Chọn họa sĩ..."
+msgstr "Choose an artist ..."
+
+#: novels/forms/novel_form.py:62 novels/forms/novel_form.py:69
+msgid "Đăng ẩn danh"
+msgstr "Anonymous"
+
+#: novels/forms/novel_form.py:64
+msgid "Chọn để đăng tiểu thuyết mà không hiển thị tên người đăng"
+msgstr "Choose to post a novel without displaying the name of the poster"
+
+#: novels/forms/novel_form.py:70
+msgid "Chọn để đăng ẩn danh"
+msgstr "Choose to post anonymous"
+
+#: novels/forms/novel_form.py:77 novels/forms/novel_form.py:82
+msgid "Ảnh bìa"
+msgstr "Cover"
+
+#: novels/forms/novel_form.py:78
+msgid "Tải lên ảnh bìa cho tiểu thuyết"
+msgstr "Upload the cover photo for the novel"
+
+#: novels/forms/novel_form.py:83
+msgid "Chọn ảnh bìa..."
+msgstr "Choose cover photo ..."
+
+#: novels/forms/novel_form.py:84
+msgid "Chọn ảnh từ thiết bị của bạn"
+msgstr "Choose photos from your device"
+
+#: novels/forms/novel_form.py:85
+msgid "Xem trước ảnh"
+msgstr "Preview the photo"
+
+#: novels/forms/novel_form.py:92
+msgid "ĐANG TIẾN HÀNH"
+msgstr "Proceeding"
+
+#: novels/forms/novel_form.py:93
+msgid "HOÀN THÀNH"
+msgstr "COMPLETE"
+
+#: novels/forms/novel_form.py:94
+msgid "TẠM DỪNG"
+msgstr "Pause"
+
+#: novels/forms/novel_form.py:97 novels/forms/novel_form.py:101
+msgid "Trạng thái tiến độ"
+msgstr "Progress"
+
+#: novels/forms/novel_form.py:100
+msgid "Chọn trạng thái..."
+msgstr "Select the status ..."
+
+#: novels/forms/novel_form.py:111 novels/forms/novel_form.py:128
+#: templates/admin/includes/dashboardTable.html:14
+#: templates/admin/includes/dashboardTable.html:39
+#: templates/admin/includes/upchapterTable.html:10
+#: templates/admin/includes/upnovelTable.html:11
+#: templates/admin/includes/upvolumeTable.html:9
+#: templates/admin/pages/novels_admin.html:64
+#: templates/admin/pages/request_chapter_admin.html:40
+#: templates/admin/pages/request_novel_admin.html:67
+msgid "Tên tiểu thuyết"
+msgstr "Novel name"
+
+#: novels/forms/novel_form.py:112 novels/forms/novel_form.py:139
+msgid "Tên khác"
+msgstr "Other name"
+
+#: novels/forms/novel_form.py:113 novels/forms/novel_form.py:146
+msgid "Tóm tắt"
+msgstr "Summary"
+
+#: novels/forms/novel_form.py:117
+#, python-brace-format
+msgid ""
+"Viết tóm tắt ngắn gọn về nội dung tiểu thuyết (tối thiểu {min} ký tự, tối đa"
+" {max} ký tự)"
+msgstr ""
+"Write a brief summary of the novel content (minimum {min} characters, "
+"maximum {max} characters)"
+
+#: novels/forms/novel_form.py:126 novels/forms/novel_form.py:127
+msgid "Nhập tên tiểu thuyết"
+msgstr "Enter the novel name"
+
+#: novels/forms/novel_form.py:129
+msgid "Tên tiểu thuyết là bắt buộc"
+msgstr "The novel name is mandatory"
+
+#: novels/forms/novel_form.py:131
+#, python-brace-format
+msgid "Tên tiểu thuyết phải có ít nhất {min} ký tự"
+msgstr "The novel name must have at least {min} characters"
+
+#: novels/forms/novel_form.py:137 novels/forms/novel_form.py:138
+msgid "Nhập tên khác (tùy chọn)"
+msgstr "Enter another name (optional)"
+
+#: novels/forms/novel_form.py:144 novels/forms/novel_form.py:145
+msgid "Nhập tóm tắt nội dung tiểu thuyết"
+msgstr "Input the content of the novel"
+
+#: novels/forms/novel_form.py:147
+msgid "Tóm tắt là bắt buộc"
+msgstr "Summary is required"
+
+#: novels/forms/novel_form.py:149
+#, python-brace-format
+msgid "Tóm tắt phải có ít nhất {min} ký tự"
+msgstr "Summary must have at least {min} characters"
+
+#: novels/forms/novel_form.py:152
+#, python-brace-format
+msgid "{current}/{max} ký tự"
+msgstr "{current}/{max} characters"
+
+#: novels/forms/novel_form.py:177
+msgid "--- Chọn tác giả ---"
+msgstr "--- Select the author ---"
+
+#: novels/forms/novel_form.py:178 novels/forms/novel_form.py:194
+#: templates/admin/novel_request/partials/novel_info.html:15
+#: templates/admin/novel_request/partials/novel_info.html:18
+msgid "Không rõ"
+msgstr "Hollow"
+
+#: novels/forms/novel_form.py:183 novels/forms/novel_form.py:199
+msgid "Tôi"
+msgstr "I"
+
+#: novels/forms/novel_form.py:193
+msgid "--- Chọn họa sĩ ---"
+msgstr "--- Choose an artist ---"
+
+#: novels/forms/novel_form.py:235
+msgid "Tên tiểu thuyết là bắt buộc khi xuất bản."
+msgstr "The novel name is required when publishing."
+
+#: novels/forms/novel_form.py:240
+msgid "Tóm tắt là bắt buộc khi xuất bản."
+msgstr "Summary is required when published."
+
+#: novels/forms/novel_form.py:245
+#, python-brace-format
+msgid "Tên tiểu thuyết phải có ít nhất {min} ký tự."
+msgstr "The novel name must have at least {min} characters."
+
+#: novels/forms/novel_form.py:252
+#, python-brace-format
+msgid "Tóm tắt phải có ít nhất {min} ký tự."
+msgstr "Summary must have at least {min} characters."
+
+#: novels/forms/novel_form.py:264 novels/forms/novel_form.py:270
+msgid "Lựa chọn tác giả không hợp lệ."
+msgstr "The authors are not valid."
+
+#: novels/forms/novel_form.py:268
+msgid "Tác giả được chọn không tồn tại."
+msgstr "The selected author does not exist."
+
+#: novels/forms/novel_form.py:278 novels/forms/novel_form.py:284
+msgid "Lựa chọn họa sĩ không hợp lệ."
+msgstr "Choose an invalid artist."
+
+#: novels/forms/novel_form.py:282
+msgid "Họa sĩ được chọn không tồn tại."
+msgstr "The selected painter does not exist."
+
+#: novels/forms/novel_form.py:294
+#, python-brace-format
+msgid "Kích thước file phải nhỏ hơn {max}MB."
+msgstr "File size must be smaller than {max} MB."
+
+#: novels/forms/novel_form.py:302
+msgid "Chỉ chấp nhận file ảnh (JPEG, PNG, GIF, WebP)."
+msgstr "Only accept image files (JPEG, PNG, GIF, Webp)."
+
+#: novels/forms/tag_form.py:17
+msgid "Tag với tên này đã tồn tại."
+msgstr "Tag with this name has existed."
+
+#: novels/models/novel.py:57
+msgid "Whether this novel should be displayed anonymously to public users"
+msgstr "Whether this Novel Should Be Displayed Anonymously to Public Users"
+
+#: novels/services/novel_service.py:431
+msgid "Bạn cần đăng nhập để thực hiện thao tác này."
+msgstr "You need to login to perform this operation."
+
+#: novels/services/novel_service.py:434
+msgid "Tiểu thuyết không tồn tại."
+msgstr "The novel does not exist."
+
+#: novels/services/novel_service.py:437
+msgid "Bạn không có quyền chỉnh sửa tiểu thuyết này."
+msgstr "You have no right to edit this novel."
+
+#: novels/services/novel_service.py:440
+msgid "Không thể chỉnh sửa tiểu thuyết đã bị xóa."
+msgstr "Unable to edit the abolished novels."
+
+#: novels/services/novel_service.py:451
+#, python-brace-format
+msgid "Đã tồn tại tiểu thuyết với tên '{name}'. Vui lòng chọn tên khác."
+msgstr "The novel existed with the name '{name}'.Please choose another name."
+
+#: novels/services/novel_service.py:474
+msgid "Tiểu thuyết đã được cập nhật thành công."
+msgstr "The novel has been successfully updated."
+
+#: novels/services/novel_service.py:477
+#, python-brace-format
+msgid "Có lỗi xảy ra khi cập nhật tiểu thuyết: {error}"
+msgstr "Error occurs when updating novels: {error}"
+
+#: novels/templatetags/admin_novels_filter.py:9
+#: templates/novels/includes/search_form.html:77
+msgid "Đang tiến hành"
+msgstr "Proceeding"
+
+#: novels/templatetags/admin_novels_filter.py:10
+#: templates/novels/includes/search_form.html:89
+msgid "Hoàn thành"
+msgstr "Complete"
+
+#: novels/templatetags/admin_novels_filter.py:11
+msgid "Tạm dừng"
+msgstr "Pause"
+
+#: novels/templatetags/admin_novels_filter.py:14
+msgid "Nháp"
+msgstr "Draft"
+
+#: novels/templatetags/admin_novels_filter.py:15
+#: novels/templatetags/status_filters.py:11
+#: novels/templatetags/status_filters.py:41
+#: templates/novels/includes/my_novels_statistics.html:17
+#: templates/novels/includes/volume_list.html:35
+#: templates/novels/includes/volume_list.html:77
+#: templates/novels/includes/volume_list.html:118
+#: templates/novels/pages/novel_upload_rule.html:91
+msgid "Chờ duyệt"
+msgstr "Waiting for browsing"
+
+#: novels/templatetags/admin_novels_filter.py:16
+#: novels/templatetags/status_filters.py:12
+#: novels/templatetags/status_filters.py:37
+#: novels/templatetags/status_novel_request.py:10
+#: templates/admin/pages/request_chapter_admin.html:16
+#: templates/novels/includes/my_novels_statistics.html:21
+msgid "Đã duyệt"
+msgstr "Approved"
+
+#: novels/templatetags/admin_novels_filter.py:17
+#: novels/templatetags/status_filters.py:13
+#: novels/templatetags/status_filters.py:39
+#: novels/templatetags/status_novel_request.py:11
+#: templates/novels/includes/my_novels_statistics.html:25
+msgid "Bị từ chối"
+msgstr "Rejected"
+
+#: novels/templatetags/chapter_extras.py:24
+#: novels/templatetags/chapter_extras.py:48
+msgid "Unknown"
+msgstr "Unknown"
+
+#: novels/templatetags/chapter_extras.py:30
+msgid "< 1 min"
+msgstr "<1 min"
+
+#: novels/templatetags/chapter_extras.py:32
+msgid "1 min"
+msgstr "1 min"
+
+#: novels/templatetags/chapter_extras.py:34
+#, python-format
+msgid "%(minutes)d mins"
+msgstr "%(minutes)d mins"
+
+#: novels/templatetags/chapter_extras.py:39
+#, python-format
+msgid "%(hours)d hour(s)"
+msgstr "%(hours)d hour(s)"
+
+#: novels/templatetags/chapter_extras.py:41
+#, python-format
+msgid "%(hours)dh %(minutes)dm"
+msgstr "%(hours)dh %(minutes)dm"
+
+#: novels/templatetags/chapter_extras.py:53
+msgid "Approved"
+msgstr "Approved"
+
+#: novels/templatetags/chapter_extras.py:59
+msgid "Rejected"
+msgstr "Rejected"
+
+#: novels/templatetags/chapter_extras.py:65
+msgid "Pending Review"
+msgstr "Pending review"
+
+#: novels/templatetags/status_filters.py:10
+#: novels/templatetags/status_novel_request.py:8
+#: templates/novels/includes/my_novels_statistics.html:13
+msgid "Bản nháp"
+msgstr "Draft"
+
+#: novels/templatetags/status_novel_request.py:9
+msgid "Đang chờ duyệt"
+msgstr "Waiting for browsing"
+
+#: novels/utils/helpers.py:19
+msgid "ngày"
+msgstr "day"
+
+#: novels/utils/helpers.py:22
+msgid "giờ"
+msgstr "hour"
+
+#: novels/utils/helpers.py:25
+msgid "phút"
+msgstr "minute"
+
+#: novels/utils/helpers.py:27
+msgid "Vừa xong"
+msgstr "Just finished"
+
+#: novels/views/admin/admin_artist_view.py:26
+msgid "Quản lý Họa sĩ"
+msgstr "Artist manager"
+
+#: novels/views/admin/admin_artist_view.py:27
+msgid "họa sĩ"
+msgstr "painter"
+
+#: novels/views/admin/admin_author_view.py:26
+msgid "Quản lý Tác giả"
+msgstr "Author management"
+
+#: novels/views/admin/admin_author_view.py:27
+msgid "tác giả"
+msgstr "author"
+
+#: novels/views/admin/admin_chapter_view.py:73
+#: novels/views/admin/admin_chapter_view.py:95
+#: novels/views/admin/admin_chapter_view.py:118
+msgid "Chương không tồn tại."
+msgstr "Chapter does not exist."
+
+#: novels/views/admin/admin_chapter_view.py:77
+msgid "Chương này đã được duyệt rồi."
+msgstr "This chapter has been approved."
+
+#: novels/views/admin/admin_chapter_view.py:86
+#, python-format
+msgid "Chương \"%(title)s\" đã được duyệt thành công!"
+msgstr "Chapter \"%(title)s\" has been successfully approved!"
+
+#: novels/views/admin/admin_chapter_view.py:99
+msgid "Chương này đã bị từ chối rồi."
+msgstr "This chapter has been rejected."
+
+#: novels/views/admin/admin_chapter_view.py:105
+msgid "Vui lòng cung cấp lý do từ chối."
+msgstr "Please provide the reason for refusal."
+
+#: novels/views/admin/admin_chapter_view.py:110
+#, python-format
+msgid "Chương \"%(title)s\" đã bị từ chối."
+msgstr "Chapter \"%(title)s\" was rejected."
+
+#: novels/views/admin/admin_novel_view.py:113
+msgid "Yêu cầu này không còn hiệu lực."
+msgstr "This requirement is no longer valid."
+
+#: novels/views/admin/admin_novel_view.py:137
+msgid "Truyện của bạn đã được duyệt"
+msgstr "Your story has been approved"
+
+#: novels/views/admin/admin_novel_view.py:138
+#, python-format
+msgid "Truyện '%(title)s' của bạn đã được duyệt."
+msgstr "The story '%(title)s' has been approved."
+
+#: novels/views/admin/admin_novel_view.py:149
+msgid "Tiểu thuyết đã được phê duyệt thành công."
+msgstr "The novel has been successfully approved."
+
+#: novels/views/admin/admin_novel_view.py:151
+msgid "Không thể phê duyệt tiểu thuyết này."
+msgstr "This novel cannot be approved."
+
+#: novels/views/admin/admin_novel_view.py:162
+#, python-format
+msgid "Lý do: %(reason)s"
+msgstr "Reason: %(reason)s"
+
+#: novels/views/admin/admin_novel_view.py:166
+msgid "Truyện của bạn bị từ chối"
+msgstr "Your story is rejected"
+
+#: novels/views/admin/admin_novel_view.py:167
+#, python-format
+msgid "Truyện '%(title)s' của bạn đã bị từ chối. '%(reason_text)s'"
+msgstr "Your '%(title)s story has been rejected.'%(reason_text)s'"
+
+#: novels/views/admin/admin_novel_view.py:177
+msgid "Tiểu thuyết đã được từ chối."
+msgstr "The novel was rejected."
+
+#: novels/views/admin/admin_novel_view.py:179
+msgid "Không thể từ chối tiểu thuyết này."
+msgstr "Can not deny this novel."
+
+#: novels/views/admin/admin_novel_view.py:193
+msgid "Truyện của bạn đã bị xóa"
+msgstr "Your story has been deleted"
+
+#: novels/views/admin/admin_novel_view.py:194
+#, python-format
+msgid "Truyện '%(title)s' của bạn đã bị xóa bởi admin."
+msgstr "The story '%(title)s' has been deleted by the Admin."
+
+#: novels/views/admin/admin_novel_view.py:203
+msgid "Tiểu thuyết đã được xóa thành công."
+msgstr "The novel has been successfully erased."
+
+#: novels/views/admin/admin_novel_view.py:205
+msgid "Tiểu thuyết không tồn tại hoặc đã bị xóa."
+msgstr "The novel does not exist or has been deleted."
+
+#: novels/views/admin/admin_tag_view.py:46
+msgid "Thêm thất bại"
+msgstr "Add failure"
+
+#: novels/views/admin/admin_tag_view.py:58
+msgid "Cập nhật thất bại"
+msgstr "Update failure"
+
+#: novels/views/admin/admin_tag_view.py:66
+msgid "Không thể xóa"
+msgstr "Inexperienced"
+
+#: novels/views/public/chapter_view.py:115
+msgid "Đã xảy ra lỗi khi lưu tiến độ đọc: "
+msgstr "Error occurred when saving the progress of reading:"
+
+#: novels/views/public/chapter_view.py:138
+msgid "Bạn không có quyền thêm chapter cho truyện này."
+msgstr "You have no additional chapter for this story."
+
+#: novels/views/public/chapter_view.py:145
+msgid "Chapter đã được thêm thành công!"
+msgstr "Chapter has been added success!"
+
+#: novels/views/public/chapter_view.py:169
+msgid "Bạn không có quyền xóa chapter này."
+msgstr "You have no right to delete this chapter."
+
+#: novels/views/public/chapter_view.py:176
+msgid "Chapter đã được xóa thành công."
+msgstr "Chapter has been deleted successfully."
+
+#: novels/views/public/chapter_view.py:196
+#, python-format
+msgid "Truyện '%(novel_name)s' có chương mới"
+msgstr "The story '%(novel_name)s' has a new chapter"
+
+#: novels/views/public/chapter_view.py:197
+#, python-format
+msgid "Chương '%(chapter_title)s' vừa được duyệt và hiển thị."
+msgstr "Chapter '%(chapter_title)s' has just been approved and displayed."
+
+#: novels/views/public/novel_view.py:73
+msgid "Bạn cần đăng nhập để tạo tiểu thuyết mới."
+msgstr "You need to login to create a new novel."
+
+#: novels/views/public/novel_view.py:77
+#: templates/novels/includes/breadcrumb.html:83
+#: templates/novels/includes/my_novels_header.html:8
+msgid "Tạo tiểu thuyết mới"
+msgstr "Create new novels"
+
+#: novels/views/public/novel_view.py:111
+msgid "Có tiểu thuyết mới cần duyệt"
+msgstr "There are new novels to be browsed"
+
+#: novels/views/public/novel_view.py:112
+#, python-format
+msgid "Người dùng %(username)s đã đăng tiểu thuyết '%(title)s'."
+msgstr "Users %(username)s posted the novel ' %(title)s'."
+
+#: novels/views/public/novel_view.py:137
+msgid "Bạn cần đăng nhập để chỉnh sửa tiểu thuyết."
+msgstr "You need to login to edit the novel."
+
+#: novels/views/public/novel_view.py:149 novels/views/public/novel_view.py:150
+msgid "Tiểu thuyết không tồn tại hoặc bạn không có quyền chỉnh sửa."
+msgstr "The novel does not exist or you have no right to edit."
+
+#: novels/views/public/novel_view.py:156
+#, python-brace-format
+msgid "Chỉnh sửa tiểu thuyết: {title}"
+msgstr "Modify novel: {title}"
+
+#: novels/views/public/novel_view.py:215
+#: templates/novels/includes/breadcrumb.html:62
+#: templates/novels/includes/breadcrumb.html:78
+#: templates/novels/includes/user_sidebar.html:38
+msgid "Tiểu thuyết của tôi"
+msgstr "My novel"
+
+#: novels/views/public/novel_view.py:380
+#: templates/novels/includes/breadcrumb.html:67
+#: templates/novels/includes/my_liked_novels_header.html:8
+#: templates/novels/includes/user_sidebar.html:47
+#: templates/novels/pages/like_novels.html:5
+msgid "Tiểu thuyết yêu thích"
+msgstr "Favorite novel"
+
+#: novels/views/public/reading_history_view.py:63
+#: templates/novels/includes/breadcrumb.html:72
+#: templates/novels/includes/reading_history_header.html:8
+#: templates/novels/includes/user_sidebar.html:54
+msgid "Lịch sử đọc"
+msgstr "Reading history"
+
+#: templates/accounts/change_password.html:6
+#: templates/accounts/change_password.html:54
+#: templates/novels/includes/user_sidebar.html:66
+msgid "Đổi mật khẩu"
+msgstr "Change password"
+
+#: templates/accounts/forgot_password.html:6
+msgid "Quên mật khẩu"
+msgstr "Forgot the password"
+
+#: templates/accounts/forgot_password.html:21
+msgid "Nhập email của bạn"
+msgstr "Enter your email"
+
+#: templates/accounts/forgot_password.html:24
+msgid "Gửi liên kết đặt lại mật khẩu"
+msgstr "Send the link to reset the password"
+
+#: templates/accounts/login.html:13 templates/accounts/login.html:49
+#: templates/base_account.html:21 templates/novels/includes/navbar.html:125
+msgid "Đăng nhập"
+msgstr "Log in"
+
+#: templates/accounts/login.html:54
+msgid "Quên mật khẩu?"
+msgstr "Forgot the password?"
+
+#: templates/accounts/login.html:59
+msgid "Đăng nhập với Google"
+msgstr "Log in with Google"
+
+#: templates/accounts/profile.html:25
+msgid "Đã xác thực"
+msgstr "Authenticated"
+
+#: templates/accounts/profile.html:32 templates/accounts/profile_edit.html:15
+msgid "Chỉnh sửa profile"
+msgstr "Profile editing"
+
+#: templates/accounts/profile.html:42
+msgid "Thông tin cá nhân"
+msgstr "Personal information"
+
+#: templates/accounts/profile.html:52
+msgid "Email đã xác thực"
+msgstr "Email has been verified"
+
+#: templates/accounts/profile.html:54
+msgid "Email chưa xác thực"
+msgstr "Email has not been authenticated"
+
+#: templates/accounts/profile.html:84
+msgid "Profile bị khóa"
+msgstr "The profile is locked"
+
+#: templates/accounts/profile.html:97
+msgid "Thông tin profile"
+msgstr "Profile information"
+
+#: templates/accounts/profile.html:117
+msgid "Người dùng chưa cập nhật thông tin profile."
+msgstr "Users have not updated profile information."
+
+#: templates/accounts/profile.html:121
+msgid "Cập nhật thông tin"
+msgstr "Update information"
+
+#: templates/accounts/profile.html:133
+msgid "Thống kê hoạt động"
+msgstr "Activity statistics"
+
+#: templates/accounts/profile.html:139
+msgid "Bài viết"
+msgstr "Article"
+
+#: templates/accounts/profile.html:143
+msgid "Quyền Admin"
+msgstr "Admin rights"
+
+#: templates/accounts/profile.html:147
+msgid "Tham gia"
+msgstr "Join"
+
+#: templates/accounts/profile_edit.html:16
+msgid "Cập nhật thông tin cá nhân của bạn"
+msgstr "Update your personal information"
+
+#: templates/accounts/profile_edit.html:19
+msgid "Quay lại profile"
+msgstr "Back to profile"
+
+#: templates/accounts/profile_edit.html:31
+msgid "Ảnh đại diện"
+msgstr "Avatar"
+
+#: templates/accounts/profile_edit.html:67
+msgid "Thông tin cơ bản"
+msgstr "Basic information"
+
+#: templates/accounts/profile_edit.html:109
+msgid "Thông tin chi tiết"
+msgstr "Detailed information"
+
+#: templates/accounts/profile_edit.html:135
+msgid "Lưu thay đổi"
+msgstr "Save change"
+
+#: templates/accounts/profile_edit.html:139
+#: templates/admin/author_artist/list_common.html:44
+#: templates/admin/author_artist/partials/form.html:23
+#: templates/admin/novel_request/partials/approval_actions.html:35
+#: templates/admin/pages/chapter_review.html:70
+#: templates/admin/tags/partials/delete_modal.html:15
+#: templates/interactions/includes/reviews.html:66
+#: templates/novels/includes/chapter_form_actions.html:8
+#: templates/novels/includes/volume_list.html:191
+msgid "Hủy"
+msgstr "Cancel"
+
+#: templates/accounts/register.html:13 templates/accounts/register.html:52
+#: templates/base_account.html:22 templates/novels/includes/navbar.html:127
+msgid "Đăng ký"
+msgstr "Register"
+
+#: templates/accounts/register.html:57
+msgid "Đã có tài khoản?"
+msgstr "There are accounts?"
+
+#: templates/accounts/register.html:57
+msgid "Đăng nhập ngay"
+msgstr "Sign in now"
+
+#: templates/accounts/register.html:62
+msgid "Đăng ký với Google"
+msgstr "Sign up with Google"
+
+#: templates/accounts/reset_password.html:6
+#: templates/accounts/reset_password.html:25
+msgid "Đặt lại mật khẩu"
+msgstr "Reset the password"
+
+#: templates/admin/author_artist/list_common.html:14
+msgid "Thêm"
+msgstr "More"
+
+#: templates/admin/author_artist/list_common.html:34
+#: templates/admin/tags/partials/delete_modal.html:7
+msgid "Xác nhận xóa"
+msgstr "Confirm delete"
+
+#: templates/admin/author_artist/list_common.html:38
+#, python-format
+msgid "Bạn có chắc chắn muốn xóa %(item_name)s này không?"
+msgstr "Are you sure you want to delete this %(item_name)s?"
+
+#: templates/admin/author_artist/list_common.html:43
+#: templates/admin/author_artist/partials/list_table_artist.html:18
+#: templates/admin/author_artist/partials/list_table_author.html:18
+#: templates/admin/novel_request/partials/delete_actions.html:12
+#: templates/admin/pages/comments_admin.html:57
+#: templates/admin/tags/partials/delete_modal.html:18
+#: templates/admin/tags/partials/list.html:22
+#: templates/interactions/includes/comment.html:27
+#: templates/interactions/includes/reply.html:19
+#: templates/novels/includes/comment_list.html:55
+#: templates/novels/includes/comment_list.html:95
+#: templates/novels/includes/comment_list.html:132
+msgid "Xóa"
+msgstr "Erase"
+
+#: templates/admin/author_artist/partials/form.html:8
+msgid "Tác giả/Họa sĩ"
+msgstr "Author/Artist"
+
+#: templates/admin/author_artist/partials/form.html:22
+#: templates/admin/tags/partials/form_modal.html:31
+msgid "Lưu"
+msgstr "Save"
+
+#: templates/admin/author_artist/partials/list_table_artist.html:6
+#: templates/admin/author_artist/partials/list_table_author.html:6
+#: templates/admin/pages/users_admin.html:19
+#: templates/admin/tags/partials/list.html:5
+msgid "Tên"
+msgstr "Name"
+
+#: templates/admin/author_artist/partials/list_table_artist.html:7
+#: templates/admin/author_artist/partials/list_table_author.html:7
+msgid "Bút danh"
+msgstr "Pseudonym"
+
+#: templates/admin/author_artist/partials/list_table_artist.html:8
+#: templates/admin/author_artist/partials/list_table_author.html:8
+msgid "Hành động"
+msgstr "Act"
+
+#: templates/admin/author_artist/partials/list_table_artist.html:17
+#: templates/admin/author_artist/partials/list_table_author.html:17
+#: templates/admin/tags/partials/list.html:19
+msgid "Sửa"
+msgstr "Fix"
+
+#: templates/admin/includes/admin_pagination.html:4
+#: templates/novels/includes/_generic_pagination.html:5
+msgid "Phân trang"
+msgstr "Page"
+
+#: templates/admin/includes/admin_pagination.html:9
+#: templates/novels/includes/_generic_pagination.html:10
+msgid "Trang đầu"
+msgstr "Front page"
+
+#: templates/admin/includes/admin_pagination.html:18
+#: templates/novels/includes/_generic_pagination.html:15
+msgid "Trang trước"
+msgstr "Front page"
+
+#: templates/admin/includes/admin_pagination.html:40
+#: templates/novels/includes/_generic_pagination.html:60
+msgid "Trang tiếp"
+msgstr "The next page"
+
+#: templates/admin/includes/admin_pagination.html:49
+#: templates/novels/includes/_generic_pagination.html:65
+msgid "Trang cuối"
+msgstr "Last page"
+
+#: templates/admin/includes/admin_pagination.html:60
+#: templates/admin/pages/request_chapter_admin.html:24
+#: templates/novels/includes/_generic_pagination.html:87
+msgid "Hiển thị"
+msgstr "Display"
+
+#: templates/admin/includes/admin_pagination.html:61
+#: templates/novels/includes/_generic_pagination.html:88
+msgid "trong tổng số"
+msgstr "In the total number"
+
+#: templates/admin/includes/admin_pagination.html:61
+msgid "bản ghi"
+msgstr "record"
+
+#: templates/admin/includes/admin_pagination.html:62
+msgid "Trang"
+msgstr "Page"
+
+#: templates/admin/includes/admin_sidebar.html:8
+msgid "DOCWN ADMIN"
+msgstr "Docwn Admin"
+
+#: templates/admin/includes/admin_sidebar.html:17
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: templates/admin/includes/admin_sidebar.html:25
+#: templates/admin/includes/admin_sidebar.html:59
+msgid "Novels"
+msgstr "Novels"
+
+#: templates/admin/includes/admin_sidebar.html:33
+msgid "Comments"
+msgstr "Comments"
+
+#: templates/admin/includes/admin_sidebar.html:41
+msgid "Users"
+msgstr "Users"
+
+#: templates/admin/includes/admin_sidebar.html:49
+msgid "Requests"
+msgstr "Requests"
+
+#: templates/admin/includes/admin_sidebar.html:66
+msgid "Chapters"
+msgstr "Chapter"
+
+#: templates/admin/includes/admin_sidebar.html:76
+msgid "Manages"
+msgstr "Manages"
+
+#: templates/admin/includes/admin_sidebar.html:86
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/admin/includes/admin_sidebar.html:93
+msgid "Authors"
+msgstr "Authors"
+
+#: templates/admin/includes/admin_sidebar.html:100
+msgid "Artists"
+msgstr "Artists"
+
+#: templates/admin/includes/admin_sidebar.html:123
+msgid "Admin"
+msgstr "Admin"
+
+#: templates/admin/includes/admin_sidebar.html:127
+msgid "Profile"
+msgstr "Profile"
+
+#: templates/admin/includes/admin_sidebar.html:129
+msgid "Sign out"
+msgstr "Sign out"
+
+#: templates/admin/includes/chapter_review_content.html:8
+msgid "Nội dung chương"
+msgstr "Content chapter"
+
+#: templates/admin/includes/chapter_review_content.html:11
+msgid "Thời gian đọc"
+msgstr "Reading time"
+
+#: templates/admin/includes/chapter_review_content.html:27
+msgid "Không có nội dung hiển thị"
+msgstr "There is no display content"
+
+#: templates/admin/includes/chapter_review_header.html:16
+#: templates/novels/includes/like_novels_area.html:5
+#: templates/novels/includes/new_update_novels_area.html:5
+msgid "Truyện"
+msgstr "Story"
+
+#: templates/admin/includes/chapter_review_header.html:20
+msgid "Tập"
+msgstr "Practice"
+
+#: templates/admin/includes/chapter_review_header.html:24
+#: templates/admin/includes/upvolumeTable.html:10
+msgid "Chương"
+msgstr "Chapter"
+
+#: templates/admin/includes/chapter_review_header.html:30
+msgid "Số từ"
+msgstr "Words"
+
+#: templates/admin/includes/chapter_review_header.html:38
+#: templates/novels/includes/main_info.html:24
+msgid "Chỉnh sửa"
+msgstr "Edit"
+
+#: templates/admin/includes/chapter_review_header.html:48
+#: templates/novels/includes/volume_list.html:37
+#: templates/novels/includes/volume_list.html:79
+#: templates/novels/includes/volume_list.html:120
+msgid "Ẩn"
+msgstr "Hidden"
+
+#: templates/admin/includes/chapter_review_sidebar.html:7
+#: templates/admin/includes/upchapterTable.html:14
+#: templates/admin/includes/upnovelTable.html:15
+#: templates/admin/pages/comments_admin.html:38
+#: templates/admin/pages/novels_admin.html:69
+#: templates/admin/pages/request_chapter_admin.html:44
+#: templates/admin/pages/request_novel_admin.html:71
+#: templates/admin/tags/partials/list.html:8
+msgid "Thao tác"
+msgstr "Operation"
+
+#: templates/admin/includes/chapter_review_sidebar.html:17
+#: templates/novels/includes/volume_list.html:27
+#: templates/novels/includes/volume_list.html:69
+#: templates/novels/includes/volume_list.html:110
+msgid "Lý do từ chối:"
+msgstr "Reason for refusal:"
+
+#: templates/admin/includes/chapter_review_sidebar.html:22
+msgid "Vui lòng nhập lý do chi tiết nếu từ chối chương này..."
+msgstr "Please enter the detailed reason if this chapter refuses ..."
+
+#: templates/admin/includes/chapter_review_sidebar.html:27
+#: templates/admin/pages/chapter_review.html:88
+msgid "Từ chối chương"
+msgstr "Refuse chapter"
+
+#: templates/admin/includes/chapter_review_sidebar.html:37
+#: templates/admin/pages/chapter_review.html:87
+msgid "Duyệt chương"
+msgstr "Browse chapter"
+
+#: templates/admin/includes/chart.html:6
+msgid "Thống kê người dùng mới trong tháng"
+msgstr "New user statistics in the month"
+
+#: templates/admin/includes/chart.html:25
+msgid "Thống kê tiểu thuyết mới trong tháng"
+msgstr "New novel statistics in the month"
+
+#: templates/admin/includes/dashboardTable.html:7
+msgid "Top tiểu thuyết được đọc nhiều nhất trong tháng"
+msgstr "Top novels are most read in the month"
+
+#: templates/admin/includes/dashboardTable.html:13
+#: templates/admin/includes/dashboardTable.html:38
+#: templates/admin/includes/dashboardTable.html:62
+#: templates/admin/includes/upchapterTable.html:9
+#: templates/admin/includes/upnovelTable.html:10
+#: templates/admin/includes/upvolumeTable.html:8
+#: templates/admin/pages/comments_admin.html:33
+#: templates/admin/pages/novels_admin.html:63
+#: templates/admin/pages/request_chapter_admin.html:39
+#: templates/admin/pages/request_novel_admin.html:66
+#: templates/admin/pages/users_admin.html:18
+msgid "STT"
+msgstr "Stt"
+
+#: templates/admin/includes/dashboardTable.html:15
+#: templates/admin/includes/dashboardTable.html:65
+#: templates/admin/pages/novels_admin.html:65
+msgid "Lượt đọc"
+msgstr "Read"
+
+#: templates/admin/includes/dashboardTable.html:33
+msgid "Truyện mới được thêm"
+msgstr "New story is added"
+
+#: templates/admin/includes/dashboardTable.html:40
+#: templates/admin/pages/novels_admin.html:68
+msgid "Ngày đăng"
+msgstr "Post date"
+
+#: templates/admin/includes/dashboardTable.html:58
+msgid "Top tác giả nổi bật"
+msgstr "Top authors stand out"
+
+#: templates/admin/includes/dashboardTable.html:63
+msgid "Tên tác giả"
+msgstr "Author's name"
+
+#: templates/admin/includes/dashboardTable.html:64
+msgid "Số truyện"
+msgstr "Stories"
+
+#: templates/admin/includes/navbar.html:9
+msgid "Home"
+msgstr "Home"
+
+#: templates/admin/includes/navbar.html:13
+msgid "Contact"
+msgstr "Contact"
+
+#: templates/admin/includes/navbar.html:18
+msgid "Setting"
+msgstr "Setting"
+
+#: templates/admin/includes/navbar.html:40
+#: templates/novels/includes/navbar.html:95
+msgid "Unread Notifications"
+msgstr "Unread notifications"
+
+#: templates/admin/includes/upchapterTable.html:2
+#: templates/admin/pages/request_chapter_admin.html:6
+msgid "Yêu cầu Up Chương Mới"
+msgstr "Request new chapter up"
+
+#: templates/admin/includes/upchapterTable.html:3
+msgid "Lọc theo tên tiểu thuyết hoặc số chương..."
+msgstr "Filter by novel name or chapter number ..."
+
+#: templates/admin/includes/upchapterTable.html:11
+#: templates/admin/pages/request_chapter_admin.html:41
+msgid "Tên chương"
+msgstr "Chapter name"
+
+#: templates/admin/includes/upchapterTable.html:12
+#: templates/admin/pages/request_chapter_admin.html:42
+#: templates/novels/includes/sidebar.html:12
+#: templates/novels/includes/sidebar.html:28
+msgid "Người đăng"
+msgstr "Poster"
+
+#: templates/admin/includes/upchapterTable.html:13
+#: templates/admin/includes/upnovelTable.html:14
+#: templates/admin/includes/upvolumeTable.html:13
+#: templates/admin/pages/request_chapter_admin.html:43
+#: templates/admin/pages/request_novel_admin.html:70
+msgid "Ngày gửi"
+msgstr "Date of sending"
+
+#: templates/admin/includes/upchapterTable.html:26
+#: templates/admin/includes/upnovelTable.html:35
+#: templates/admin/includes/upvolumeTable.html:27
+#: templates/admin/pages/novels_admin.html:95
+#: templates/admin/pages/request_chapter_admin.html:56
+#: templates/admin/pages/request_novel_admin.html:91
+msgid "Xem chi tiết"
+msgstr "See details"
+
+#: templates/admin/includes/upnovelTable.html:3
+#: templates/admin/pages/request_novel_admin.html:8
+msgid "Yêu cầu Up Tiểu Thuyết Mới"
+msgstr "Request new novel upload"
+
+#: templates/admin/includes/upnovelTable.html:4
+msgid "Lọc theo tên, thể loại..."
+msgstr "Filter by name, genre ..."
+
+#: templates/admin/includes/upnovelTable.html:13
+#: templates/admin/includes/upvolumeTable.html:12
+#: templates/admin/pages/request_novel_admin.html:69
+msgid "Người gửi"
+msgstr "Sender"
+
+#: templates/admin/includes/upnovelTable.html:29
+#: templates/admin/pages/novels_admin.html:84
+#: templates/admin/pages/request_novel_admin.html:85
+msgid "Không có tag"
+msgstr "There is no tag"
+
+#: templates/admin/includes/upvolumeTable.html:2
+msgid "Yêu cầu Up Tập Mới"
+msgstr "Request a new episode"
+
+#: templates/admin/includes/upvolumeTable.html:3
+msgid "Lọc theo tên tiểu thuyết..."
+msgstr "Filter by novel name ..."
+
+#: templates/admin/includes/upvolumeTable.html:11
+msgid "Tập số"
+msgstr "Digital"
+
+#: templates/admin/novel_request/novel_request_detail.html:13
+msgid "Chi tiết yêu cầu đăng tiểu thuyết"
+msgstr "Details request to post novels"
+
+#: templates/admin/novel_request/novel_request_detail.html:26
+#: templates/admin/pages/novel_detail.html:28
+msgid "Quay lại danh sách"
+msgstr "Back to the list"
+
+#: templates/admin/novel_request/partials/approval_actions.html:9
+msgid "Duyệt"
+msgstr "Approve"
+
+#: templates/admin/novel_request/partials/approval_actions.html:15
+msgid "Từ chối"
+msgstr "Refuse"
+
+#: templates/admin/novel_request/partials/approval_actions.html:26
+#: templates/admin/pages/chapter_review.html:32
+#: templates/novels/includes/my_novels_list.html:71
+#: templates/novels/includes/sidebar.html:45
+msgid "Lý do từ chối"
+msgstr "The reason for refusal"
+
+#: templates/admin/novel_request/partials/approval_actions.html:36
+#: templates/admin/pages/chapter_review.html:85
+msgid "Xác nhận từ chối"
+msgstr "Confirmation of refusal"
+
+#: templates/admin/novel_request/partials/delete_actions.html:8
+msgid "Bạn có chắc muốn xóa truyện này?"
+msgstr "Are you sure to delete this story?"
+
+#: templates/admin/novel_request/partials/novel_info.html:14
+#: templates/novels/includes/main_info.html:37
+#: templates/novels/includes/novel_filter.html:62
+msgid "Tác giả:"
+msgstr "Author:"
+
+#: templates/admin/novel_request/partials/novel_info.html:17
+#: templates/novels/includes/main_info.html:46
+#: templates/novels/includes/novel_filter.html:70
+msgid "Họa sĩ:"
+msgstr "Painter:"
+
+#: templates/admin/novel_request/partials/novel_info.html:20
+msgid "Ngày gửi yêu cầu:"
+msgstr "Date of request:"
+
+#: templates/admin/novel_request/partials/novel_info.html:21
+msgid "Trạng thái hiện tại:"
+msgstr "Current state:"
+
+#: templates/admin/pages/chapter_review.html:7
+msgid "Xét duyệt chương"
+msgstr "Chapter approval"
+
+#: templates/admin/pages/chapter_review.html:50
+msgid "Bạn cần phải duyệt chương trước đó trước khi xét duyệt chương này."
+msgstr ""
+"You need to approve the previous chapter before reviewing this chapter."
+
+#: templates/admin/pages/chapter_review.html:52
+msgid "Đi đến chương chưa duyệt"
+msgstr "Go to the chapter without approval"
+
+#: templates/admin/pages/chapter_review.html:73
+msgid "Xác nhận"
+msgstr "Confirm"
+
+#: templates/admin/pages/chapter_review.html:83
+msgid "Xác nhận duyệt chương"
+msgstr "Confirm the approval chapter"
+
+#: templates/admin/pages/chapter_review.html:84
+msgid ""
+"Bạn có chắc chắn muốn duyệt chương này? Hành động này không thể hoàn tác."
+msgstr ""
+"Are you sure you want to browse this chapter?This action cannot be done."
+
+#: templates/admin/pages/chapter_review.html:86
+msgid "Bạn có chắc chắn muốn từ chối chương này?"
+msgstr "Are you sure you want to refuse this chapter?"
+
+#: templates/admin/pages/chapter_review.html:89
+msgid "Huỷ"
+msgstr "Cancel"
+
+#: templates/admin/pages/chapter_review.html:90
+msgid "Đang xử lý..."
+msgstr "Handling ..."
+
+#: templates/admin/pages/chapter_review.html:91
+msgid "Vui lòng nhập lý do từ chối."
+msgstr "Please enter the reason for refusal."
+
+#: templates/admin/pages/comments_admin.html:6
+msgid "Danh sách bình luận"
+msgstr "Comment list"
+
+#: templates/admin/pages/comments_admin.html:11
+msgid "Tìm kiếm bình luận..."
+msgstr "Search for comments ..."
+
+#: templates/admin/pages/comments_admin.html:12
+#: templates/admin/pages/novels_admin.html:15
+#: templates/admin/pages/request_novel_admin.html:13
+#: templates/admin/pages/users_admin.html:10
+#: templates/novels/includes/navbar.html:34
+#: templates/novels/includes/search_form.html:20
+msgid "Tìm kiếm"
+msgstr "Search"
+
+#: templates/admin/pages/comments_admin.html:18
+msgid "Lọc theo trạng thái:"
+msgstr "Filter by status:"
+
+#: templates/admin/pages/comments_admin.html:20
+msgid "Tất cả trạng thái"
+msgstr "All status"
+
+#: templates/admin/pages/comments_admin.html:21
+msgid "Bình thường"
+msgstr "Normal"
+
+#: templates/admin/pages/comments_admin.html:22
+msgid "Bị báo cáo"
+msgstr "Reported"
+
+#: templates/admin/pages/comments_admin.html:56
+msgid "Xem"
+msgstr "See"
+
+#: templates/admin/pages/dashboard_admin.html:7
+msgid "Dashboard Admin"
+msgstr "Dashboard Admin"
+
+#: templates/admin/pages/home_admin.html:5
+msgid "Chào mừng bạn đến với Trang quản trị"
+msgstr "Welcome to the Administration page"
+
+#: templates/admin/pages/home_admin.html:6
+msgid ""
+"Đây là khu vực quản lý hệ thống truyện. Dưới đây là một số thông tin tổng "
+"quan."
+msgstr "This is the area management area.Here are some overview information."
+
+#: templates/admin/pages/home_admin.html:30
+msgid "342"
+msgstr "342"
+
+#: templates/admin/pages/home_admin.html:38
+msgid "Yêu cầu"
+msgstr "Request"
+
+#: templates/admin/pages/home_admin.html:45
+msgid "Truy cập nhanh"
+msgstr "Quick access"
+
+#: templates/admin/pages/home_admin.html:49
+msgid "Quản lý người dùng"
+msgstr "User management"
+
+#: templates/admin/pages/home_admin.html:52
+msgid "Quản lý tiểu thuyết"
+msgstr "Novel manager"
+
+#: templates/admin/pages/home_admin.html:55
+msgid "Quản lý bình luận"
+msgstr "Comment management"
+
+#: templates/admin/pages/home_admin.html:58
+msgid "Trang Dashboard"
+msgstr "Dashboard page"
+
+#: templates/admin/pages/novel_detail.html:13
+msgid "Chi tiết tiểu thuyết"
+msgstr "Details of novels"
+
+#: templates/admin/pages/novels_admin.html:11
+msgid "Danh sách tất cả tiểu thuyết"
+msgstr "List of all novels"
+
+#: templates/admin/pages/novels_admin.html:16
+#: templates/admin/pages/request_novel_admin.html:14
+msgid "Từ khóa..."
+msgstr "Keywords ..."
+
+#: templates/admin/pages/novels_admin.html:22
+#: templates/admin/pages/request_novel_admin.html:20
+msgid "-- Tất cả tag --"
+msgstr "-All tags-"
+
+#: templates/admin/pages/novels_admin.html:30
+#: templates/admin/pages/request_novel_admin.html:29
+#: templates/novels/includes/reading_stats.html:5
+msgid "Tiến độ"
+msgstr "Progress"
+
+#: templates/admin/pages/novels_admin.html:32
+#: templates/admin/pages/novels_admin.html:44
+#: templates/admin/pages/request_novel_admin.html:31
+#: templates/admin/pages/request_novel_admin.html:43
+msgid "-- Tất cả --"
+msgstr "-- All --"
+
+#: templates/admin/pages/novels_admin.html:55
+#: templates/admin/pages/request_chapter_admin.html:30
+#: templates/admin/pages/request_novel_admin.html:56
+#: templates/novels/includes/novel_filter.html:93
+msgid "Lọc"
+msgstr "Filter"
+
+#: templates/admin/pages/novels_admin.html:91
+msgid "N/A"
+msgstr "N/a"
+
+#: templates/admin/pages/request_chapter_admin.html:10
+msgid "Tìm kiếm chương..."
+msgstr "Search chapter ..."
+
+#: templates/admin/pages/request_chapter_admin.html:15
+msgid "-- Tất cả trạng thái duyệt --"
+msgstr "-All approval status-"
+
+#: templates/admin/pages/request_chapter_admin.html:17
+msgid "Chưa duyệt"
+msgstr "Unpaid"
+
+#: templates/admin/pages/request_chapter_admin.html:23
+msgid "-- Tất cả hiển thị --"
+msgstr "-All display-"
+
+#: templates/admin/pages/request_chapter_admin.html:25
+msgid "Bị ẩn"
+msgstr "Hidden"
+
+#: templates/admin/pages/request_novel_admin.html:88
+#: templates/novels/includes/sidebar.html:9
+#: templates/novels/includes/sidebar.html:13
+#: templates/novels/includes/sidebar.html:22
+msgid "Ẩn danh"
+msgstr "Anonymous"
+
+#: templates/admin/pages/users_admin.html:5
+msgid "Danh sách tất cả người dùng"
+msgstr "List of all users"
+
+#: templates/admin/pages/users_admin.html:21
+msgid "Ngày đăng ký"
+msgstr "Registration date"
+
+#: templates/admin/pages/users_admin.html:36
+msgid "Đã chặn"
+msgstr "Blocked"
+
+#: templates/admin/tags/partials/delete_modal.html:8
+#: templates/admin/tags/partials/form_modal.html:13
+#: templates/novels/includes/volume_list.html:184
+msgid "Đóng"
+msgstr "Close"
+
+#: templates/admin/tags/partials/delete_modal.html:11
+msgid "Bạn có chắc chắn muốn xóa tag này không?"
+msgstr "Are you sure you want to delete this tag?"
+
+#: templates/admin/tags/partials/form_modal.html:12
+msgid "Thêm / Sửa Tag"
+msgstr "Add / edit the tag"
+
+#: templates/admin/tags/partials/form_modal.html:18
+msgid "Tên tag"
+msgstr "Tag name"
+
+#: templates/admin/tags/partials/list.html:6
+msgid "Slug"
+msgstr "Slug"
+
+#: templates/admin/tags/tag_list.html:20
+msgid "Quản lý Thể loại (Tags)"
+msgstr "Genre management (Tags)"
+
+#: templates/admin/tags/tag_list.html:22
+msgid "Thêm Tag"
+msgstr "Add tag"
+
+#: templates/base_account.html:7
+msgid "Tài khoản"
+msgstr "Account"
+
+#: templates/base_account.html:18
+msgid "Bảng điều khiển"
+msgstr "Dashboard"
+
+#: templates/base_admin.html:8
+msgid "Admin Website"
+msgstr "Admin website"
+
+#: templates/base_chapter.html:8
+msgid "DocWN"
+msgstr "Docwn"
+
+#: templates/base_home.html:7
+msgid "WEB ĐỌC TIỂU THUYẾT DOCWN"
+msgstr "Web reading Docwn novel"
+
+#: templates/interactions/includes/comment.html:19
+#: templates/novels/includes/comment_list.html:47
+msgid "Trả lời"
+msgstr "Reply"
+
+#: templates/interactions/includes/comment.html:39
+#: templates/novels/includes/comment_list.html:69
+msgid "Nhập trả lời..."
+msgstr "Enter the answer ..."
+
+#: templates/interactions/includes/comment.html:41
+#: templates/novels/includes/comment_list.html:17
+#: templates/novels/includes/comment_list.html:71
+msgid "Đăng"
+msgstr "Post"
+
+#: templates/interactions/includes/notifications.html:15
+msgid "chưa đọc"
+msgstr "not read"
+
+#: templates/interactions/includes/notifications.html:34
+#: templates/novels/includes/meta.html:4
+msgid "trước"
+msgstr "before"
+
+#: templates/interactions/includes/notifications.html:48
+msgid "Không có thông báo nào"
+msgstr "There is no notice"
+
+#: templates/interactions/includes/notifications.html:56
+msgid "Loading..."
+msgstr "Loading ..."
+
+#: templates/interactions/includes/report.html:21
+msgid "Báo cáo bình luận"
+msgstr "Comment report"
+
+#: templates/interactions/includes/report.html:33
+msgid "Gửi báo cáo"
+msgstr "Send report"
+
+#: templates/interactions/includes/reviews.html:16
+msgid "Cần đăng nhập để bình luận"
+msgstr "Need to login for comments"
+
+#: templates/interactions/includes/reviews.html:19
+msgid "Bạn đã đánh giá cuốn tiểu thuyết này rồi"
+msgstr "You have rated this novel already"
+
+#: templates/interactions/includes/reviews.html:21
+#: templates/interactions/includes/reviews.html:33
+msgid "Thêm đánh giá của bạn"
+msgstr "Add your review"
+
+#: templates/interactions/includes/reviews.html:24
+msgid "Thêm đánh giá"
+msgstr "More reviews"
+
+#: templates/interactions/includes/reviews.html:39
+msgid "Chọn số sao"
+msgstr "Select the number of stars"
+
+#: templates/interactions/includes/reviews.html:41
+#: templates/interactions/includes/reviews.html:78
+msgid "sao"
+msgstr "Star"
+
+#: templates/interactions/includes/reviews.html:55
+msgid "ký tự"
+msgstr "kin"
+
+#: templates/interactions/includes/reviews.html:62
+msgid "Đăng đánh giá"
+msgstr "Post review"
+
+#: templates/interactions/includes/reviews.html:76
+msgid "Tất cả đánh giá"
+msgstr "All reviews"
+
+#: templates/interactions/includes/reviews.html:83
+msgid "Mới nhất"
+msgstr "Latest"
+
+#: templates/interactions/includes/reviews.html:84
+msgid "Cũ nhất"
+msgstr "Oldest"
+
+#: templates/interactions/includes/reviews.html:85
+msgid "Đánh giá cao nhất"
+msgstr "The highest appreciation"
+
+#: templates/interactions/includes/reviews.html:86
+msgid "Đánh giá thấp nhất"
+msgstr "Lowest Review"
+
+#: templates/interactions/includes/reviews.html:94
+msgid "Đang tải đánh giá..."
+msgstr "Loading evaluation ..."
+
+#: templates/interactions/includes/reviews.html:102
+msgid "Tải thêm đánh giá"
+msgstr "Download more reviews"
+
+#: templates/interactions/includes/reviews.html:111
+msgid "Chưa có đánh giá nào"
+msgstr "No evaluation"
+
+#: templates/interactions/includes/reviews.html:112
+msgid "Hãy là người đầu tiên chia sẻ cảm nhận về cuốn tiểu thuyết này!"
+msgstr "Be the first to share the feeling of this novel!"
+
+#: templates/novels/includes/breadcrumb.html:9
+#: templates/novels/includes/controls_panel.html:26
+#: templates/novels/includes/footer.html:17
+#: templates/novels/includes/navbar.html:21 templates/novels/pages/home.html:3
+msgid "Trang chủ"
+msgstr "Home"
+
+#: templates/novels/includes/breadcrumb.html:57
+msgid "Thêm chapter"
+msgstr "Add chapter"
+
+#: templates/novels/includes/breadcrumb.html:88
+msgid "Quy định đăng chapter"
+msgstr "Regulation to post chapter"
+
+#: templates/novels/includes/breadcrumb.html:105
+msgid "Danh sách chapter"
+msgstr "List of Chapter"
+
+#: templates/novels/includes/chapter_content.html:14
+msgid "Đang tải nội dung..."
+msgstr "Loading content ..."
+
+#: templates/novels/includes/chapter_form_actions.html:5
+#: templates/novels/includes/volume_list.html:172
+msgid "Thêm Chapter"
+msgstr "Add chapter"
+
+#: templates/novels/includes/chapter_form_header.html:5
+msgid "Thêm Chapter cho:"
+msgstr "Add chapter for:"
+
+#: templates/novels/includes/chapter_form_header.html:9
+msgid "Xem quy định đăng chapter"
+msgstr "See the Regulation to post chapter"
+
+#: templates/novels/includes/chapter_header.html:9
+msgid "từ"
+msgstr "from"
+
+#: templates/novels/includes/chapter_header.html:9
+#: templates/novels/includes/my_novels_list.html:46
+msgid "Cập nhật"
+msgstr "Update"
+
+#: templates/novels/includes/comment.html:5
+msgid "GẦN ĐÂY"
+msgstr "RECENTLY"
+
+#: templates/novels/includes/comment_list.html:15
+msgid "Nhập bình luận..."
+msgstr "Enter comments ..."
+
+#: templates/novels/includes/comment_list.html:21
+msgid "Bạn phải "
+msgstr "You must"
+
+#: templates/novels/includes/comment_list.html:21
+msgid "đăng nhập "
+msgstr "log in"
+
+#: templates/novels/includes/comment_list.html:21
+msgid "hoặc"
+msgstr "or"
+
+#: templates/novels/includes/comment_list.html:22
+msgid " tạo tài khoản"
+msgstr "Create account"
+
+#: templates/novels/includes/comment_list.html:22
+msgid " để bình luận."
+msgstr "To comment."
+
+#: templates/novels/includes/comment_list.html:108
+#: templates/novels/includes/container_finish.html:20
+#: templates/novels/includes/like_novels_area.html:19
+#: templates/novels/includes/new_novels_area.html:17
+#: templates/novels/includes/summary.html:15
+#: templates/novels/includes/summary.html:17
+msgid "Xem thêm"
+msgstr "See more"
+
+#: templates/novels/includes/comment_list.html:109
+#: templates/novels/includes/volume_list.html:156
+msgid "Ẩn bớt"
+msgstr "Hide"
+
+#: templates/novels/includes/comment_list.html:156
+#: templates/novels/includes/comment_list.html:158
+msgid "Trước"
+msgstr "Before"
+
+#: templates/novels/includes/comment_list.html:162
+#: templates/novels/includes/comment_list.html:164
+msgid "Sau"
+msgstr "After"
+
+#: templates/novels/includes/comment_list.html:169
+msgid "Chưa có bình luận nào."
+msgstr "No comments."
+
+#: templates/novels/includes/container_finish.html:5
+msgid "TRUYỆN"
+msgstr "STORY"
+
+#: templates/novels/includes/container_finish.html:7
+msgid "ĐÃ HOÀN THÀNH"
+msgstr "Completed"
+
+#: templates/novels/includes/controls_panel.html:10
+msgid "Không có chương trước"
+msgstr "There is no previous chapter"
+
+#: templates/novels/includes/controls_panel.html:20
+msgid "Không có chương tiếp theo"
+msgstr "There is no next chapter"
+
+#: templates/novels/includes/controls_panel.html:29
+msgid "Bookmark"
+msgstr "Bookmark"
+
+#: templates/novels/includes/controls_panel.html:32
+msgid "Cỡ chữ"
+msgstr "Font size"
+
+#: templates/novels/includes/controls_panel.html:35
+msgid "Chế độ tối"
+msgstr "Dark mode"
+
+#: templates/novels/includes/controls_panel.html:38
+msgid "Toàn màn hình"
+msgstr "Full screen"
+
+#: templates/novels/includes/footer.html:7
+#: templates/novels/includes/footer.html:22
+msgid "Về chúng tôi"
+msgstr "About us"
+
+#: templates/novels/includes/footer.html:8
+msgid ""
+"Trang web đọc tiểu thuyết trực tuyến, nơi bạn có thể khám phá và theo dõi "
+"những câu chuyện yêu thích mọi lúc, mọi nơi."
+msgstr ""
+"The website reads online novels, where you can explore and follow your "
+"favorite stories anytime, anywhere."
+
+#: templates/novels/includes/footer.html:13
+msgid "Liên kết"
+msgstr "Link"
+
+#: templates/novels/includes/footer.html:27
+msgid "Dịch vụ"
+msgstr "Service"
+
+#: templates/novels/includes/footer.html:32
+msgid "Liên hệ : docwn@gmail.com"
+msgstr "Contact: docwn@gmail.com"
+
+#: templates/novels/includes/footer.html:40
+msgid "Theo dõi chúng tôi"
+msgstr "Follow us"
+
+#: templates/novels/includes/footer.html:54
+msgid "© 2025 Bản quyền thuộc về"
+msgstr "© 2025 Copyright belongs to"
+
+#: templates/novels/includes/footer.html:54
+#: templates/novels/includes/navbar.html:5
+msgid "DOCWN"
+msgstr "Docwn"
+
+#: templates/novels/includes/image_preview_template.html:5
+msgid "Image preview"
+msgstr "Image Preview"
+
+#: templates/novels/includes/image_preview_template.html:7
+msgid "File:"
+msgstr "File:"
+
+#: templates/novels/includes/image_preview_template.html:8
+msgid "Size:"
+msgstr "Size:"
+
+#: templates/novels/includes/like_novels_area.html:7
+msgid "ĐƯỢC YÊU THÍCH"
+msgstr "Favorite"
+
+#: templates/novels/includes/like_novels_area.html:23
+msgid "Thu gọn"
+msgstr "Collapse"
+
+#: templates/novels/includes/like_novels_list.html:12
+msgid "Bạn chưa thích tiểu thuyết nào."
+msgstr "You don't like any novels yet."
+
+#: templates/novels/includes/like_novels_list.html:13
+msgid "Hãy khám phá và thêm những tiểu thuyết yêu thích của bạn!"
+msgstr "Discover and add your favorite novels!"
+
+#: templates/novels/includes/like_novels_list.html:15
+#: templates/novels/includes/reading_history_list.html:134
+msgid "Khám phá tiểu thuyết"
+msgstr "Explore novels"
+
+#: templates/novels/includes/main_info.html:22
+#: templates/novels/includes/novel_form_header.html:8
+msgid "Chỉnh sửa tiểu thuyết"
+msgstr "Modify novels"
+
+#: templates/novels/includes/main_info.html:41
+#: templates/novels/includes/main_info.html:50
+msgid "Đang cập nhật"
+msgstr "Update"
+
+#: templates/novels/includes/main_info.html:55
+#: templates/novels/includes/novel_filter.html:78
+msgid "Tình trạng:"
+msgstr "Status:"
+
+#: templates/novels/includes/meta.html:4
+msgid "Lần cuối:"
+msgstr "Last time:"
+
+#: templates/novels/includes/meta.html:5
+msgid "Số từ:"
+msgstr "Number of words:"
+
+#: templates/novels/includes/meta.html:7
+msgid "Lượt xem:"
+msgstr "View:"
+
+#: templates/novels/includes/my_novels_list.html:91
+msgid "Bạn chưa tạo tiểu thuyết nào"
+msgstr "You have not created any novels"
+
+#: templates/novels/includes/my_novels_list.html:92
+msgid "Hãy bắt đầu tạo tiểu thuyết đầu tiên của bạn ngay bây giờ!"
+msgstr "Start creating your first novel right now!"
+
+#: templates/novels/includes/my_novels_list.html:94
+msgid "Tạo tiểu thuyết đầu tiên"
+msgstr "Create the first novel"
+
+#: templates/novels/includes/my_novels_statistics.html:9
+msgid "Tổng cộng"
+msgstr "Total"
+
+#: templates/novels/includes/navbar.html:29
+msgid "Thảo luận"
+msgstr "Discuss"
+
+#: templates/novels/includes/navbar.html:39
+msgid "Danh sách"
+msgstr "List"
+
+#: templates/novels/includes/navbar.html:50
+msgid "Hướng dẫn"
+msgstr "Instruct"
+
+#: templates/novels/includes/navbar.html:53
+msgid "Action"
+msgstr "Action"
+
+#: templates/novels/includes/navbar.html:55
+msgid "Another action"
+msgstr "Another Action"
+
+#: templates/novels/includes/navbar.html:60
+msgid "Something else here"
+msgstr "Something else here"
+
+#: templates/novels/includes/navbar.html:72
+msgid "Tìm kiếm..."
+msgstr "Search..."
+
+#: templates/novels/includes/navbar.html:111
+msgid "Thông tin người dùng"
+msgstr "User information"
+
+#: templates/novels/includes/navbar.html:121
+msgid "Tài khoản?"
+msgstr "Account?"
+
+#: templates/novels/includes/navbar.html:143
+msgid "Dark"
+msgstr "Dark"
+
+#: templates/novels/includes/new_novels_area.html:5
+msgid "Sáng tác"
+msgstr "Compose"
+
+#: templates/novels/includes/new_novels_area.html:7
+msgid "MỚI NHẤT"
+msgstr "Latest"
+
+#: templates/novels/includes/new_update_novels_area.html:7
+msgid "MỚI CẬP NHẬT"
+msgstr "New update"
+
+#: templates/novels/includes/novel_filter.html:14
+msgid "Tên, tác giả, nghệ sĩ, tóm tắt..."
+msgstr "Name, author, artist, summary ..."
+
+#: templates/novels/includes/novel_filter.html:20
+msgid "Sắp xếp:"
+msgstr "Arrange:"
+
+#: templates/novels/includes/novel_filter.html:22
+msgid "Ngày tạo mới nhất"
+msgstr "Latest creation date"
+
+#: templates/novels/includes/novel_filter.html:23
+msgid "Cập nhật mới nhất"
+msgstr "Latest update"
+
+#: templates/novels/includes/novel_filter.html:24
+msgid "Tên (A-Z)"
+msgstr "Name (A-Z)"
+
+#: templates/novels/includes/novel_filter.html:25
+msgid "Tên (Z-A)"
+msgstr "Name (Z-A)"
+
+#: templates/novels/includes/novel_filter.html:26
+msgid "Lượt xem cao"
+msgstr "High views"
+
+#: templates/novels/includes/novel_filter.html:27
+msgid "Yêu thích nhiều"
+msgstr "Favorite"
+
+#: templates/novels/includes/novel_filter.html:33
+#: templates/novels/includes/search_form.html:39
+msgid "Tìm kiếm nâng cao"
+msgstr "Advanced search"
+
+#: templates/novels/includes/novel_filter.html:42
+msgid "Thể loại:"
+msgstr "Category:"
+
+#: templates/novels/includes/novel_filter.html:64
+msgid "Nhập tên tác giả"
+msgstr "Enter the name of the author"
+
+#: templates/novels/includes/novel_filter.html:72
+msgid "Nhập tên họa sĩ"
+msgstr "Enter the name of the artist"
+
+#: templates/novels/includes/novel_filter.html:80
+#: templates/novels/includes/search_form.html:72
+msgid "Tất cả"
+msgstr "All"
+
+#: templates/novels/includes/novel_filter.html:94
+msgid "Đặt lại"
+msgstr "Reset"
+
+#: templates/novels/includes/novel_form_body.html:101
+msgid "Ảnh bìa hiện tại:"
+msgstr "Current cover photo:"
+
+#: templates/novels/includes/novel_form_body.html:102
+msgid "Ảnh bìa hiện tại"
+msgstr "Current cover photo"
+
+#: templates/novels/includes/novel_form_body.html:103
+msgid "Tải lên ảnh mới để thay thế ảnh hiện tại"
+msgstr "Upload a new photo to replace the current photo"
+
+#: templates/novels/includes/novel_form_body.html:111
+#: templates/novels/includes/novel_form_body.html:114
+msgid "Choose cover image file..."
+msgstr "Choose Cover Image File ..."
+
+#: templates/novels/includes/novel_form_body.html:112
+msgid "Please select a valid image file (JPEG, PNG, GIF, WebP)"
+msgstr "Please select a valid image file (JPEG, PNG, GIF, Webp)"
+
+#: templates/novels/includes/novel_form_body.html:113
+msgid "File size must be less than 5MB"
+msgstr "File size must be less than 5MB"
+
+#: templates/novels/includes/novel_form_body.html:190
+msgid "Đang cập nhật..."
+msgstr "Updating ..."
+
+#: templates/novels/includes/novel_form_body.html:191
+#: templates/novels/includes/novel_form_body.html:192
+msgid "Cập nhật tiểu thuyết"
+msgstr "Update novels"
+
+#: templates/novels/includes/novel_form_body.html:195
+msgid "Hủy bỏ"
+msgstr "Cancel"
+
+#: templates/novels/includes/novel_form_body.html:199
+msgid "Đang tạo tiểu thuyết..."
+msgstr "Creating novels ..."
+
+#: templates/novels/includes/novel_form_body.html:200
+msgid "Tạo tiểu thuyết"
+msgstr "Fiction"
+
+#: templates/novels/includes/novel_form_body.html:201
+#: templates/novels/includes/user_sidebar.html:60
+msgid "Đăng tiểu thuyết"
+msgstr "Post novels"
+
+#: templates/novels/includes/novel_form_header.html:10
+msgid "Quay lại trang tiểu thuyết"
+msgstr "Back to the novel page"
+
+#: templates/novels/includes/novel_form_header.html:13
+msgid "Đăng truyện"
+msgstr "Post"
+
+#: templates/novels/includes/novel_form_header.html:15
+msgid "Cần đọc Hướng dẫn đăng truyện"
+msgstr "Need to read the instructions for posting stories"
+
+#: templates/novels/includes/pagnigation.html:9
+msgid "Previous"
+msgstr "Previous"
+
+#: templates/novels/includes/pagnigation.html:28
+msgid "Next"
+msgstr "Next"
+
+#: templates/novels/includes/reading_history_list.html:47
+msgid "Đọc lần cuối"
+msgstr "Last reading"
+
+#: templates/novels/includes/reading_history_list.html:48
+#: templates/novels/includes/volume_list.html:157
+#: templates/novels/includes/volume_list.html:158
+msgid "chương"
+msgstr "chapter"
+
+#: templates/novels/includes/reading_history_list.html:68
+msgid "Tiếp tục đọc"
+msgstr "Continue to read"
+
+#: templates/novels/includes/reading_history_list.html:73
+msgid "Chi tiết"
+msgstr "Detail"
+
+#: templates/novels/includes/reading_history_list.html:87
+msgid "Phân trang lịch sử đọc"
+msgstr "Reading historical pages"
+
+#: templates/novels/includes/reading_history_list.html:123
+msgid "Chưa có lịch sử đọc"
+msgstr "No reading history"
+
+#: templates/novels/includes/reading_history_list.html:125
+msgid "Không tìm thấy tiểu thuyết nào phù hợp với bộ lọc của bạn."
+msgstr "No novels are not found for your filter."
+
+#: templates/novels/includes/reading_history_list.html:128
+msgid "Xóa bộ lọc"
+msgstr "Delete the filter"
+
+#: templates/novels/includes/reading_history_list.html:131
+msgid ""
+"Bạn chưa đọc tiểu thuyết nào. Hãy bắt đầu khám phá thư viện của chúng tôi!"
+msgstr "You haven't read any novels yet.Start exploring our library!"
+
+#: templates/novels/includes/reading_history_statistics.html:10
+msgid "Tiểu thuyết đã đọc"
+msgstr "The novel has read"
+
+#: templates/novels/includes/reading_history_statistics.html:14
+msgid "Chương đã đọc"
+msgstr "Chapter has read"
+
+#: templates/novels/includes/reading_history_statistics.html:19
+msgid "Thể loại yêu thích"
+msgstr "Favorite genre"
+
+#: templates/novels/includes/reading_stats.html:9
+msgid "Chunk"
+msgstr "Chunk"
+
+#: templates/novels/includes/review.html:5
+msgid "Thảo"
+msgstr "Draft"
+
+#: templates/novels/includes/review.html:6
+msgid "LUẬN"
+msgstr "Argue"
+
+#: templates/novels/includes/save_draft_modal.html:7
+msgid "Thay đổi chưa lưu"
+msgstr "The change has not been saved"
+
+#: templates/novels/includes/save_draft_modal.html:10
+msgid ""
+"Bạn có thay đổi chưa lưu, sẽ bị mất nếu rời khỏi trang này. Bạn có muốn lưu "
+"lại bản nháp trước khi tiếp tục không?"
+msgstr ""
+"If you have not saved, it will be lost if you leave this page.Do you want to"
+" save the draft before continuing?"
+
+#: templates/novels/includes/save_draft_modal.html:14
+msgid "Không lưu"
+msgstr "Non -saved"
+
+#: templates/novels/includes/save_draft_modal.html:17
+msgid "Lưu bản nháp"
+msgstr "Save the draft"
+
+#: templates/novels/includes/search_form.html:13
+msgid "Nhập tên truyện, tác giả, hoặc mô tả..."
+msgstr "Enter the name of the story, the author, or describe ..."
+
+#: templates/novels/includes/search_form.html:29
+msgid "Sắp xếp theo"
+msgstr "Arrange"
+
+#: templates/novels/includes/search_form.html:31
+msgid "Mặc định"
+msgstr "Default"
+
+#: templates/novels/includes/search_form.html:54
+#: templates/novels/includes/search_form.html:63
+msgid "Có thể bỏ trống..."
+msgstr "Can be vacant ..."
+
+#: templates/novels/includes/search_form.html:70
+msgid "Tình trạng"
+msgstr "Status"
+
+#: templates/novels/includes/search_form.html:83
+msgid "Tạm ngưng"
+msgstr "Suspend"
+
+#: templates/novels/includes/search_header.html:8
+#, python-format
+msgid "Kết quả tìm kiếm cho: \"%(query)s\""
+msgstr "Search results for: \"%(query) s\""
+
+#: templates/novels/includes/search_header.html:9
+#, python-format
+msgid "Tìm thấy %(total)s kết quả"
+msgid_plural "Tìm thấy %(total)s kết quả"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/novels/includes/search_header.html:11
+msgid "Tìm kiếm truyện"
+msgstr "Search for stories"
+
+#: templates/novels/includes/search_header.html:12
+msgid "Nhập từ khóa để tìm kiếm truyện"
+msgstr "Enter the keyword to search for stories"
+
+#: templates/novels/includes/search_no_results.html:9
+msgid "Không tìm thấy kết quả"
+msgstr "No results found"
+
+#: templates/novels/includes/search_no_results.html:11
+#, python-format
+msgid ""
+"Không tìm thấy truyện nào với từ khóa \"%(query)s\". Hãy thử tìm kiếm với từ"
+" khóa khác."
+msgstr ""
+"No story found with the keyword \"%(query)s\".Try searching with other "
+"keywords."
+
+#: templates/novels/includes/search_novel_card.html:42
+msgid "Chưa có thẻ"
+msgstr "No card"
+
+#: templates/novels/includes/search_popular_novels.html:4
+msgid "Truyện được quan tâm"
+msgstr "The story is interested"
+
+#: templates/novels/includes/search_popular_novels.html:13
+msgid "Chưa có truyện phổ biến"
+msgstr "There is no popular story"
+
+#: templates/novels/includes/search_suggestions.html:4
+msgid "Gợi ý:"
+msgstr "Suggest:"
+
+#: templates/novels/includes/search_suggestions.html:6
+msgid "Kiểm tra chính tả từ khóa"
+msgstr "Check the keyword spelling"
+
+#: templates/novels/includes/search_suggestions.html:7
+msgid "Thử sử dụng từ khóa ngắn gọn hơn"
+msgstr "Try using a shorter keyword"
+
+#: templates/novels/includes/search_suggestions.html:8
+msgid "Tìm kiếm theo tên tác giả"
+msgstr "Search by the author's name"
+
+#: templates/novels/includes/search_suggestions.html:9
+msgid "Sử dụng từ đồng nghĩa"
+msgstr "Use synonyms"
+
+#: templates/novels/includes/sidebar.html:21
+msgid "Tiểu thuyết này đăng ẩn người đăng"
+msgstr "This novel posted hidden people"
+
+#: templates/novels/includes/sidebar.html:33
+msgid "Hiển thị ẩn danh với người khác"
+msgstr "Show anonymous with others"
+
+#: templates/novels/includes/sidebar.html:52
+msgid "Từ chối lúc:"
+msgstr "Refuse at:"
+
+#: templates/novels/includes/stats.html:8
+msgid "Đã thích"
+msgstr "Liked"
+
+#: templates/novels/includes/stats.html:13
+msgid "Thích"
+msgstr "Prefer"
+
+#: templates/novels/includes/stats.html:20
+msgid " Mục lục"
+msgstr "Index"
+
+#: templates/novels/includes/stats.html:21
+msgid "Bàn luận"
+msgstr "Discuss"
+
+#: templates/novels/includes/stats.html:22
+msgid "Chia sẻ"
+msgstr "Share"
+
+#: templates/novels/includes/summary.html:4
+msgid "Tên khác:"
+msgstr "Other names:"
+
+#: templates/novels/includes/summary.html:11
+msgid "Tóm tắt:"
+msgstr "Summary:"
+
+#: templates/novels/includes/summary.html:16
+msgid "Ẩn đi"
+msgstr "Hide"
+
+#: templates/novels/includes/toc_popup.html:6
+msgid "Mục lục"
+msgstr "Index"
+
+#: templates/novels/includes/trend_novels_area.html:7
+msgid "Nổi bật"
+msgstr "Outstanding"
+
+#: templates/novels/includes/trend_novels_area.html:9
+msgid "Top tháng"
+msgstr "Top month"
+
+#: templates/novels/includes/trend_novels_area.html:11
+msgid "Toàn t/gian"
+msgstr "Full T/time"
+
+#: templates/novels/includes/unsaved_changes_modal.html:7
+msgid "Thay đổi chưa được lưu"
+msgstr "The change has not been saved"
+
+#: templates/novels/includes/unsaved_changes_modal.html:10
+msgid ""
+"Bạn có thay đổi chưa được lưu. Bạn có chắc chắn muốn rời khỏi trang này "
+"không?"
+msgstr "You have not changed.Are you sure you want to leave this page?"
+
+#: templates/novels/includes/unsaved_changes_modal.html:12
+msgid "Tất cả thay đổi sẽ bị mất nếu bạn tiếp tục."
+msgstr "All changes will be lost if you continue."
+
+#: templates/novels/includes/unsaved_changes_modal.html:16
+msgid "Ở lại trang"
+msgstr "Stay"
+
+#: templates/novels/includes/unsaved_changes_modal.html:19
+msgid "Rời khỏi trang"
+msgstr "Leave the page"
+
+#: templates/novels/includes/user_sidebar.html:26
+msgid "Quản trị viên"
+msgstr "Administrator"
+
+#: templates/novels/includes/user_sidebar.html:72
+msgid "Đăng xuất"
+msgstr "Log out"
+
+#: templates/novels/includes/volume_list.html:58
+#: templates/novels/includes/volume_list.html:100
+#: templates/novels/includes/volume_list.html:141
+#: templates/novels/includes/volume_list.html:196
+msgid "Xóa chapter"
+msgstr "Delete Chapter"
+
+#: templates/novels/includes/volume_list.html:155
+msgid "Xem tiếp"
+msgstr "Continue"
+
+#: templates/novels/includes/volume_list.html:158
+msgid "Xem tiếp:"
+msgstr "Read more:"
+
+#: templates/novels/includes/volume_list.html:183
+msgid "Xác nhận xóa chapter"
+msgstr "Confirm delete chapter"
+
+#: templates/novels/includes/volume_list.html:187
+msgid "Bạn có chắc chắn muốn xóa chapter"
+msgstr "Are you sure you want to delete the chapter"
+
+#: templates/novels/includes/volume_list.html:187
+msgid "không?"
+msgstr "Are not?"
+
+#: templates/novels/pages/chapter_details.html:15
+msgid "Danh sách chương"
+msgstr "List of chapters"
+
+#: templates/novels/pages/chapter_upload_rules.html:14
+msgid "Quy Định Đăng Chapter"
+msgstr "Regulation to post chapter"
+
+#: templates/novels/pages/chapter_upload_rules.html:15
+msgid "Vui lòng đọc kỹ các quy định trước khi đăng chapter"
+msgstr "Please read the rules carefully before posting chapter"
+
+#: templates/novels/pages/chapter_upload_rules.html:20
+msgid "Quy Định Về Nội Dung"
+msgstr "Regulations on content"
+
+#: templates/novels/pages/chapter_upload_rules.html:23
+#: templates/novels/pages/novel_upload_rule.html:23
+msgid "Nội dung phù hợp:"
+msgstr "Suitable content:"
+
+#: templates/novels/pages/chapter_upload_rules.html:23
+msgid ""
+"Chapter phải có nội dung phù hợp với độ tuổi và không chứa yếu tố bạo lực, "
+"khiêu dâm quá mức."
+msgstr ""
+"Chapter must have content suitable for age and do not contain excessive "
+"violence, pornography."
+
+#: templates/novels/pages/chapter_upload_rules.html:26
+#: templates/novels/pages/novel_upload_rule.html:26
+msgid "Ngôn ngữ văn minh:"
+msgstr "Language Language:"
+
+#: templates/novels/pages/chapter_upload_rules.html:26
+#: templates/novels/pages/novel_upload_rule.html:26
+msgid "Sử dụng ngôn ngữ lịch sự, tránh từ ngữ tục tĩu, xúc phạm người khác."
+msgstr "Using polite language, avoiding obscene words, insulting others."
+
+#: templates/novels/pages/chapter_upload_rules.html:29
+#: templates/novels/pages/novel_upload_rule.html:29
+msgid "Tính nguyên bản:"
+msgstr "Original calculation:"
+
+#: templates/novels/pages/chapter_upload_rules.html:29
+#: templates/novels/pages/novel_upload_rule.html:29
+msgid ""
+"Nội dung phải là sáng tác gốc hoặc có bản quyền hợp pháp. Không sao chép từ "
+"nguồn khác."
+msgstr ""
+"The content must be the original or legal copyright.Do not copy from other "
+"sources."
+
+#: templates/novels/pages/chapter_upload_rules.html:32
+#: templates/novels/pages/novel_upload_rule.html:32
+msgid "Chất lượng nội dung:"
+msgstr "Content quality:"
+
+#: templates/novels/pages/chapter_upload_rules.html:32
+msgid ""
+"Chapter cần có cốt truyện rõ ràng, văn phong ổn định và ít lỗi chính tả."
+msgstr ""
+"Chapter should have a clear storyline, stable style and few spelling errors."
+
+#: templates/novels/pages/chapter_upload_rules.html:38
+msgid "Quy Định Kỹ Thuật"
+msgstr "Technical regulations"
+
+#: templates/novels/pages/chapter_upload_rules.html:41
+msgid "Độ dài chapter:"
+msgstr "Chapter length:"
+
+#: templates/novels/pages/chapter_upload_rules.html:41
+msgid "Mỗi chapter nên có từ"
+msgstr "Each chapter should have words"
+
+#: templates/novels/pages/chapter_upload_rules.html:41
+msgid "1,000 - 10,000 từ"
+msgstr "1,000 - 10,000 words"
+
+#: templates/novels/pages/chapter_upload_rules.html:41
+msgid "để đảm bảo trải nghiệm đọc tốt."
+msgstr "To ensure good reading experience."
+
+#: templates/novels/pages/chapter_upload_rules.html:44
+msgid "Định dạng văn bản:"
+msgstr "Text format:"
+
+#: templates/novels/pages/chapter_upload_rules.html:44
+msgid "Sử dụng công cụ soạn thảo để định dạng văn bản đẹp mắt, dễ đọc."
+msgstr "Use the drafting tool to format beautiful text, easy to read."
+
+#: templates/novels/pages/chapter_upload_rules.html:47
+msgid "Chia chunk tự động:"
+msgstr "Automatic chunk division:"
+
+#: templates/novels/pages/chapter_upload_rules.html:47
+msgid "Hệ thống sẽ tự động chia chapter thành các chunk phù hợp với database."
+msgstr ""
+"The system will automatically divide the chapter into chunks suitable for "
+"the database."
+
+#: templates/novels/pages/chapter_upload_rules.html:50
+msgid "Tiêu đề chapter:"
+msgstr "Chapter title:"
+
+#: templates/novels/pages/chapter_upload_rules.html:50
+msgid "Tiêu đề phải rõ ràng, có ý nghĩa và không trùng lặp với chapter khác."
+msgstr ""
+"The title must be clear, meaningful and does not overlap with other chapter."
+
+#: templates/novels/pages/chapter_upload_rules.html:56
+msgid "Quy Trình Duyệt"
+msgstr "Approval process"
+
+#: templates/novels/pages/chapter_upload_rules.html:59
+msgid "Thời gian duyệt:"
+msgstr "Browse time:"
+
+#: templates/novels/pages/chapter_upload_rules.html:59
+msgid "Chapter sẽ được duyệt trong vòng 24-48 giờ làm việc."
+msgstr "Chapter will be approved within 24-48 working hours."
+
+#: templates/novels/pages/chapter_upload_rules.html:62
+msgid "Trạng thái chapter:"
+msgstr "Chapter status:"
+
+#: templates/novels/pages/chapter_upload_rules.html:62
+msgid "Chapter có thể có trạng thái: Chờ duyệt, Đã duyệt, Bị từ chối."
+msgstr ""
+"Chapter may have the status: waiting for browsing, approved, rejected."
+
+#: templates/novels/pages/chapter_upload_rules.html:65
+msgid "Quyền sửa đổi:"
+msgstr "Right to amend:"
+
+#: templates/novels/pages/chapter_upload_rules.html:65
+msgid "Tác giả có thể chỉnh sửa chapter khi ở trạng thái \\"
+msgstr "The author can edit the chapter when in the state \\"
+
+#: templates/novels/pages/chapter_upload_rules.html:68
+msgid "Thông báo:"
+msgstr "Notification:"
+
+#: templates/novels/pages/chapter_upload_rules.html:68
+msgid "Hệ thống sẽ gửi thông báo về trạng thái duyệt qua email."
+msgstr "The system will send notifications to the approval status via email."
+
+#: templates/novels/pages/chapter_upload_rules.html:74
+msgid "Lưu Ý Quan Trọng"
+msgstr "Important note"
+
+#: templates/novels/pages/chapter_upload_rules.html:76
+msgid ""
+"Chapter vi phạm quy định sẽ bị từ chối và có thể dẫn đến khóa tài khoản."
+msgstr ""
+"Chapter violates the rules will be rejected and can lead to account lock."
+
+#: templates/novels/pages/chapter_upload_rules.html:77
+msgid "Không đăng chapter có nội dung spam, quảng cáo không liên quan."
+msgstr "Do not post chapter with spam content, advertising unrelated."
+
+#: templates/novels/pages/chapter_upload_rules.html:78
+msgid "Tôn trọng bản quyền tác phẩm của người khác."
+msgstr "Respect the copyright of the work of others."
+
+#: templates/novels/pages/chapter_upload_rules.html:83
+msgid "Mẹo Viết Chapter Hay"
+msgstr "Good chapter tips"
+
+#: templates/novels/pages/chapter_upload_rules.html:85
+msgid "Bắt đầu chapter với tình huống hấp dẫn để thu hút người đọc."
+msgstr "Start Chapter with attractive situations to attract readers."
+
+#: templates/novels/pages/chapter_upload_rules.html:86
+msgid ""
+"Kết thúc chapter với cliffhanger để tạo hứng thú cho chapter tiếp theo."
+msgstr ""
+"Finish Chapter with Cliffhanger to create interest for the next chapter."
+
+#: templates/novels/pages/chapter_upload_rules.html:87
+msgid "Sử dụng dialog và mô tả cân bằng để tạo nhịp điệu đọc tốt."
+msgstr "Use Dialog and describe balance to create a good reading rhythm."
+
+#: templates/novels/pages/chapter_upload_rules.html:88
+msgid "Kiểm tra lại văn phong và chính tả trước khi đăng."
+msgstr "Check the style and spelling before posting."
+
+#: templates/novels/pages/chapter_upload_rules.html:93
+#: templates/novels/pages/novel_upload_rule.html:137
+msgid "Hỗ Trợ"
+msgstr "Support"
+
+#: templates/novels/pages/chapter_upload_rules.html:94
+msgid "Nếu bạn có thắc mắc về quy định đăng chapter, vui lòng liên hệ:"
+msgstr "If you have questions about Chapter, please contact:"
+
+#: templates/novels/pages/chapter_upload_rules.html:97
+msgid "Email:"
+msgstr "E-mail:"
+
+#: templates/novels/pages/chapter_upload_rules.html:100
+msgid "Hotline:"
+msgstr "Hotline:"
+
+#: templates/novels/pages/chapter_upload_rules.html:100
+msgid "1900-xxxx"
+msgstr "1900-XXXX"
+
+#: templates/novels/pages/chapter_upload_rules.html:100
+msgid "8h-17h, Thứ 2-6"
+msgstr "8h-17h, 2-6"
+
+#: templates/novels/pages/chapter_upload_rules.html:103
+msgid "FAQ:"
+msgstr "FAQ:"
+
+#: templates/novels/pages/chapter_upload_rules.html:103
+msgid "Xem thêm câu hỏi thường gặp tại trang Trợ giúp"
+msgstr "See more common questions at the help page"
+
+#: templates/novels/pages/finish_novels.html:18
+msgid "DANH SÁCH TIỂU THUYẾT ĐÃ HOÀN THÀNH"
+msgstr "The list of novels has been completed"
+
+#: templates/novels/pages/most_read_novels.html:18
+msgid "DANH SÁCH TIỂU THUYẾT ĐƯỢC ĐỌC NHIỀU NHẤT"
+msgstr "The list of novels is most read"
+
+#: templates/novels/pages/new_novels.html:17
+msgid "DANH SÁCH TRUYỆN MỚI NHẤT"
+msgstr "Latest stories list"
+
+#: templates/novels/pages/novel_upload_rule.html:14
+msgid "Hướng Dẫn Đăng Truyện"
+msgstr "Instructions for posting stories"
+
+#: templates/novels/pages/novel_upload_rule.html:15
+msgid "Vui lòng đọc kỹ các quy định và hướng dẫn trước khi đăng truyện mới"
+msgstr ""
+"Please carefully read the rules and instructions before posting new stories"
+
+#: templates/novels/pages/novel_upload_rule.html:20
+msgid "Quy Định Về Nội Dung Truyện"
+msgstr "Regulations on the content of the story"
+
+#: templates/novels/pages/novel_upload_rule.html:23
+msgid ""
+"Truyện phải có nội dung phù hợp với độ tuổi và không chứa yếu tố bạo lực, "
+"khiêu dâm quá mức."
+msgstr ""
+"The story must have content suitable for age and do not contain excessive "
+"violence, pornography."
+
+#: templates/novels/pages/novel_upload_rule.html:32
+msgid ""
+"Truyện cần có cốt truyện rõ ràng, văn phong ổn định và ít lỗi chính tả."
+msgstr ""
+"The story needs to have a clear storyline, stable style and few spelling "
+"errors."
+
+#: templates/novels/pages/novel_upload_rule.html:35
+msgid "Thể loại rõ ràng:"
+msgstr "Clear genre:"
+
+#: templates/novels/pages/novel_upload_rule.html:35
+msgid "Phân loại truyện đúng thể loại để độc giả dễ tìm kiếm."
+msgstr "Classification of the right stories for readers to be easy to find."
+
+#: templates/novels/pages/novel_upload_rule.html:41
+msgid "Thông Tin Cần Thiết"
+msgstr "Essential information"
+
+#: templates/novels/pages/novel_upload_rule.html:44
+msgid "Tên truyện:"
+msgstr "Story name:"
+
+#: templates/novels/pages/novel_upload_rule.html:44
+msgid "Chọn tên truyện"
+msgstr "Choose the name of the story"
+
+#: templates/novels/pages/novel_upload_rule.html:44
+msgid "độc đáo, hấp dẫn"
+msgstr "Unique, attractive"
+
+#: templates/novels/pages/novel_upload_rule.html:44
+msgid "và dễ nhớ. Tránh trùng tên với truyện đã có."
+msgstr "And easy to remember.Avoid coinciding with the story already."
+
+#: templates/novels/pages/novel_upload_rule.html:47
+msgid "Tóm tắt nội dung:"
+msgstr "Content summary:"
+
+#: templates/novels/pages/novel_upload_rule.html:47
+msgid "Viết tóm tắt hấp dẫn, giới thiệu cốt truyện chính mà không spoiler."
+msgstr "Write attractive summary, introducing the main plot without spoiler."
+
+#: templates/novels/pages/novel_upload_rule.html:50
+msgid "Thông tin tác giả:"
+msgstr "Author information:"
+
+#: templates/novels/pages/novel_upload_rule.html:50
+msgid "Cung cấp thông tin tác giả chính xác. Có thể chọn đăng ẩn danh."
+msgstr "Provide accurate author information.Can choose to post anonymous."
+
+#: templates/novels/pages/novel_upload_rule.html:53
+msgid "Ảnh bìa:"
+msgstr "Cover photo:"
+
+#: templates/novels/pages/novel_upload_rule.html:53
+msgid "Sử dụng ảnh bìa chất lượng cao, có bản quyền hoặc tự thiết kế."
+msgstr "Use high quality, copyrighted or self -designed cover image."
+
+#: templates/novels/pages/novel_upload_rule.html:56
+msgid "Thẻ tag:"
+msgstr "Tag:"
+
+#: templates/novels/pages/novel_upload_rule.html:56
+msgid "Chọn các thẻ tag phù hợp để độc giả dễ tìm kiếm truyện."
+msgstr "Choose the right tags for readers to find stories."
+
+#: templates/novels/pages/novel_upload_rule.html:62
+msgid "Quy Trình Đăng Truyện"
+msgstr "Story posting process"
+
+#: templates/novels/pages/novel_upload_rule.html:67
+msgid "Chuẩn bị thông tin"
+msgstr "Prepare information"
+
+#: templates/novels/pages/novel_upload_rule.html:68
+msgid ""
+"Chuẩn bị đầy đủ tên truyện, tóm tắt, thông tin tác giả, ảnh bìa và danh sách"
+" thẻ tag."
+msgstr ""
+"Prepare full story name, summary, author information, cover photo and tag "
+"list."
+
+#: templates/novels/pages/novel_upload_rule.html:75
+msgid "Điền form đăng truyện"
+msgstr "Fill the story posting form"
+
+#: templates/novels/pages/novel_upload_rule.html:76
+msgid "Điền đầy đủ thông tin vào form, kiểm tra kỹ trước khi gửi."
+msgstr "Fill in the form, check carefully before sending."
+
+#: templates/novels/pages/novel_upload_rule.html:83
+msgid "Chọn trạng thái"
+msgstr "Select the status"
+
+#: templates/novels/pages/novel_upload_rule.html:84
+msgid "Có thể lưu nháp để chỉnh sửa sau hoặc gửi để admin duyệt ngay."
+msgstr "Can be saved to edit later or send to admin immediately."
+
+#: templates/novels/pages/novel_upload_rule.html:92
+msgid ""
+"Admin sẽ duyệt truyện trong vòng 24-48 giờ. Bạn sẽ nhận được thông báo kết "
+"quả."
+msgstr ""
+"Admin will approve the story within 24-48 hours.You will receive the result "
+"notice."
+
+#: templates/novels/pages/novel_upload_rule.html:99
+msgid "Đăng chapter"
+msgstr "Post chapter"
+
+#: templates/novels/pages/novel_upload_rule.html:100
+msgid "Sau khi truyện được duyệt, bạn có thể bắt đầu đăng các chapter."
+msgstr "After the story is approved, you can start posting the chapter."
+
+#: templates/novels/pages/novel_upload_rule.html:106
+msgid "Lưu Ý Đặc Biệt Cho Truyện Sáng Tác"
+msgstr "Special note for the writing story"
+
+#: templates/novels/pages/novel_upload_rule.html:108
+msgid "Truyện sáng tác phải là tác phẩm nguyên bản của bạn"
+msgstr "The story must be your original work"
+
+#: templates/novels/pages/novel_upload_rule.html:109
+msgid "Không được sao chép hoặc dịch từ nguồn khác mà không có bản quyền"
+msgstr "Do not copy or translate from other sources without copyright"
+
+#: templates/novels/pages/novel_upload_rule.html:110
+msgid "Cần cam kết hoàn thành truyện hoặc thông báo nếu tạm ngưng"
+msgstr ""
+"It is necessary to commit to complete the story or notice if it is suspended"
+
+#: templates/novels/pages/novel_upload_rule.html:111
+msgid "Có thể đăng ẩn danh nhưng vẫn phải chịu trách nhiệm về nội dung"
+msgstr "Can be anonymous but still responsible for the content"
+
+#: templates/novels/pages/novel_upload_rule.html:116
+msgid "Nội Dung Cấm Đăng"
+msgstr "Prohibition content"
+
+#: templates/novels/pages/novel_upload_rule.html:118
+msgid "Nội dung khiêu dâm, bạo lực quá mức"
+msgstr "Porn content, excessive violence"
+
+#: templates/novels/pages/novel_upload_rule.html:119
+msgid "Nội dung xúc phạm tôn giáo, chính trị"
+msgstr "Content insulting religion and politics"
+
+#: templates/novels/pages/novel_upload_rule.html:120
+msgid "Nội dung vi phạm bản quyền"
+msgstr "Content of copyright infringement"
+
+#: templates/novels/pages/novel_upload_rule.html:121
+msgid "Nội dung quảng cáo spam"
+msgstr "Spam advertising content"
+
+#: templates/novels/pages/novel_upload_rule.html:122
+msgid "Nội dung kích động bạo lực, thù hận"
+msgstr "Content inciting violence, hatred"
+
+#: templates/novels/pages/novel_upload_rule.html:127
+msgid "Chú Ý Quan Trọng"
+msgstr "Important attention"
+
+#: templates/novels/pages/novel_upload_rule.html:128
+msgid "Việc vi phạm quy định có thể dẫn đến:"
+msgstr "The violation of the regulations can lead to:"
+
+#: templates/novels/pages/novel_upload_rule.html:130
+msgid "Truyện bị từ chối duyệt"
+msgstr "The story is denied browsing"
+
+#: templates/novels/pages/novel_upload_rule.html:131
+msgid "Truyện bị gỡ bỏ khỏi hệ thống"
+msgstr "The story is removed from the system"
+
+#: templates/novels/pages/novel_upload_rule.html:132
+msgid "Tài khoản bị cảnh báo hoặc khóa"
+msgstr "The account is warned or locked"
+
+#: templates/novels/pages/novel_upload_rule.html:138
+msgid "Nếu có thắc mắc về quy định hoặc cần hỗ trợ, vui lòng liên hệ:"
+msgstr "If you have any questions or need support, please contact:"
+
+#: templates/novels/pages/novel_upload_rule.html:140
+msgid "Email hỗ trợ: support@docwn.com"
+msgstr "Support email: support@docwn.com"
+
+#: templates/novels/pages/novel_upload_rule.html:141
+msgid "Forum thảo luận trong website"
+msgstr "Discussion forum in the website"
+
+#: templates/novels/pages/novel_upload_rule.html:142
+msgid "Hệ thống report trong trang cá nhân"
+msgstr "Report system in personal page"
+
+#: templates/novels/pages/novel_upload_rule.html:148
+msgid "Đăng Truyện Ngay"
+msgstr "Post the story now"
+
+#: templates/novels/pages/novel_upload_rule.html:151
+msgid "Quay Về Trang Chủ"
+msgstr "Back to the homepage"
