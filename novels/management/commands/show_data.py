@@ -1,254 +1,191 @@
-"""
-Django management command to display database statistics and sample data
-"""
 from django.core.management.base import BaseCommand
-from django.contrib.auth import get_user_model
-from django.db.models import Count, Avg
+from django.db.models import Count, Avg, Sum
+from django.utils import timezone
+from datetime import timedelta
 
-from accounts.models import UserProfile
-from novels.models import Author, Artist, Tag, Novel, Volume, Chapter, Chunk
-from interactions.models import Comment, Review, Notification, Report
-
-User = get_user_model()
-
+from accounts.models import User, UserProfile
+from novels.models import (
+    Novel, Author, Artist, Tag, Volume, Chapter, Chunk, 
+    Favorite, ReadingHistory
+)
+from interactions.models import Review, Comment
 
 class Command(BaseCommand):
-    help = 'Display comprehensive database statistics and sample data'
-
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--detailed',
-            action='store_true',
-            help='Show detailed statistics and sample records'
-        )
-        parser.add_argument(
-            '--samples',
-            type=int,
-            default=5,
-            help='Number of sample records to show (default: 5)'
-        )
+    help = 'Show comprehensive database statistics and sample data'
 
     def handle(self, *args, **options):
-        self.stdout.write(self.style.SUCCESS('Database Statistics Report'))
-        self.stdout.write('=' * 50)
-        
-        # Basic counts
-        self.show_basic_counts()
+        self.show_statistics()
+        self.show_sample_data()
+
+    def show_statistics(self):
+        """Display database statistics"""
+        self.stdout.write(self.style.SUCCESS('\n=== DATABASE STATISTICS ===\n'))
         
         # User statistics
-        self.show_user_statistics()
-        
-        # Novel statistics
-        self.show_novel_statistics()
-        
-        # Interaction statistics
-        self.show_interaction_statistics()
-        
-        if options['detailed']:
-            self.stdout.write('\n' + '=' * 50)
-            self.stdout.write(self.style.SUCCESS('Sample Data'))
-            self.stdout.write('=' * 50)
-            self.show_sample_data(options['samples'])
-
-    def show_basic_counts(self):
-        """Display basic record counts"""
-        self.stdout.write(f"\n{self.style.HTTP_INFO('Record Counts:')}")
-        
-        counts = {
-            'Users': User.objects.count(),
-            'User Profiles': UserProfile.objects.count(),
-            'Authors': Author.objects.count(),
-            'Artists': Artist.objects.count(),
-            'Tags': Tag.objects.count(),
-            'Novels': Novel.objects.count(),
-            'Volumes': Volume.objects.count(),
-            'Chapters': Chapter.objects.count(),
-            'Chunks': Chunk.objects.count(),
-            'Comments': Comment.objects.count(),
-            'Reviews': Review.objects.count(),
-            'Notifications': Notification.objects.count(),
-            'Reports': Report.objects.count(),
-        }
-        
-        for name, count in counts.items():
-            self.stdout.write(f"  {name}: {count}")
-
-    def show_user_statistics(self):
-        """Display user-related statistics"""
-        self.stdout.write(f"\n{self.style.HTTP_INFO('User Statistics:')}")
-        
         total_users = User.objects.count()
-        if total_users == 0:
-            self.stdout.write("  No users found")
-            return
-        
         active_users = User.objects.filter(is_active=True).count()
-        superusers = User.objects.filter(is_superuser=True).count()
-        users_with_profiles = User.objects.filter(profile__isnull=False).count()
+        verified_users = User.objects.filter(is_email_verified=True).count()
+        blocked_users = User.objects.filter(is_blocked=True).count()
         
-        self.stdout.write(f"  Total Users: {total_users}")
-        self.stdout.write(f"  Active Users: {active_users}")
-        self.stdout.write(f"  Superusers: {superusers}")
-        self.stdout.write(f"  Users with Profiles: {users_with_profiles}")
+        self.stdout.write(f'👥 USERS:')
+        self.stdout.write(f'  Total Users: {total_users}')
+        self.stdout.write(f'  Active Users: {active_users}')
+        self.stdout.write(f'  Verified Users: {verified_users}')
+        self.stdout.write(f'  Blocked Users: {blocked_users}')
         
-        # User role distribution
-        role_distribution = User.objects.values('role').annotate(count=Count('role'))
-        if role_distribution:
-            self.stdout.write("  Role Distribution:")
-            for role_data in role_distribution:
-                role = role_data['role'] or 'None'
-                count = role_data['count']
-                self.stdout.write(f"    {role}: {count}")
-
-    def show_novel_statistics(self):
-        """Display novel-related statistics"""
-        self.stdout.write(f"\n{self.style.HTTP_INFO('Novel Statistics:')}")
-        
+        # Content statistics
+        total_authors = Author.objects.count()
+        total_artists = Artist.objects.count()
+        total_tags = Tag.objects.count()
         total_novels = Novel.objects.count()
-        if total_novels == 0:
-            self.stdout.write("  No novels found")
-            return
-        
-        # Basic novel stats
         approved_novels = Novel.objects.filter(approval_status='a').count()
-        anonymous_novels = Novel.objects.filter(is_anonymous=True).count()
-        
-        self.stdout.write(f"  Total Novels: {total_novels}")
-        self.stdout.write(f"  Approved Novels: {approved_novels}")
-        self.stdout.write(f"  Anonymous Novels: {anonymous_novels}")
-        
-        # Progress status distribution
-        progress_distribution = Novel.objects.values('progress_status').annotate(count=Count('progress_status'))
-        if progress_distribution:
-            self.stdout.write("  Progress Status Distribution:")
-            for status_data in progress_distribution:
-                status = status_data['progress_status'] or 'None'
-                count = status_data['count']
-                self.stdout.write(f"    {status}: {count}")
-        
-        # Volume and chapter statistics
         total_volumes = Volume.objects.count()
         total_chapters = Chapter.objects.count()
+        approved_chapters = Chapter.objects.filter(approved=True).count()
         total_chunks = Chunk.objects.count()
         
-        self.stdout.write(f"  Total Volumes: {total_volumes}")
-        self.stdout.write(f"  Total Chapters: {total_chapters}")
-        self.stdout.write(f"  Total Chunks: {total_chunks}")
+        self.stdout.write(f'\n📚 CONTENT:')
+        self.stdout.write(f'  Authors: {total_authors}')
+        self.stdout.write(f'  Artists: {total_artists}')
+        self.stdout.write(f'  Tags: {total_tags}')
+        self.stdout.write(f'  Total Novels: {total_novels}')
+        self.stdout.write(f'  Approved Novels: {approved_novels}')
+        self.stdout.write(f'  Volumes: {total_volumes}')
+        self.stdout.write(f'  Total Chapters: {total_chapters}')
+        self.stdout.write(f'  Approved Chapters: {approved_chapters}')
+        self.stdout.write(f'  Content Chunks: {total_chunks}')
         
-        if total_novels > 0:
-            avg_volumes_per_novel = total_volumes / total_novels
-            self.stdout.write(f"  Average Volumes per Novel: {avg_volumes_per_novel:.2f}")
+        # Interaction statistics
+        total_reviews = Review.objects.count()
+        active_reviews = Review.objects.filter(is_active=True).count()
+        total_comments = Comment.objects.count()
+        active_comments = Comment.objects.filter(is_active=True).count()
+        parent_comments = Comment.objects.filter(parent_comment__isnull=True).count()
+        reply_comments = Comment.objects.filter(parent_comment__isnull=False).count()
+        total_favorites = Favorite.objects.count()
+        total_reading_history = ReadingHistory.objects.count()
         
-        if total_volumes > 0:
-            avg_chapters_per_volume = total_chapters / total_volumes
-            self.stdout.write(f"  Average Chapters per Volume: {avg_chapters_per_volume:.2f}")
+        self.stdout.write(f'\n💬 INTERACTIONS:')
+        self.stdout.write(f'  Total Reviews: {total_reviews}')
+        self.stdout.write(f'  Active Reviews: {active_reviews}')
+        self.stdout.write(f'  Total Comments: {total_comments}')
+        self.stdout.write(f'    ├─ Parent Comments: {parent_comments}')
+        self.stdout.write(f'    └─ Reply Comments: {reply_comments}')
+        self.stdout.write(f'  Active Comments: {active_comments}')
+        self.stdout.write(f'  Favorites: {total_favorites}')
+        self.stdout.write(f'  Reading History Records: {total_reading_history}')
         
-        # Tag usage
-        total_tags = Tag.objects.count()
-        self.stdout.write(f"  Total Tags: {total_tags}")
+        # Average statistics
+        if approved_novels > 0:
+            avg_rating = Novel.objects.filter(approval_status='a').aggregate(
+                avg_rating=Avg('rating_avg')
+            )['avg_rating']
+            avg_views = Novel.objects.filter(approval_status='a').aggregate(
+                avg_views=Avg('view_count')
+            )['avg_views']
+            
+            self.stdout.write(f'\n📊 AVERAGES:')
+            self.stdout.write(f'  Average Novel Rating: {avg_rating:.1f}/5.0' if avg_rating else 'N/A')
+            self.stdout.write(f'  Average Novel Views: {avg_views:.0f}' if avg_views else 'N/A')
+
+    def show_sample_data(self):
+        """Display sample data with credentials"""
+        self.stdout.write(self.style.SUCCESS('\n=== SAMPLE DATA & CREDENTIALS ===\n'))
         
-        # Most popular tags
+        # Superusers
+        superusers = User.objects.filter(is_superuser=True)
+        if superusers.exists():
+            self.stdout.write('🔑 SUPERUSER ACCOUNTS:')
+            for user in superusers:
+                self.stdout.write(f'  Email: {user.email}')
+                self.stdout.write(f'  Username: {user.username}')
+                self.stdout.write(f'  Password: admin123456 (if created by seed command)')
+                self.stdout.write(f'  Role: {user.role}')
+                self.stdout.write('')
+
+        # Sample regular users
+        sample_users = User.objects.filter(is_superuser=False, is_active=True)[:5]
+        if sample_users.exists():
+            self.stdout.write('👤 SAMPLE USER ACCOUNTS:')
+            for user in sample_users:
+                self.stdout.write(f'  Email: {user.email}')
+                self.stdout.write(f'  Username: {user.username}')
+                self.stdout.write(f'  Password: password123 (for seeded users)')
+                self.stdout.write(f'  Role: {user.role}')
+                self.stdout.write(f'  Display Name: {user.profile.display_name if hasattr(user, "profile") else "N/A"}')
+                self.stdout.write('')
+
+        # Top novels by views
+        top_novels = Novel.objects.filter(approval_status='a').order_by('-view_count')[:5]
+        if top_novels.exists():
+            self.stdout.write('📖 TOP NOVELS BY VIEWS:')
+            for i, novel in enumerate(top_novels, 1):
+                self.stdout.write(f'  {i}. {novel.name}')
+                self.stdout.write(f'     Author: {novel.author.name if novel.author else "Unknown"}')
+                self.stdout.write(f'     Views: {novel.view_count:,}')
+                self.stdout.write(f'     Rating: {novel.rating_avg}/5.0')
+                self.stdout.write(f'     Status: {novel.get_progress_status_display()}')
+                self.stdout.write('')
+
+        # Sample authors
+        sample_authors = Author.objects.all()[:5]
+        if sample_authors.exists():
+            self.stdout.write('✍️ SAMPLE AUTHORS:')
+            for author in sample_authors:
+                novel_count = author.novels.count()
+                self.stdout.write(f'  {author.name}')
+                self.stdout.write(f'     Country: {author.country or "Unknown"}')
+                self.stdout.write(f'     Novels: {novel_count}')
+                self.stdout.write('')
+
+        # Popular tags
         popular_tags = Tag.objects.annotate(
             novel_count=Count('novels')
-        ).order_by('-novel_count')[:5]
+        ).order_by('-novel_count')[:10]
         
-        if popular_tags:
-            self.stdout.write("  Most Popular Tags:")
+        if popular_tags.exists():
+            self.stdout.write('🏷️ POPULAR TAGS:')
             for tag in popular_tags:
-                self.stdout.write(f"    {tag.name}: {tag.novel_count} novels")
+                self.stdout.write(f'  {tag.name}: {tag.novel_count} novels')
 
-    def show_interaction_statistics(self):
-        """Display interaction-related statistics"""
-        self.stdout.write(f"\n{self.style.HTTP_INFO('Interaction Statistics:')}")
-        
-        total_comments = Comment.objects.count()
-        total_reviews = Review.objects.count()
-        
-        self.stdout.write(f"  Total Comments: {total_comments}")
-        self.stdout.write(f"  Total Reviews: {total_reviews}")
-        
-        if total_comments > 0:
-            # Comment statistics
-            parent_comments = Comment.objects.filter(parent_comment=None).count()
-            reply_comments = Comment.objects.filter(parent_comment__isnull=False).count()
-            
-            self.stdout.write(f"  Parent Comments: {parent_comments}")
-            self.stdout.write(f"  Reply Comments: {reply_comments}")
-            
-            # Average likes per comment
-            avg_likes = Comment.objects.aggregate(avg_likes=Avg('like_count'))['avg_likes']
-            if avg_likes:
-                self.stdout.write(f"  Average Likes per Comment: {avg_likes:.2f}")
-        
-        if total_reviews > 0:
-            # Review statistics
-            avg_rating = Review.objects.aggregate(avg_rating=Avg('rating'))['avg_rating']
-            if avg_rating:
-                self.stdout.write(f"  Average Review Rating: {avg_rating:.2f}")
-            
-            # Rating distribution
-            rating_distribution = Review.objects.values('rating').annotate(count=Count('rating')).order_by('rating')
-            if rating_distribution:
-                self.stdout.write("  Rating Distribution:")
-                for rating_data in rating_distribution:
-                    rating = rating_data['rating']
-                    count = rating_data['count']
-                    self.stdout.write(f"    {rating} stars: {count} reviews")
+        # Recent activity
+        recent_reviews = Review.objects.filter(is_active=True).order_by('-created_at')[:3]
+        if recent_reviews.exists():
+            self.stdout.write('\n⭐ RECENT REVIEWS:')
+            for review in recent_reviews:
+                self.stdout.write(f'  {review.user.username} rated "{review.novel.name}" {review.rating}/5')
+                self.stdout.write(f'     "{review.content[:100]}..."')
+                self.stdout.write('')
 
-    def show_sample_data(self, sample_count):
-        """Display sample records from each model"""
+        # Data quality indicators
+        self.stdout.write('\n🔍 DATA QUALITY INDICATORS:')
         
-        # Sample users
-        users = User.objects.select_related('profile')[:sample_count]
-        if users:
-            self.stdout.write(f"\n{self.style.HTTP_INFO('Sample Users:')}")
-            for user in users:
-                profile_info = ""
-                if hasattr(user, 'profile') and user.profile:
-                    profile_info = f" ({user.profile.display_name})"
-                self.stdout.write(f"  {user.username} - {user.email}{profile_info}")
+        novels_with_chapters = Novel.objects.filter(
+            volumes__chapters__isnull=False
+        ).distinct().count()
         
-        # Sample authors
-        authors = Author.objects.all()[:sample_count]
-        if authors:
-            self.stdout.write(f"\n{self.style.HTTP_INFO('Sample Authors:')}")
-            for author in authors:
-                pen_name = f" (pen: {author.pen_name})" if author.pen_name else ""
-                self.stdout.write(f"  {author.name}{pen_name}")
+        self.stdout.write(f'  Novels with content: {novels_with_chapters}/{Novel.objects.count()}')
         
-        # Sample novels
-        novels = Novel.objects.select_related('author').prefetch_related('tags')[:sample_count]
-        if novels:
-            self.stdout.write(f"\n{self.style.HTTP_INFO('Sample Novels:')}")
-            for novel in novels:
-                author_name = novel.author.name if novel.author else "Unknown"
-                tag_names = ", ".join([tag.name for tag in novel.tags.all()[:3]])
-                tag_info = f" [Tags: {tag_names}]" if tag_names else ""
-                self.stdout.write(f"  '{novel.name}' by {author_name}{tag_info}")
+        users_with_profiles = User.objects.filter(profile__isnull=False).count()
+        self.stdout.write(f'  Users with profiles: {users_with_profiles}/{User.objects.count()}')
         
-        # Sample chapters
-        chapters = Chapter.objects.select_related('volume__novel')[:sample_count]
-        if chapters:
-            self.stdout.write(f"\n{self.style.HTTP_INFO('Sample Chapters:')}")
-            for chapter in chapters:
-                novel_name = chapter.volume.novel.name
-                self.stdout.write(f"  '{chapter.title}' from '{novel_name}'")
+        novels_with_reviews = Novel.objects.filter(reviews__isnull=False).distinct().count()
+        self.stdout.write(f'  Novels with reviews: {novels_with_reviews}/{Novel.objects.count()}')
+
+        # Access URLs
+        self.stdout.write(self.style.SUCCESS('\n=== ACCESS INFORMATION ===\n'))
+        self.stdout.write('🌐 ACCESS URLS:')
+        self.stdout.write('  Admin Panel: /admin/')
+        self.stdout.write('  User Login: /accounts/login/')
+        self.stdout.write('  Home Page: /')
+        self.stdout.write('  Novels List: /novels/')
         
-        # Sample comments
-        comments = Comment.objects.select_related('user', 'novel')[:sample_count]
-        if comments:
-            self.stdout.write(f"\n{self.style.HTTP_INFO('Sample Comments:')}")
-            for comment in comments:
-                user_name = comment.user.username if comment.user else "Anonymous"
-                novel_name = comment.novel.name
-                content_preview = comment.content[:50] + "..." if len(comment.content) > 50 else comment.content
-                self.stdout.write(f"  {user_name} on '{novel_name}': {content_preview}")
+        self.stdout.write('\n📋 DEFAULT CREDENTIALS:')
+        self.stdout.write('  Admin: admin@docwn.com / admin123456')
+        self.stdout.write('  Regular Users: [email from sample list] / password123')
         
-        # Sample reviews
-        reviews = Review.objects.select_related('user', 'novel')[:sample_count]
-        if reviews:
-            self.stdout.write(f"\n{self.style.HTTP_INFO('Sample Reviews:')}")
-            for review in reviews:
-                user_name = review.user.username
-                novel_name = review.novel.name
-                self.stdout.write(f"  {user_name} rated '{novel_name}': {review.rating}/5 stars")
+        self.stdout.write('\n🔧 MANAGEMENT COMMANDS:')
+        self.stdout.write('  Seed data: python manage.py seed_data')
+        self.stdout.write('  Clear data: python manage.py clear_data --confirm')
+        self.stdout.write('  Show data: python manage.py show_data')
+        self.stdout.write('  Setup groups: python manage.py setup_groups')

@@ -16,7 +16,7 @@ def user_context(request):
         context.update({
             'user_profile': user_profile,
             'user_name': request.user.get_name(),
-            'user_avatar': user_profile.get_avatar(),
+            'user_avatar': user_profile.get_avatar() if user_profile else None,
             'is_admin': request.user.role == UserRole.SYSTEM_ADMIN.value,
             'is_staff': request.user.role in [UserRole.WEBSITE_ADMIN.value, UserRole.SYSTEM_ADMIN.value],
             'user_novel_count': novel_count,
