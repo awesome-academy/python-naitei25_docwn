@@ -1,6 +1,6 @@
 from typing import List
 from django.contrib.contenttypes.models import ContentType
-from interactions.models import Notification
+from interactions.models import Notification, Comment
 from constants import (
     NotificationTypeChoices
 )
@@ -52,4 +52,9 @@ class NotificationService:
                         "chapter_slug": obj.slug,
                     }
                 )
+            if isinstance(obj, Comment):
+                novel = obj.novel
+                parent_id = obj.parent_comment_id if obj.parent_comment_id else obj.id
+                link = reverse("novels:novel_detail", kwargs={"novel_slug": novel.slug})
+                return f"{link}#comment-{parent_id}"
         return "#"
